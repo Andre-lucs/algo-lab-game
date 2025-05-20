@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=3 format=3 uid="uid://b4jgjwwfe56ep"]
+
+[ext_resource type="PackedScene" uid="uid://cb3am21qtapjp" path="res://levels/layouts/base_layout.tscn" id="1_cuo2t"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="1_haypd"]
+
+[resource]
+script = ExtResource("1_haypd")
+level_name = "Como usar o caminho"
+level_description = "Selecione o PATH na barra e clique nos containers para mandar o numero. \\n Após isso presione o botão de PLAY."
+inputs = Array[PackedInt32Array]([PackedInt32Array(2)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(2)])
+custom_layout = ExtResource("1_cuo2t")
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

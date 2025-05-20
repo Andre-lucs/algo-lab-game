@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjwa7poyvyxhu"]
+
+[ext_resource type="Script" uid="uid://ctdw6hhgumypx" path="res://scripts/connection_area.gd" id="1_6x3yu"]
+
+[node name="ConnectionArea" type="Area2D" groups=["connections"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_6x3yu")

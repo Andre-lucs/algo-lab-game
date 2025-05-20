@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4ug13k78jvr"]
+
+[ext_resource type="Script" uid="uid://bew01vwmd7mw8" path="res://scripts/ui/start_menu.gd" id="1_irhji"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_irhji")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="PlayTest" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play test level"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PlayTest" to="." method="_on_play_test_pressed"]

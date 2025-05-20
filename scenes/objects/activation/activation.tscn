@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm2dffmkn1e7t"]
+
+[ext_resource type="Script" uid="uid://cx6rmmgs3l1du" path="res://scenes/objects/activation/activatable.gd" id="1_e8yyc"]
+
+[node name="Activation" type="Node" groups=["activation"]]
+script = ExtResource("1_e8yyc")
+
+[node name="ActivationTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="ActivationTimer" to="." method="_on_activation_timer_timeout"]

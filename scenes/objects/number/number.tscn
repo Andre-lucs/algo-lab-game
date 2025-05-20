@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cebmicxn76gb0"]
+
+[ext_resource type="Script" uid="uid://b3yiaijo7ic5q" path="res://scenes/objects/number/number.gd" id="1_olnlg"]
+[ext_resource type="PackedScene" uid="uid://dfddi1aiqq1ad" path="res://scenes/utils/grabbable.tscn" id="2_wksxw"]
+
+[sub_resource type="Gradient" id="Gradient_yhsph"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.616, 0.741333, 0.789333, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1.03106, 1.03106, 1.03106, 0.987544, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wksxw"]
+gradient = SubResource("Gradient_yhsph")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Number" type="Node2D"]
+script = ExtResource("1_olnlg")
+value = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_wksxw")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -11.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="Grabbable" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_wksxw")]
+parent = NodePath("..")

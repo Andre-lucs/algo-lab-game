@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfddi1aiqq1ad"]
+
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="1_ikuny"]
+
+[node name="Grabbable" type="Node"]
+script = ExtResource("1_ikuny")

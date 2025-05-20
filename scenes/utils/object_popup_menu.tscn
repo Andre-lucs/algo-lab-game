@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://khx12i77qfms"]
+
+[ext_resource type="Script" uid="uid://iwt7ng8vywfo" path="res://scripts/object_popup_menu.gd" id="1_73e83"]
+[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="2_hv68y"]
+[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/TrashCan.png" id="2_smwl4"]
+[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/AutoButton.png" id="3_1pfgw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pfgw"]
+atlas = ExtResource("3_1pfgw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv68y"]
+atlas = ExtResource("3_1pfgw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_5cmbu"]
+script = ExtResource("2_hv68y")
+frames = Array[Texture2D]([SubResource("AtlasTexture_1pfgw"), SubResource("AtlasTexture_hv68y")])
+text = "Auto"
+initial_frame = 0
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="Resource" id="Resource_hejjw"]
+script = ExtResource("2_hv68y")
+frames = Array[Texture2D]([ExtResource("2_smwl4")])
+text = "Delete"
+initial_frame = 0
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73e83"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0.529412)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.219608, 0.219608, 0.219608, 0.823529)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ObjectPopupMenu" type="Node"]
+script = ExtResource("1_73e83")
+items = Array[ExtResource("2_hv68y")]([SubResource("Resource_5cmbu"), SubResource("Resource_hejjw")])
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+size = Vector2i(20, 42)
+theme_override_styles/panel = SubResource("StyleBoxFlat_73e83")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 10.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 10

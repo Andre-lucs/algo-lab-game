@@ -1,0 +1,137 @@
+[gd_scene load_steps=20 format=3 uid="uid://rdhtlst7byq6"]
+
+[ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
+[ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
+[ext_resource type="PackedScene" uid="uid://dfddi1aiqq1ad" path="res://scenes/utils/grabbable.tscn" id="3_e3mdc"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="4_tifd7"]
+[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="5_b588d"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/objects/movement/number_movement.gd" id="6_e3mdc"]
+[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/AutoButton.png" id="6_q33kv"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/connection_area.tscn" id="7_lkqc4"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/objects/activation/activation.tscn" id="8_0of0j"]
+[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/TrashCan.png" id="9_23n6n"]
+[ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
+
+[sub_resource type="Animation" id="Animation_cmen7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3s5j0"]
+resource_name = "scale_animation"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ooe7e"]
+_data = {
+&"RESET": SubResource("Animation_cmen7"),
+&"scale_animation": SubResource("Animation_3s5j0")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pfgw"]
+atlas = ExtResource("6_q33kv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv68y"]
+atlas = ExtResource("6_q33kv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_e3mdc"]
+script = ExtResource("5_b588d")
+frames = Array[Texture2D]([SubResource("AtlasTexture_1pfgw"), SubResource("AtlasTexture_hv68y")])
+text = "Auto"
+initial_frame = 1
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="Resource" id="Resource_hejjw"]
+script = ExtResource("5_b588d")
+frames = Array[Texture2D]([ExtResource("9_23n6n")])
+text = "Delete"
+initial_frame = 0
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
+size = Vector2(64, 64)
+
+[node name="Container" type="Node2D" groups=["resetabble"]]
+script = ExtResource("1_r3ic2")
+
+[node name="Walls" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("2_23n6n")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+
+[node name="Numbers" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_ooe7e")
+}
+
+[node name="Grabbable" parent="." node_paths=PackedStringArray("parent", "interaction_area") instance=ExtResource("3_e3mdc")]
+parent = NodePath("..")
+interaction_area = NodePath("../MouseInteractionArea2D")
+
+[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_tifd7")]
+items = Array[ExtResource("5_b588d")]([SubResource("Resource_e3mdc"), SubResource("Resource_hejjw")])
+interaction_area = NodePath("../MouseInteractionArea2D")
+
+[node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("7_lkqc4")]
+activatable = NodePath("../Activatable")
+number_movement = NodePath("../NumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
+shape = SubResource("RectangleShape2D_l2343")
+
+[node name="Activatable" parent="." instance=ExtResource("8_0of0j")]
+base_delay = 0.5
+auto = false
+
+[node name="NumberMovement" type="Node" parent="."]
+script = ExtResource("6_e3mdc")
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("11_tifd7")
+metadata/_custom_type_script = "uid://bcvx3lk565fqh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+shape = SubResource("RectangleShape2D_l2343")
+
+[connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
+[connection signal="requesting_highlight" from="ConnectionArea" to="." method="_on_connection_area_requesting_highlight"]
+[connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
+[connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
+[connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]

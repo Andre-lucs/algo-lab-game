@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://beses1ovxi7a8"]
+
+[ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_gmgay"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_w7r7j"]
+[ext_resource type="PackedScene" uid="uid://cebmicxn76gb0" path="res://scenes/objects/number/number.tscn" id="3_o6mel"]
+[ext_resource type="PackedScene" uid="uid://cw87t71jllugs" path="res://scenes/objects/container/input_container.tscn" id="4_w7r7j"]
+[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="5_o6mel"]
+
+[sub_resource type="Resource" id="Resource_e7anx"]
+script = ExtResource("2_w7r7j")
+level_name = "Test Level"
+level_description = "This is the test level"
+inputs = Array[PackedInt32Array]([PackedInt32Array(3, 2, 5)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, 2, 5)])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
+
+[node name="TestLayout" instance=ExtResource("1_gmgay")]
+level_props = SubResource("Resource_e7anx")
+
+[node name="Number" parent="." index="2" instance=ExtResource("3_o6mel")]
+position = Vector2(568, 312)
+
+[node name="InputContainer" parent="." index="3" instance=ExtResource("4_w7r7j")]
+position = Vector2(160, 536)
+
+[node name="Container" parent="." index="6" instance=ExtResource("5_o6mel")]
+position = Vector2(264, 312)
+default_numbers = Array[int]([2, 3, 6])
+
+[node name="Container2" parent="." index="7" instance=ExtResource("5_o6mel")]
+position = Vector2(712, 384)
+
+[node name="TileMapLayer" parent="." index="8"]
+tile_map_data = PackedByteArray(0, 0, 24, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0)
