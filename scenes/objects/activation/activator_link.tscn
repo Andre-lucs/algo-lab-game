@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b820xsovakcqr" path="res://scenes/objects/activation/activator_link.gd" id="1_g88h4"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="2_11sdg"]
-[ext_resource type="Script" uid="uid://bvkt0amsagywg" path="res://scripts/ClickableLine2D.gd" id="2_fogbl"]
+[ext_resource type="Script" uid="uid://b8lmp88hsgq8t" path="res://scripts/editable_line2d.gd" id="2_fogbl"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="3_n3lm3"]
 [ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/TrashCan.png" id="5_11sdg"]
 
@@ -18,8 +18,8 @@ script = ExtResource("1_g88h4")
 
 [node name="ClickableLine2D" type="Line2D" parent="."]
 script = ExtResource("2_fogbl")
-CLICK_BTN = 2
-metadata/_custom_type_script = "uid://bvkt0amsagywg"
+actions = Array[String](["object_menu"])
+metadata/_custom_type_script = "uid://b8lmp88hsgq8t"
 
 [node name="Plug" type="Polygon2D" parent="."]
 color = Color(0.42, 0.42, 0.42, 1)

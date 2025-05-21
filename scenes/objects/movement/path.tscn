@@ -3,20 +3,12 @@
 [ext_resource type="Script" uid="uid://boiboc6ds5xa5" path="res://scenes/objects/movement/path.gd" id="1_ngwaf"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="2_8o8xe"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/objects/activation/activation.tscn" id="5_l4p5e"]
+[ext_resource type="Script" uid="uid://b8lmp88hsgq8t" path="res://scripts/editable_line2d.gd" id="5_tv1hf"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/connection_area.tscn" id="6_8o8xe"]
-
-[sub_resource type="GDScript" id="GDScript_v4tq5"]
-script/source = "extends ClickableLine2D
-"
 
 [node name="Path" type="Path2D" groups=["paths"]]
 script = ExtResource("1_ngwaf")
 speed = 150.0
-
-[node name="Line2D" type="Line2D" parent="." groups=["resetabble"]]
-joint_mode = 1
-script = SubResource("GDScript_v4tq5")
-CLICK_BTN = 2
 
 [node name="Arrow" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
@@ -34,6 +26,11 @@ activatable = NodePath("../Activatable")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ConnectionArea"]
 
-[connection signal="clicked" from="Line2D" to="." method="_on_line_2d_clicked"]
+[node name="Line2D" type="Line2D" parent="."]
+script = ExtResource("5_tv1hf")
+actions = Array[String](["object_menu"])
+metadata/_custom_type_script = "uid://b8lmp88hsgq8t"
+
 [connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
 [connection signal="activated" from="Activatable" to="." method="activate"]
+[connection signal="clicked" from="Line2D" to="." method="_on_line_2d_clicked"]

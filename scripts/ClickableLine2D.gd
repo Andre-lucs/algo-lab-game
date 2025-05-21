@@ -1,17 +1,21 @@
 extends Line2D
 class_name ClickableLine2D
 
-@export var CLICK_BTN := MOUSE_BUTTON_LEFT;
+@export var actions : Array[String];
+@export var click_buttons : Array[MouseButton] = [];
 
 var _pressed : bool = false;
 
-signal clicked(global_position : Vector2, segment : int, offset : float);
-signal released(inline : bool, global_position : Vector2, segment : int, offset : float);
+signal clicked(event : InputEventMouseButton, global_position : Vector2, segment : int, offset : float);
+signal released(event : InputEventMouseButton, inline : bool, global_position : Vector2, segment : int, offset : float);
 
 func _input(event : InputEvent):	
-	# On every right mouse click
 	if event is InputEventMouseButton:
-		if event.button_index == CLICK_BTN:
+		var is_action : bool = false
+		for action in actions:
+			if event.is_action(action):
+				is_action = true
+		if event.button_index in click_buttons or is_action:
 			
 			# The global position where the click happened
 			var mouse_click : Vector2 = get_global_mouse_position()
@@ -33,21 +37,21 @@ func _input(event : InputEvent):
 					# Do something on click
 					# To our offset we add the position of the click, relative to the first point of the click, closest click is global space, points local space, so we need to transform it again
 					offset += closest_point.distance_to(global_position + points[i])
-					on_click(i, mouse_click, offset)
+					on_click(event, i, mouse_click, offset)
 					return
 				else:
 					# The click didn't happen here, meaning the entire line segmet is added to the offset
 					offset += points[i].distance_to(points[i+1])
 			if _pressed and not event.pressed:
-				emit_signal("released", false, mouse_click, -1,-1.0);
+				released.emit(event, false, mouse_click, -1,-1.0);
 				_pressed = false;
 
-func on_click(segment : int, global_click_position : Vector2, offset : float) -> void:
+func on_click(event : InputEventMouseButton, segment : int, global_click_position : Vector2, offset : float) -> void:
 	if _pressed:
-		emit_signal("released", true, global_click_position, segment, offset);
+		released.emit(event, true, global_click_position, segment, offset);
 		_pressed = false;
 	else:
-		emit_signal("clicked", global_click_position, segment, offset);
+		clicked.emit(event, global_click_position, segment, offset);
 		_pressed = true;
 
 func bake_polygon() -> PackedVector2Array:

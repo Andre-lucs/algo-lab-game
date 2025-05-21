@@ -107,8 +107,9 @@ func _sync_points():
 		line.add_point(p)
 		curve.add_point(p)
 
-func _on_line_2d_clicked(_global_position: Vector2, _segment: int, _offset: float) -> void:
-	menu.show_popup()
+func _on_line_2d_clicked(event : InputEventMouseButton, _global_position: Vector2, _segment: int, _offset: float) -> void:
+	if event.is_action_pressed("object_menu"):
+		menu.show_popup()
 
 func activate():
 	origin_node.request_send()

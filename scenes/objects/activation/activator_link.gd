@@ -33,8 +33,9 @@ func activate(_arg0 = null, _arg1 = null,_arg2 = null,_arg3 = null,_arg4 = null)
 	destination.activate()
 	activated_destination.emit(destination)
 
-func _on_clickable_line_2d_clicked(_global_position:Vector2, _segment:int, _offset:float) -> void:
-	menu.show_popup()
+func _on_clickable_line_2d_clicked(_event : InputEventMouseButton, _global_position:Vector2, _segment:int, _offset:float) -> void:
+	if _event.is_action_pressed("object_menu"):
+		menu.show_popup()
 
 func _on_object_popup_menu_clicked_option(idx:int) -> void:
 	match idx:
