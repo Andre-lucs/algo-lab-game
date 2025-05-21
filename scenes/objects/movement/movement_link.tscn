@@ -23,8 +23,9 @@ target = NodePath("..")
 trigger_signals = Array[String](["start_moving"])
 base_delay = 0.5
 
-[node name="ConnectionArea" parent="." index="5" instance=ExtResource("4_8vcjx")]
+[node name="ConnectionArea" parent="." index="5" node_paths=PackedStringArray("activatable") instance=ExtResource("4_8vcjx")]
 collision_layer = 8
+activatable = NodePath("../Activatable")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ConnectionArea" index="0"]
 
