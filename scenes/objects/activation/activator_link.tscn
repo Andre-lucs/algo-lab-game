@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccaxidhl1g6xe"]
+[gd_scene load_steps=6 format=3 uid="uid://ccaxidhl1g6xe"]
 
 [ext_resource type="Script" uid="uid://b820xsovakcqr" path="res://scenes/objects/activation/activator_link.gd" id="1_g88h4"]
-[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="2_11sdg"]
-[ext_resource type="Script" uid="uid://b8lmp88hsgq8t" path="res://scripts/editable_line2d.gd" id="2_fogbl"]
+[ext_resource type="PackedScene" uid="uid://lhfuu6wk1i5g" path="res://scenes/utils/link/link.tscn" id="1_n80ux"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="3_n3lm3"]
 [ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/TrashCan.png" id="5_11sdg"]
 
@@ -13,20 +12,22 @@ text = "Delete"
 initial_frame = 0
 metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
-[node name="ActivatorLink" type="Path2D" groups=["paths"]]
+[node name="ActivatorLink" instance=ExtResource("1_n80ux")]
+width = 6.0
+default_color = Color(0.385493, 0.385492, 0.385492, 1)
 script = ExtResource("1_g88h4")
 
-[node name="ClickableLine2D" type="Line2D" parent="."]
-script = ExtResource("2_fogbl")
-actions = Array[String](["object_menu"])
-metadata/_custom_type_script = "uid://b8lmp88hsgq8t"
+[node name="Start" parent="." index="1"]
+collision_mask = 8
 
-[node name="Plug" type="Polygon2D" parent="."]
+[node name="End" parent="." index="2"]
+collision_mask = 8
+
+[node name="Plug" type="Polygon2D" parent="End" index="1"]
 color = Color(0.42, 0.42, 0.42, 1)
 polygon = PackedVector2Array(-16, -8, 8, -8, 8, 8, -16, 8)
 
-[node name="ObjectPopupMenu" parent="." instance=ExtResource("2_11sdg")]
+[node name="ObjectPopupMenu" parent="." index="3"]
 items = Array[ExtResource("3_n3lm3")]([SubResource("Resource_hejjw")])
 
-[connection signal="clicked" from="ClickableLine2D" to="." method="_on_clickable_line_2d_clicked"]
 [connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
