@@ -1,5 +1,7 @@
 class_name EditableLine2D extends ClickableLine2D
 
+signal edited_line(line :EditableLine2D)
+
 @export var enable_editing : bool = true
 
 @export var point_color : Color = Color(0, 1, 0, 0.5)
@@ -17,6 +19,7 @@ func _ready() -> void:
 	released.connect(_edit_on_release)
 
 func _edit_on_click(event : InputEventMouseButton, global_position: Vector2, segment: int, offset: float) -> void:
+	if enable_editing == false: return
 	if not Input.is_action_just_pressed(edit_on_action):
 		return
 	# Find the closest point to the click
@@ -36,17 +39,26 @@ func _edit_on_click(event : InputEventMouseButton, global_position: Vector2, seg
 		
 
 func _edit_on_release(event : InputEventMouseButton, inline: bool, global_position: Vector2, segment: int, offset: float) -> void:
+	if enable_editing == false: return
 	if not event.is_action(edit_on_action):
 		return
-	if _dragging_point == -1: # No point was selected
+	if _dragging_point == -1: # No point was selected or point was deleted
 		return
 	_dragging_point = -1
+	edited_line.emit(self)
 	queue_redraw()
 
 func _process(_delta):
 	if _dragging_point != -1:
 		# Move the selected point to the mouse position (converted to local)
 		points[_dragging_point] = to_local(get_global_mouse_position())
+		# If pressing base_cancel while dragging, delete the point
+		if Input.is_action_just_pressed("base_cancel"):
+			if points.size() > 2:
+				remove_point(_dragging_point)
+				_dragging_point = -1
+				edited_line.emit(self)
+				queue_redraw()
 
 func _draw() -> void:
 		for i in range(points.size()):

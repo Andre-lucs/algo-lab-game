@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://durujj55wgqx3"]
+
+[ext_resource type="PackedScene" uid="uid://lhfuu6wk1i5g" path="res://scenes/utils/link/link.tscn" id="1_h4gtw"]
+[ext_resource type="Script" uid="uid://boiboc6ds5xa5" path="res://scenes/objects/movement/movement_link.gd" id="1_krvj1"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/objects/activation/activation.tscn" id="3_ak07b"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/connection_area.tscn" id="4_8vcjx"]
+
+[node name="MovementLink" instance=ExtResource("1_h4gtw")]
+script = ExtResource("1_krvj1")
+speed = 150.0
+
+[node name="Start" parent="." index="1"]
+collision_mask = 4
+
+[node name="End" parent="." index="2"]
+collision_mask = 4
+
+[node name="Arrow" type="Polygon2D" parent="End" index="1"]
+polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
+
+[node name="Activatable" parent="." index="4" node_paths=PackedStringArray("target") instance=ExtResource("3_ak07b")]
+target = NodePath("..")
+trigger_signals = Array[String](["start_moving"])
+base_delay = 0.5
+
+[node name="ConnectionArea" parent="." index="5" instance=ExtResource("4_8vcjx")]
+collision_layer = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ConnectionArea" index="0"]
+
+[connection signal="updated_path" from="." to="." method="_on_updated_path"]
+[connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
+[connection signal="activated" from="Activatable" to="." method="activate"]
