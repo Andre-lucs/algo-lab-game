@@ -1,6 +1,6 @@
 class_name EditableLine2D extends ClickableLine2D
 
-signal edited_line(line :EditableLine2D)
+signal edited_line(line :EditableLine2D, point_idx : int)
 
 @export var enable_editing : bool = true
 
@@ -44,8 +44,8 @@ func _edit_on_release(event : InputEventMouseButton, inline: bool, global_positi
 		return
 	if _dragging_point == -1: # No point was selected or point was deleted
 		return
+	edited_line.emit(self, _dragging_point)
 	_dragging_point = -1
-	edited_line.emit(self)
 	queue_redraw()
 
 func _process(_delta):
@@ -56,8 +56,8 @@ func _process(_delta):
 		if Input.is_action_just_pressed("base_cancel"):
 			if points.size() > 2:
 				remove_point(_dragging_point)
+				edited_line.emit(self, _dragging_point)
 				_dragging_point = -1
-				edited_line.emit(self)
 				queue_redraw()
 
 func _draw() -> void:

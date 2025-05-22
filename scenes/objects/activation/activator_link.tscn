@@ -30,4 +30,6 @@ polygon = PackedVector2Array(-16, -8, 8, -8, 8, 8, -16, 8)
 [node name="ObjectPopupMenu" parent="." index="3"]
 items = Array[ExtResource("3_n3lm3")]([SubResource("Resource_hejjw")])
 
+[connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
+[connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
 [connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]

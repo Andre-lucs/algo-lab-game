@@ -23,14 +23,8 @@ func _ready() -> void:
 			delete()
 			return
 
-		origin_node = origin_connection.number_movement
-		destination_node = destination_connection.number_movement
-		_origin_parent = origin_node.get_parent()
-		_destination_parent = destination_node.get_parent()
-
-		origin_node.number_sent.connect(move_number)
-		origin_node.parent_moved.connect(update_path)
-		destination_node.parent_moved.connect(update_path)
+		_connect_origin_node(origin_connection)
+		_connect_destination_node(destination_connection)
 
 		update_path()
 
@@ -78,7 +72,7 @@ func _on_reach_path_end(path_follow : PathFollow2D):
 func _update_polygon():
 	# Update the collision polygon to match the path
 	var polygon = bake_polygon()
-	polygon_colision.polygon = polygon
+	polygon_colision.set_deferred("polygon", polygon) # polygon_colision.polygon = polygon
 
 func _on_object_popup_menu_clicked_option(idx:int) -> void:
 	match idx:
@@ -88,20 +82,57 @@ func _on_object_popup_menu_clicked_option(idx:int) -> void:
 			delete()
 
 func activate():
+	print("origin node: ",origin_node)
 	origin_node.request_send()
 
 func toggle_auto():
 	activatable.auto = !activatable.auto
 
 func delete() -> void:
-	origin_node.output_paths.erase(self)
-	origin_node.connected_paths.erase(self)
-	destination_node.input_paths.erase(self)
-	origin_node.number_sent.disconnect(move_number)
-	origin_node.parent_moved.disconnect(update_path)
-	destination_node.parent_moved.disconnect(update_path)
+	_disconnect_origin_node()
+	_disconnect_destination_node()
 	queue_free()
 
 
 func _on_updated_path() -> void:
 	_update_polygon()
+
+func _on_start_connection_changed(new_origin: ConnectionArea) -> void:
+	if new_origin == null:
+			_disconnect_origin_node()
+	else:
+			_connect_origin_node(new_origin)
+
+func _on_end_connection_changed(new_destination: ConnectionArea) -> void:
+	if new_destination == null:
+			_disconnect_destination_node()
+	else:
+			_connect_destination_node(new_destination)
+
+func _connect_origin_node(connection: ConnectionArea) -> void:
+	if origin_node:
+			_disconnect_origin_node()
+	origin_node = connection.number_movement
+	if not origin_node.number_sent.is_connected(move_number):
+		origin_node.number_sent.connect(move_number)
+	_origin_parent = origin_node.get_parent()
+
+func _disconnect_origin_node() -> void:
+	if origin_node:
+			if self in origin_node.input_paths:
+					origin_node.input_paths.erase(self)
+			origin_node = null
+			_origin_parent = null
+
+func _connect_destination_node(connection: ConnectionArea) -> void:
+	if destination_node:
+			_disconnect_destination_node()
+	destination_node = connection.number_movement
+	_destination_parent = destination_node.get_parent()
+
+func _disconnect_destination_node() -> void:
+	if destination_node:
+			if self in destination_node.input_paths:
+					destination_node.input_paths.erase(self)
+			destination_node = null
+			_destination_parent = null
