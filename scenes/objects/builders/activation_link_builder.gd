@@ -13,9 +13,8 @@ func build_object() -> void:
 		return
 
 	var link := activation_link_scene.instantiate() as ActivatorLink
-	# supondo que seu ActivatorLink (o nó root do link) tenha propriedades para configurar:
-	link.origin = origin_node.activatable
-	link.destination = destination_node.activatable
+	link.origin_connection = origin_node
+	link.destination_connection = destination_node
 	link.origin_point = origin_click_position
 	link.destination_point = destination_click_position
 	get_tree().current_scene.add_child(link)

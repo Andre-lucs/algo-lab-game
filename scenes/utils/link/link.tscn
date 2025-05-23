@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://lhfuu6wk1i5g"]
+
+[ext_resource type="Script" uid="uid://j8phvx2dff44" path="res://scenes/utils/link/link.gd" id="1_jyhi2"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="2_gxdjc"]
+
+[sub_resource type="Curve2D" id="Curve2D_oiwfg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxdjc"]
+
+[node name="Link" type="Line2D"]
+script = ExtResource("1_jyhi2")
+actions = Array[String](["object_menu"])
+metadata/_custom_type_script = "uid://b8lmp88hsgq8t"
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_oiwfg")
+
+[node name="Start" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Start"]
+shape = SubResource("CircleShape2D_gxdjc")
+
+[node name="End" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="End"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_gxdjc")
+
+[node name="ObjectPopupMenu" parent="." instance=ExtResource("2_gxdjc")]
