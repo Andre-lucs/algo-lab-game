@@ -14,7 +14,7 @@ signal edited_line(line :EditableLine2D, point_idx : int)
 var _dragging_point := -1
 
 func _ready() -> void:
-	if not edit_on_action in actions: actions.append(edit_on_action)
+	if edit_on_action not in actions: actions.append(edit_on_action)
 	clicked.connect(_edit_on_click)
 	released.connect(_edit_on_release)
 
