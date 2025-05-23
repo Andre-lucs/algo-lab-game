@@ -25,11 +25,7 @@ func _on_number_1_received(number: Number) -> void:
 	if number_1:
 		number_1.queue_free()
 	number_1 = number
-	number_1.reparent(number_1_conn)
-	var tween = number_1.create_tween()
-	tween.parallel().tween_property(number_1, "position", Vector2.ZERO, 0.2)
-	tween.parallel().tween_property(number_1, "rotation", 0, 0.2)
-	tween.play()
+	_setup_number_position(number_1, number_1_conn)
 	if number_2:
 		ready_for_result.emit()
 
@@ -37,13 +33,21 @@ func _on_number_2_received(number: Number) -> void:
 	if number_2:
 		number_2.queue_free()
 	number_2 = number
-	number_2.reparent(number_2_conn)
-	var tween = number_2.create_tween()
-	tween.parallel().tween_property(number_2, "position", Vector2.ZERO, 0.2)
-	tween.parallel().tween_property(number_2, "rotation", 0, 0.2)
-	tween.play()
+	_setup_number_position(number_2, number_2_conn)
 	if number_1:
 		ready_for_result.emit()
+
+func _setup_number_position(number: Number, new_parent: Node2D) -> void:
+	if number == null:
+		return
+	if not number.is_inside_tree():
+		new_parent.add_child(number)
+	else: number.reparent(new_parent)
+	
+	var tween = number.create_tween()
+	tween.parallel().tween_property(number, "position", Vector2.ZERO, 0.2)
+	tween.parallel().tween_property(number, "rotation", 0, 0.2)
+	tween.play()
 
 func activate() -> void:
 	if number_1 == null or number_2 == null:
