@@ -1,6 +1,7 @@
 class_name NumberMovement
 extends Node
 
+@export var root : Node2D = null
 @export var sends : bool = true
 @export var receives : bool = true
 

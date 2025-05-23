@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1nyxrdj0rpsw"
-path="res://.godot/imported/AutoButton.png-0f11db8f845f557d3ae4ee2b9d4c2a42.ctex"
+uid="uid://bjiby4kvy2kwu"
+path="res://.godot/imported/MathOperator.png-84ca456eca9bf4849d2dca18b20f3b5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/AutoButton.png"
-dest_files=["res://.godot/imported/AutoButton.png-0f11db8f845f557d3ae4ee2b9d4c2a42.ctex"]
+source_file="res://assets/MathOperator.png"
+dest_files=["res://.godot/imported/MathOperator.png-84ca456eca9bf4849d2dca18b20f3b5c.ctex"]
 
 [params]
 
