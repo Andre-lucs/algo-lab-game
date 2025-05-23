@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://iwt7ng8vywfo" path="res://scripts/object_popup_menu.gd" id="1_73e83"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="2_hv68y"]
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/TrashCan.png" id="2_smwl4"]
-[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/AutoButton.png" id="3_1pfgw"]
+[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="2_smwl4"]
+[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/MenuIcons/AutoButton.png" id="3_1pfgw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1pfgw"]
 atlas = ExtResource("3_1pfgw")
