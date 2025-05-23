@@ -26,7 +26,7 @@ func _edit_on_click(event : InputEventMouseButton, global_position: Vector2, seg
 	var min_dist := 16.0 # Adjust this threshold as needed
 	var closest_idx := -1
 	var local_position = to_local(global_position)
-	for i in points.size():
+	for i in range(points.size()):
 		var dist = local_position.distance_squared_to(points[i])
 		if dist < (min_dist * min_dist): # Use squared distance for performance
 			min_dist = dist
