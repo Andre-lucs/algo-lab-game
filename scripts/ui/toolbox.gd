@@ -9,7 +9,7 @@ var activator_link_scene : PackedScene = preload("res://scenes/objects/builders/
 @export var items : Array[PackedScene] = []
 
 func _ready() -> void:
-	items = [NumberContainer.container_scene, path_scene, activator_link_scene]
+	# items = [NumberContainer.container_scene, path_scene, activator_link_scene]
 	for i in range(items.size()):
 		var button = Button.new()
 		button.keep_pressed_outside = true

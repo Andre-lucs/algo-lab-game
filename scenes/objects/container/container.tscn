@@ -106,6 +106,17 @@ interaction_area = NodePath("../MouseInteractionArea2D")
 items = Array[ExtResource("5_b588d")]([SubResource("Resource_e3mdc"), SubResource("Resource_hejjw")])
 interaction_area = NodePath("../MouseInteractionArea2D")
 
+[node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
+target = NodePath("../NumberMovement")
+trigger_signals = Array[String](["number_sent"])
+base_delay = 0.5
+auto = false
+
+[node name="NumberMovement" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("6_e3mdc")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
 [node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("7_lkqc4")]
 activatable = NodePath("../Activatable")
 number_movement = NodePath("../NumberMovement")
@@ -121,16 +132,6 @@ activatable = NodePath("../Activatable")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ActivationConn"]
 shape = SubResource("RectangleShape2D_l2343")
 
-[node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
-target = NodePath("../NumberMovement")
-trigger_signals = Array[String](["number_sent"])
-base_delay = 0.5
-auto = false
-
-[node name="NumberMovement" type="Node" parent="."]
-script = ExtResource("6_e3mdc")
-metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
-
 [node name="MouseInteractionArea2D" type="Area2D" parent="."]
 collision_layer = 2147483648
 collision_mask = 0
@@ -140,7 +141,7 @@ script = ExtResource("11_tifd7")
 shape = SubResource("RectangleShape2D_l2343")
 
 [connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
-[connection signal="requesting_highlight" from="ConnectionArea" to="." method="_on_connection_area_requesting_highlight"]
 [connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
 [connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
 [connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
+[connection signal="requesting_highlight" from="ConnectionArea" to="." method="_on_connection_area_requesting_highlight"]
