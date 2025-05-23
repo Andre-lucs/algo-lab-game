@@ -76,6 +76,7 @@ func _get_result_number() -> Number:
 				result = number_1.get_value() / number_2.get_value()
 			else:
 				print("Division by zero")
+				return null
 	return Number.get_number(result)
 
 func _set_operator_type(value: OperatorType) -> void:
