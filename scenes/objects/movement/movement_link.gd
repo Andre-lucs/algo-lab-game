@@ -82,7 +82,8 @@ func _on_object_popup_menu_clicked_option(idx:int) -> void:
 			delete()
 
 func activate():
-	print("origin node: ",origin_node)
+	if not destination_node:
+		return
 	origin_node.request_send()
 
 func toggle_auto():
@@ -101,15 +102,27 @@ func _on_start_connection_changed(new_origin: ConnectionArea) -> void:
 	if new_origin == null:
 			_disconnect_origin_node()
 	else:
+			if new_origin.number_movement == null:
+					printerr("Origin node is not a NumberMovement.")
+					disconnect_start()
+					return
 			_connect_origin_node(new_origin)
 
 func _on_end_connection_changed(new_destination: ConnectionArea) -> void:
 	if new_destination == null:
 			_disconnect_destination_node()
 	else:
+			if new_destination.number_movement == null:
+					printerr("Destination node is not a NumberMovement.")
+					disconnect_end()
+					return
 			_connect_destination_node(new_destination)
 
 func _connect_origin_node(connection: ConnectionArea) -> void:
+	if not connection.number_movement.sends:
+			printerr(connection.get_parent().name, ": Cannot connect: node is not a sender.")
+			disconnect_start()
+			return
 	if origin_node:
 			_disconnect_origin_node()
 	origin_node = connection.number_movement
@@ -125,6 +138,10 @@ func _disconnect_origin_node() -> void:
 			_origin_parent = null
 
 func _connect_destination_node(connection: ConnectionArea) -> void:
+	if not connection.number_movement.receives:
+			printerr(connection.get_parent().name, ": Cannot connect: node is not a receiver.")
+			disconnect_end()
+			return
 	if destination_node:
 			_disconnect_destination_node()
 	destination_node = connection.number_movement

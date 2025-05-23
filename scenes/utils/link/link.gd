@@ -55,18 +55,17 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("base_cancel"):
 			print("disconecting by pressing cancel")
-			disconnect_object(_dragging_point)
-
-func disconnect_object(point_idx: int) -> void:
-	if point_idx == 0:
-			disconnect_start()
-	elif point_idx == points.size()-1:
-			disconnect_end()
-	update_path()
+			if _dragging_point == 0:
+					disconnect_start()
+			elif _dragging_point == points.size()-1:
+					disconnect_end()
 
 func connect_start(connection: ConnectionArea) -> void:
 	if connection == destination_connection and connection != null:
 		printerr("Cannot connect: start and end cannot be the same ConnectionArea.")
+		return
+	if not connection.sends:
+		printerr(connection.get_parent().name, ": Cannot connect: node is not a sender.")
 		return
 	origin_connection = connection
 	start_connection_changed.emit(origin_connection)
@@ -78,6 +77,9 @@ func disconnect_start() -> void:
 func connect_end(connection: ConnectionArea) -> void:
 	if connection == origin_connection and connection != null:
 		printerr("Cannot connect: start and end cannot be the same ConnectionArea.")
+		return
+	if not connection.receives:
+		printerr(connection.get_parent().name, ": Cannot connect: node is not a receiver.")
 		return
 	destination_connection = connection
 	end_connection_changed.emit(destination_connection)
