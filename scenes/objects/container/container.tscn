@@ -113,7 +113,17 @@ number_movement = NodePath("../NumberMovement")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
 shape = SubResource("RectangleShape2D_l2343")
 
-[node name="Activatable" parent="." instance=ExtResource("8_0of0j")]
+[node name="ActivationConn" parent="." node_paths=PackedStringArray("activatable") instance=ExtResource("7_lkqc4")]
+collision_layer = 8
+sticks_to_center = false
+activatable = NodePath("../Activatable")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ActivationConn"]
+shape = SubResource("RectangleShape2D_l2343")
+
+[node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
+target = NodePath("../NumberMovement")
+trigger_signals = Array[String](["number_sent"])
 base_delay = 0.5
 auto = false
 

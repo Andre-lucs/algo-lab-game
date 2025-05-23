@@ -37,6 +37,8 @@ func update() -> void:
 	parent_moved.emit()
 
 func request_send() -> void:
+	if output_paths.is_empty():
+		return
 	if sends:
 		requesting_move.emit()
 	

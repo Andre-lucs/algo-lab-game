@@ -129,11 +129,12 @@ func _connect_origin_node(connection: ConnectionArea) -> void:
 	if not origin_node.number_sent.is_connected(move_number):
 		origin_node.number_sent.connect(move_number)
 	_origin_parent = origin_node.get_parent()
+	if self not in origin_node.output_paths: origin_node.output_paths.append(self)
 
 func _disconnect_origin_node() -> void:
 	if origin_node:
-			if self in origin_node.input_paths:
-					origin_node.input_paths.erase(self)
+			if self in origin_node.output_paths:
+					origin_node.output_paths.erase(self)
 			origin_node = null
 			_origin_parent = null
 
@@ -146,6 +147,7 @@ func _connect_destination_node(connection: ConnectionArea) -> void:
 			_disconnect_destination_node()
 	destination_node = connection.number_movement
 	_destination_parent = destination_node.get_parent()
+	if self not in destination_node.input_paths: destination_node.input_paths.append(self)
 
 func _disconnect_destination_node() -> void:
 	if destination_node:

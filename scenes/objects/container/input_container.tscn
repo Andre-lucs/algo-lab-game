@@ -15,6 +15,3 @@ base_delay = 1.0
 
 [node name="NumberMovement" parent="." index="7"]
 receives = false
-
-[node name="InteractionArea2D" parent="." index="8"]
-collision_layer = 2147483648
