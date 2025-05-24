@@ -47,14 +47,17 @@ func try_set_destination(candidate: ConnectionArea) -> bool:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("base_accept"):
-		var area = get_overlapping_areas().pop_front()
-		if area is ConnectionArea:
+		for area in get_overlapping_areas():
+			if not area is ConnectionArea: continue
+			
 			if origin_node == null:
-				try_set_origin(area)
-				highlight_on_layer(layer, false)  # highlight os receivers
+				if try_set_origin(area):
+					highlight_on_layer(layer, false)  # highlight os receivers
+					break
 			elif origin_node != area: # Se o Builder já tiver um origin_node, não pode ser o mesmo
 				if try_set_destination(area):
 					build_object()
+					break
 	if Input.is_action_just_released("base_cancel"):
 		queue_free()  # Remove o Builder se o botão direito do mouse for pressionado
 
