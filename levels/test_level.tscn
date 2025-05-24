@@ -10,7 +10,7 @@
 script = ExtResource("2_w7r7j")
 level_name = "Test Level"
 level_description = "This is the test level"
-inputs = Array[PackedInt32Array]([PackedInt32Array(3, 2, 5)])
+inputs = Array[PackedInt32Array]([PackedInt32Array(3, 1, 5)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(3, 2, 5)])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 
@@ -25,10 +25,7 @@ position = Vector2(160, 536)
 
 [node name="Container" parent="." index="6" instance=ExtResource("5_o6mel")]
 position = Vector2(264, 312)
-default_numbers = Array[int]([2, 3, 6])
+default_numbers = Array[int]([2, 5, 8])
 
 [node name="Container2" parent="." index="7" instance=ExtResource("5_o6mel")]
 position = Vector2(712, 384)
-
-[node name="TileMapLayer" parent="." index="8"]
-tile_map_data = PackedByteArray(0, 0, 24, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0)

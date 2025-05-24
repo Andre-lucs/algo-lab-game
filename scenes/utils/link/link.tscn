@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://lhfuu6wk1i5g"]
 
 [ext_resource type="Script" uid="uid://j8phvx2dff44" path="res://scenes/utils/link/link.gd" id="1_jyhi2"]
-[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="2_gxdjc"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="2_gxdjc"]
 
 [sub_resource type="Curve2D" id="Curve2D_oiwfg"]
 

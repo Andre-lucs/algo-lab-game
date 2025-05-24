@@ -19,6 +19,18 @@ config/icon="res://icon.svg"
 
 LevelManager="*res://scripts/level/level_manager.gd"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "yellow",
+"res://levels/": "gray",
+"res://scenes/": "orange",
+"res://scenes/objects/": "orange",
+"res://scenes/ui/": "green",
+"res://scenes/utils/": "purple",
+"res://scripts/": "blue"
+}
+
 [global_group]
 
 connections=""

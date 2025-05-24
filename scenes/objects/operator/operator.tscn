@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://ctj5grkwiab3a" path="res://scenes/objects/operator/operator.gd" id="1_bqpnd"]
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_xs7on"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="2_r1olv"]
-[ext_resource type="PackedScene" uid="uid://dfddi1aiqq1ad" path="res://scenes/utils/grabbable.tscn" id="3_bqpnd"]
-[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="4_fthne"]
-[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/objects/activation/activation.tscn" id="5_0iqj6"]
-[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/objects/movement/number_movement.gd" id="6_1qald"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="3_rc6xw"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_fthne"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="5_0iqj6"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_1qald"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="6_4deob"]
 [ext_resource type="Texture2D" uid="uid://d3x5ev60k0grs" path="res://assets/MenuIcons/Plus.png" id="7_qp6pp"]
-[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/connection_area.tscn" id="7_r0akj"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="7_r0akj"]
 [ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/MenuIcons/Minus.png" id="8_uj48i"]
 [ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/MenuIcons/Multi.png" id="9_8fhei"]
 [ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/MenuIcons/Divide.png" id="10_e1413"]
@@ -25,10 +25,6 @@ font = SubResource("SystemFont_bqpnd")
 font_size = 48
 font_color = Color(0.901961, 0.901961, 0.941176, 1)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehaq0"]
-radius = 32.0
-height = 192.0
-
 [sub_resource type="Resource" id="Resource_8la15"]
 script = ExtResource("6_4deob")
 frames = Array[Texture2D]([ExtResource("7_qp6pp"), ExtResource("8_uj48i"), ExtResource("9_8fhei"), ExtResource("10_e1413")])
@@ -42,6 +38,10 @@ frames = Array[Texture2D]([ExtResource("11_6nfnd")])
 text = "Delete"
 initial_frame = 0
 metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehaq0"]
+radius = 32.0
+height = 192.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4deob"]
 radius = 32.0
@@ -72,22 +72,13 @@ label_settings = SubResource("LabelSettings_fthne")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MouseInteractionArea2D" type="Area2D" parent="."]
-collision_layer = 2147483648
-collision_mask = 0
-script = ExtResource("2_r1olv")
-metadata/_custom_type_script = "uid://ck6y410gncrcr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
-visible = false
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_ehaq0")
-
 [node name="Traits" type="Node" parent="."]
 
-[node name="Grabbable" parent="Traits" node_paths=PackedStringArray("parent", "interaction_area") instance=ExtResource("3_bqpnd")]
+[node name="Grabbable" type="Node" parent="Traits" node_paths=PackedStringArray("parent", "interaction_area")]
+script = ExtResource("3_rc6xw")
 parent = NodePath("../..")
 interaction_area = NodePath("../../MouseInteractionArea2D")
+metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_fthne")]
 unique_name_in_owner = true
@@ -118,6 +109,17 @@ script = ExtResource("6_1qald")
 root = NodePath("../..")
 receives = false
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("2_r1olv")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+visible = false
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_ehaq0")
 
 [node name="Number1Connection" parent="." node_paths=PackedStringArray("number_movement") instance=ExtResource("7_r0akj")]
 position = Vector2(-64, 0)

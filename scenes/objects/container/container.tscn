@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
-[ext_resource type="PackedScene" uid="uid://dfddi1aiqq1ad" path="res://scenes/utils/grabbable.tscn" id="3_e3mdc"]
-[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/utils/object_popup_menu.tscn" id="4_tifd7"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="3_tifd7"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_tifd7"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="5_b588d"]
-[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/objects/movement/number_movement.gd" id="6_e3mdc"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_e3mdc"]
 [ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/MenuIcons/AutoButton.png" id="6_q33kv"]
-[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/connection_area.tscn" id="7_lkqc4"]
-[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/objects/activation/activation.tscn" id="8_0of0j"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="7_lkqc4"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="8_0of0j"]
 [ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="9_23n6n"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
 
@@ -98,9 +98,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_ooe7e")
 }
 
-[node name="Grabbable" parent="." node_paths=PackedStringArray("parent", "interaction_area") instance=ExtResource("3_e3mdc")]
+[node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent", "interaction_area")]
+script = ExtResource("3_tifd7")
 parent = NodePath("..")
 interaction_area = NodePath("../MouseInteractionArea2D")
+metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_tifd7")]
 items = Array[ExtResource("5_b588d")]([SubResource("Resource_e3mdc"), SubResource("Resource_hejjw")])

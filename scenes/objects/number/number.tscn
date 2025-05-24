@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cebmicxn76gb0"]
 
 [ext_resource type="Script" uid="uid://b3yiaijo7ic5q" path="res://scenes/objects/number/number.gd" id="1_olnlg"]
-[ext_resource type="PackedScene" uid="uid://dfddi1aiqq1ad" path="res://scenes/utils/grabbable.tscn" id="2_wksxw"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="2_txii2"]
 
 [sub_resource type="Gradient" id="Gradient_yhsph"]
 interpolation_mode = 2
@@ -39,5 +39,7 @@ grow_vertical = 2
 text = "1"
 horizontal_alignment = 1
 
-[node name="Grabbable" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_wksxw")]
+[node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("2_txii2")
 parent = NodePath("..")
+metadata/_custom_type_script = "uid://21g4c8kgecht"

@@ -1,12 +1,16 @@
 extends BaseLinkBuilder
 class_name ActivationLinkBuilder
 
-var activation_link_scene: PackedScene = preload("res://scenes/objects/activation/activator_link.tscn")
+var activation_link_scene: PackedScene = preload("res://scenes/utils/link/activation/activator_link.tscn")
 
 func _init() -> void:
 	layer = 4
 
 func build_object() -> void:
+	if activation_link_scene == null:
+		printerr("Cannot build activation link – missing scene.")
+		queue_free()
+		return
 	if origin_node == null or destination_node == null:
 		printerr("Cannot build activation link – missing endpoints.")
 		queue_free()
