@@ -9,8 +9,9 @@ signal number_received(number : Number)
 signal number_sent(number : Number)
 signal parent_moved()
 signal requesting_move()
+signal new_input_path(path : MovementLink)
+signal new_output_path(path : MovementLink)
 
-var connected_paths : Array[MovementLink] = []
 var input_paths : Array[MovementLink] = []
 var output_paths : Array[MovementLink] = []
 
@@ -44,14 +45,12 @@ func request_send() -> void:
 		requesting_move.emit()
 	
 func connect_path(path:MovementLink):
-	connected_paths.append(path)
 	if path.origin_node == self: # C ->
 		output_paths.append(path)
+		new_output_path.emit(path)
 	elif path.destination_node == self: # C <-
 		input_paths.append(path)
-
-func get_connected_paths() -> Array[MovementLink]:
-	return connected_paths
+		new_input_path.emit(path)
 
 func get_input_paths() -> Array[MovementLink]:
 	return input_paths
@@ -60,9 +59,8 @@ func get_output_paths() -> Array[MovementLink]:
 	return output_paths
 
 func _exit_tree() -> void:
-	for path in connected_paths:
+	for path in (output_paths+input_paths):
 		if !path.is_inside_tree(): continue
 		path.queue_free()
-	connected_paths.clear()
 	input_paths.clear()
 	output_paths.clear()
