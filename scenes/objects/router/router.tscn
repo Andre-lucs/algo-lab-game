@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://b6bvxr3x73tm2"]
+
+[ext_resource type="Script" uid="uid://dgvuclnt0f6m8" path="res://scenes/objects/router/router.gd" id="1_7lc45"]
+[ext_resource type="Texture2D" uid="uid://de6s63mi8q7fl" path="res://assets/Router.png" id="2_u5p3i"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="4_5wgt4"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="5_fhc7l"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_kl5ab"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="7_g1176"]
+[ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="8_57qxo"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="9_5vyb0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i86h8"]
+radius = 32.0
+
+[node name="Router" type="Node2D"]
+z_index = 1
+script = ExtResource("1_7lc45")
+
+[node name="Rotative" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ArrowSprite" type="Sprite2D" parent="Rotative"]
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2_u5p3i")
+vframes = 2
+
+[node name="Numbers" type="Node2D" parent="Rotative"]
+unique_name_in_owner = true
+
+[node name="TopSprite" type="Sprite2D" parent="Rotative"]
+texture = ExtResource("2_u5p3i")
+vframes = 2
+frame = 1
+
+[node name="Traits" type="Node" parent="."]
+
+[node name="Grabbable" type="Node" parent="Traits" node_paths=PackedStringArray("parent", "interaction_area")]
+script = ExtResource("4_5wgt4")
+parent = NodePath("../..")
+interaction_area = NodePath("../../MouseInteractionArea2D")
+metadata/_custom_type_script = "uid://21g4c8kgecht"
+
+[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area") instance=ExtResource("5_fhc7l")]
+interaction_area = NodePath("../../MouseInteractionArea2D")
+
+[node name="NumberMovement" type="Node" parent="Traits" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
+script = ExtResource("6_kl5ab")
+root = NodePath("../..")
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
+[node name="Activation" parent="Traits" node_paths=PackedStringArray("target") instance=ExtResource("7_g1176")]
+target = NodePath("../NumberMovement")
+trigger_signals = Array[String](["number_sent"])
+base_delay = 0.5
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("8_57qxo")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+visible = false
+shape = SubResource("CircleShape2D_i86h8")
+
+[node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("9_5vyb0")]
+collision_layer = 12
+activatable = NodePath("../Traits/Activation")
+number_movement = NodePath("../Traits/NumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_i86h8")
+
+[connection signal="clicked_option" from="Traits/ObjectPopupMenu" to="." method="_on_menu_clicked_option"]
+[connection signal="new_output_path" from="Traits/NumberMovement" to="." method="_update_arrow" unbinds=1]
+[connection signal="number_received" from="Traits/NumberMovement" to="." method="enqueue_number"]
+[connection signal="activated" from="Traits/Activation" to="." method="dequeue_number"]
