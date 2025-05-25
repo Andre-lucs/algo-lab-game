@@ -20,6 +20,18 @@ func update_label():
 		return
 	$Label.text = str(value)  # Atualiza a exibição do número
 
+func move_to(new_position: Vector2, new_parent : Node2D = null, new_rotation: float = 0.0, duration := 0.2) -> void:
+	if new_parent != null:
+		if is_inside_tree():
+			reparent(new_parent)
+		else:
+			new_parent.add_child(self)
+	
+	var anim = create_tween()
+	anim.parallel().tween_property(self, "position", new_position, duration)
+	anim.parallel().tween_property(self, "rotation", new_rotation, duration)
+	anim.play()
+
 static func get_number(int_number : int) -> Number:
 	# Cria uma instância do número
 	var number = number_scene.instantiate() as Number
