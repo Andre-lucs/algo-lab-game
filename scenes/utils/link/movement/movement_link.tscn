@@ -24,6 +24,9 @@ shape = SubResource("ConvexPolygonShape2D_h4gtw")
 [node name="Arrow" type="Polygon2D" parent="End" index="1"]
 polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
 
+[node name="ObjectPopupMenu" parent="." index="3" node_paths=PackedStringArray("activatable")]
+activatable = NodePath("../Activatable")
+
 [node name="Activatable" parent="." index="4" node_paths=PackedStringArray("target") instance=ExtResource("3_ak07b")]
 target = NodePath("..")
 trigger_signals = Array[String](["start_moving"])
@@ -39,5 +42,5 @@ activatable = NodePath("../Activatable")
 [connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
 [connection signal="updated_path" from="." to="." method="_on_updated_path"]
-[connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
+[connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="activated" from="Activatable" to="." method="activate"]

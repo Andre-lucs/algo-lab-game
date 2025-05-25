@@ -1,31 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://khx12i77qfms"]
+[gd_scene load_steps=3 format=3 uid="uid://khx12i77qfms"]
 
 [ext_resource type="Script" uid="uid://iwt7ng8vywfo" path="res://scenes/ui/popup_menu/object_popup_menu.gd" id="1_7sao0"]
-[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="2_uqdxk"]
-[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/MenuIcons/AutoButton.png" id="3_v2aws"]
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="4_tp5gh"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1pfgw"]
-atlas = ExtResource("3_v2aws")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hv68y"]
-atlas = ExtResource("3_v2aws")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="Resource" id="Resource_5cmbu"]
-script = ExtResource("2_uqdxk")
-frames = Array[Texture2D]([SubResource("AtlasTexture_1pfgw"), SubResource("AtlasTexture_hv68y")])
-text = "Auto"
-initial_frame = 0
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
-
-[sub_resource type="Resource" id="Resource_hejjw"]
-script = ExtResource("2_uqdxk")
-frames = Array[Texture2D]([ExtResource("4_tp5gh")])
-text = "Delete"
-initial_frame = 0
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73e83"]
 content_margin_left = 10.0
@@ -45,7 +20,6 @@ corner_radius_bottom_left = 5
 
 [node name="ObjectPopupMenu" type="Node"]
 script = ExtResource("1_7sao0")
-items = Array[ExtResource("2_uqdxk")]([SubResource("Resource_5cmbu"), SubResource("Resource_hejjw")])
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 size = Vector2i(20, 42)

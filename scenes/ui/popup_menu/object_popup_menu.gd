@@ -5,13 +5,30 @@ class_name ObjectPopupMenu
 @onready var popup_panel : PopupPanel = $PopupPanel
 @onready var hbox : HBoxContainer = $PopupPanel/HBoxContainer
 
+@export var show_auto_button : bool = true
+@export var activatable : Activatable
+@export var show_delete_button : bool = true
+## These buttons will be added between the auto and delete buttons
 @export var items : Array[ObjectPopupMenuItem] = []
 @export var interaction_area : MouseInteractionArea2D
+
 var mouse_over : bool = false
 
 signal clicked_option(idx: int)
+signal clicked_delete
+signal clicked_item(item: ObjectPopupMenuItem, idx: int)
 
 func _ready() -> void:
+	if show_auto_button:
+		var auto_button = preload("res://scenes/ui/popup_menu/auto_button_menu_item.tres")
+		items.push_front(auto_button)
+		if activatable:
+			auto_button.initial_frame = activatable.auto
+		else:
+			printerr("No activatable node found in ", get_path())
+	if show_delete_button:
+		var delete_button = preload("res://scenes/ui/popup_menu/delete_button_menu_item.tres")
+		items.push_back(delete_button)
 	if not items.is_empty():
 		update_menu_items()
 
@@ -42,13 +59,25 @@ func _on_button_pressed(idx : int) -> void:
 	var button := hbox.get_child(idx) as TextureButton
 	item.next_frame(button)
 	clicked_option.emit(idx)
+	clicked_item.emit(item, idx)
 
 func _generate_button(item : ObjectPopupMenuItem, idx : int) -> TextureButton:
 	var button = TextureButton.new()
 	item.init_button(button)
 	button.pressed.connect(_on_button_pressed.bind(idx))
+	if show_auto_button and idx == 0:
+		button.pressed.connect(_pressed_auto)
+	if show_delete_button and idx == items.size() - 1:
+		button.pressed.connect(_pressed_delete)
 	button.name = str(items.size())
 	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	button.size = Vector2(32, 32)
 	button.stretch_mode = TextureButton.STRETCH_SCALE
 	return button
+
+func _pressed_auto():
+	# like this before i make the one time activation
+	if Activatable.AutoState.values().has(items[0].current_frame):
+		activatable.auto = items[0].current_frame as Activatable.AutoState
+func _pressed_delete():
+	clicked_delete.emit()

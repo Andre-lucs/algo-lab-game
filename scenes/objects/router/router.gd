@@ -51,12 +51,3 @@ func _number_scale_animation(number: Number) -> void:
 	var anim = create_tween()
 	anim.tween_property(number, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	anim.play()
-
-func _on_menu_clicked_option(idx:int) -> void:
-	match idx:
-		0:
-			activatable.auto = !activatable.auto
-		1:
-			queue_free()
-		_:
-			print("Unknown option clicked: ", idx)

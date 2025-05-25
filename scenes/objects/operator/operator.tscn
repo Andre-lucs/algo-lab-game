@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://boiqm84g6cm77"]
+[gd_scene load_steps=19 format=3 uid="uid://boiqm84g6cm77"]
 
 [ext_resource type="Script" uid="uid://ctj5grkwiab3a" path="res://scenes/objects/operator/operator.gd" id="1_bqpnd"]
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_xs7on"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/MenuIcons/Minus.png" id="8_uj48i"]
 [ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/MenuIcons/Multi.png" id="9_8fhei"]
 [ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/MenuIcons/Divide.png" id="10_e1413"]
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="11_6nfnd"]
 
 [sub_resource type="SystemFont" id="SystemFont_bqpnd"]
 font_names = PackedStringArray("Monospace")
@@ -28,14 +27,7 @@ font_color = Color(0.901961, 0.901961, 0.941176, 1)
 [sub_resource type="Resource" id="Resource_8la15"]
 script = ExtResource("6_4deob")
 frames = Array[Texture2D]([ExtResource("7_qp6pp"), ExtResource("8_uj48i"), ExtResource("9_8fhei"), ExtResource("10_e1413")])
-text = ""
-initial_frame = 0
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
-
-[sub_resource type="Resource" id="Resource_hejjw"]
-script = ExtResource("6_4deob")
-frames = Array[Texture2D]([ExtResource("11_6nfnd")])
-text = "Delete"
+text = "Change Operation"
 initial_frame = 0
 metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
@@ -80,16 +72,16 @@ parent = NodePath("../..")
 interaction_area = NodePath("../../MouseInteractionArea2D")
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_fthne")]
+[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_fthne")]
 unique_name_in_owner = true
-items = Array[ExtResource("6_4deob")]([SubResource("Resource_8la15"), SubResource("Resource_hejjw")])
+activatable = NodePath("../Activation")
+items = Array[ExtResource("6_4deob")]([SubResource("Resource_8la15")])
 interaction_area = NodePath("../../MouseInteractionArea2D")
 
 [node name="Activation" parent="Traits" node_paths=PackedStringArray("target") instance=ExtResource("5_0iqj6")]
 target = NodePath("../..")
 trigger_signals = Array[String](["ready_for_result"])
 base_delay = 1.0
-auto = false
 
 [node name="Number1Movement" type="Node" parent="Traits" node_paths=PackedStringArray("root")]
 script = ExtResource("6_1qald")
@@ -157,7 +149,8 @@ visible = false
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_ehaq0")
 
-[connection signal="clicked_option" from="Traits/ObjectPopupMenu" to="." method="_on_menu_clicked_option"]
+[connection signal="clicked_delete" from="Traits/ObjectPopupMenu" to="." method="delete"]
+[connection signal="clicked_item" from="Traits/ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_item"]
 [connection signal="activated" from="Traits/Activation" to="." method="activate"]
 [connection signal="number_received" from="Traits/Number1Movement" to="." method="_on_number_1_received"]
 [connection signal="number_received" from="Traits/Number2Movement" to="." method="_on_number_2_received"]

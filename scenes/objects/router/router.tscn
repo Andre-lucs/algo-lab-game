@@ -40,7 +40,8 @@ parent = NodePath("../..")
 interaction_area = NodePath("../../MouseInteractionArea2D")
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area") instance=ExtResource("5_fhc7l")]
+[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("5_fhc7l")]
+activatable = NodePath("../Activation")
 interaction_area = NodePath("../../MouseInteractionArea2D")
 
 [node name="NumberMovement" type="Node" parent="Traits" node_paths=PackedStringArray("root")]
@@ -73,7 +74,7 @@ number_movement = NodePath("../Traits/NumberMovement")
 visible = false
 shape = SubResource("CircleShape2D_i86h8")
 
-[connection signal="clicked_option" from="Traits/ObjectPopupMenu" to="." method="_on_menu_clicked_option"]
+[connection signal="clicked_delete" from="Traits/ObjectPopupMenu" to="." method="queue_free"]
 [connection signal="new_output_path" from="Traits/NumberMovement" to="." method="_update_arrow" unbinds=1]
 [connection signal="number_received" from="Traits/NumberMovement" to="." method="enqueue_number"]
 [connection signal="activated" from="Traits/Activation" to="." method="dequeue_number"]

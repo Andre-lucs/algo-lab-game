@@ -105,14 +105,10 @@ func _update_sign_label() -> void:
 			sign_label.text = "/"
 
 
-func _on_menu_clicked_option(idx: int) -> void:
+func _on_object_popup_menu_clicked_item(item:ObjectPopupMenuItem, idx:int) -> void:
 	match idx:
-		0:
-			operator_type = menu.items[0].current_frame as OperatorType
 		1:
-			delete()
-		_:
-			print("Unknown option clicked")
+			operator_type = menu.items[0].current_frame as OperatorType
 
 func delete() -> void:
 	if number_1:

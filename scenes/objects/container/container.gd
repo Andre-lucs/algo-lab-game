@@ -151,27 +151,11 @@ func _on_number_movement_requesting_move() -> void:
 		return
 	number_movement.send(get_last_number())
 
-# Popup Menu ----
-
-func _on_object_popup_menu_clicked_option(idx: int) -> void:
-	match idx:
-		0:
-			toggle_auto()
-		1:
-			delete()
-		_:
-			print("Unknown option clicked: ", idx)
-
 func delete() -> void:
 	print("Delete option pressed")
 	# Implement delete logic here
 	# For example, you could remove the container from its parent or free it
 	queue_free()
-
-# Toggles and Settings ----
-
-func toggle_auto():
-	activatable.auto = !activatable.auto
 
 ## Alterna entre armazenar apenas um número ou múltiplos.
 func _toggle_single_number_container():

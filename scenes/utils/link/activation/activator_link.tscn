@@ -1,16 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccaxidhl1g6xe"]
+[gd_scene load_steps=3 format=3 uid="uid://ccaxidhl1g6xe"]
 
 [ext_resource type="Script" uid="uid://b820xsovakcqr" path="res://scenes/utils/link/activation/activator_link.gd" id="1_g88h4"]
 [ext_resource type="PackedScene" uid="uid://lhfuu6wk1i5g" path="res://scenes/utils/link/link.tscn" id="1_n80ux"]
-[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="3_n3lm3"]
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="5_11sdg"]
-
-[sub_resource type="Resource" id="Resource_hejjw"]
-script = ExtResource("3_n3lm3")
-frames = Array[Texture2D]([ExtResource("5_11sdg")])
-text = "Delete"
-initial_frame = 0
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
 [node name="ActivatorLink" instance=ExtResource("1_n80ux")]
 width = 6.0
@@ -28,8 +19,8 @@ color = Color(0.42, 0.42, 0.42, 1)
 polygon = PackedVector2Array(-16, -8, 8, -8, 8, 8, -16, 8)
 
 [node name="ObjectPopupMenu" parent="." index="3"]
-items = Array[ExtResource("3_n3lm3")]([SubResource("Resource_hejjw")])
+show_auto_button = false
 
 [connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
-[connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
+[connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]

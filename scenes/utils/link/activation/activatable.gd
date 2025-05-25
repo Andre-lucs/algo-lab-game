@@ -2,14 +2,23 @@
 extends Node
 class_name Activatable
 
+enum AutoState {
+	OFF,
+	ONE_SHOT,
+	ON
+}
+
 signal activated
 ## May be used to change the appearance of the object to sign that it is automatic or not
-signal changed_auto_state(state: bool)
+signal changed_auto_state(state: AutoState)
 
 @export var target : Node
 @export var trigger_signals : Array[String]
 @export var base_delay : float = 0.2
-@export var auto : bool = true : set = _set_auto
+@export var auto : AutoState = AutoState.ON :
+	set(value):
+		changed_auto_state.emit(value)
+		auto = value
 
 
 var activation_queue : int = 0
@@ -18,15 +27,12 @@ var activation_queue : int = 0
 
 func _ready() -> void:
 	activation_timer.wait_time = base_delay
-	# If the activation is not automatic the timer will be one shot
-	activation_timer.one_shot = !auto
 
 func start_activation_if_auto() -> void:
-	if not auto:
+	activation_timer.one_shot = is_manual()
+	if auto == AutoState.OFF:
 		return
-	activation_timer.one_shot = !auto
-	activation_queue = 1
-	activation_timer.start()
+	activate()
 
 func activate(times : int = 1) -> void:
 	activation_queue += times
@@ -47,12 +53,11 @@ func _send_activation() -> void:
 func _on_activation_timer_timeout() -> void:
 	_send_activation()
 
-func _set_auto(value : bool) -> void:
-	auto = value
-	changed_auto_state.emit(auto)
-
 func get_trigger_signals() -> Array[String]:
 	return trigger_signals
+
+func is_manual() -> bool:
+	return auto != AutoState.ON
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings : PackedStringArray = []

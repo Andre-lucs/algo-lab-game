@@ -26,13 +26,6 @@ func activate() -> void:
 		destination.activate()
 		activated_destination.emit(destination)
 
-func _on_object_popup_menu_clicked_option(idx:int) -> void:
-	match idx:
-		0:
-			delete()
-		_:
-			print("Unknown option clicked")
-
 func delete() -> void:
 	_disconnect_origin()
 	_disconnect_destination()

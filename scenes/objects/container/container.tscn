@@ -1,15 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=13 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
 [ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="3_tifd7"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_tifd7"]
-[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="5_b588d"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_e3mdc"]
-[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/MenuIcons/AutoButton.png" id="6_q33kv"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="7_lkqc4"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="8_0of0j"]
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/MenuIcons/TrashCan.png" id="9_23n6n"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
 
 [sub_resource type="Animation" id="Animation_cmen7"]
@@ -49,28 +46,6 @@ _data = {
 &"scale_animation": SubResource("Animation_3s5j0")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1pfgw"]
-atlas = ExtResource("6_q33kv")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hv68y"]
-atlas = ExtResource("6_q33kv")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="Resource" id="Resource_e3mdc"]
-script = ExtResource("5_b588d")
-frames = Array[Texture2D]([SubResource("AtlasTexture_1pfgw"), SubResource("AtlasTexture_hv68y")])
-text = "Auto"
-initial_frame = 1
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
-
-[sub_resource type="Resource" id="Resource_hejjw"]
-script = ExtResource("5_b588d")
-frames = Array[Texture2D]([ExtResource("9_23n6n")])
-text = "Delete"
-initial_frame = 0
-metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
 size = Vector2(64, 64)
 
@@ -104,15 +79,15 @@ parent = NodePath("..")
 interaction_area = NodePath("../MouseInteractionArea2D")
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_tifd7")]
-items = Array[ExtResource("5_b588d")]([SubResource("Resource_e3mdc"), SubResource("Resource_hejjw")])
+[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_tifd7")]
+activatable = NodePath("../Activatable")
 interaction_area = NodePath("../MouseInteractionArea2D")
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
 target = NodePath("../NumberMovement")
 trigger_signals = Array[String](["number_sent"])
 base_delay = 0.5
-auto = false
+auto = 0
 
 [node name="NumberMovement" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("6_e3mdc")
@@ -142,7 +117,7 @@ script = ExtResource("11_tifd7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
 shape = SubResource("RectangleShape2D_l2343")
 
-[connection signal="clicked_option" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_option"]
+[connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
 [connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
 [connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]

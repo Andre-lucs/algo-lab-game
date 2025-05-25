@@ -74,20 +74,10 @@ func _update_polygon():
 	var polygon = bake_polygon()
 	polygon_colision.set_deferred("polygon", polygon) # polygon_colision.polygon = polygon
 
-func _on_object_popup_menu_clicked_option(idx:int) -> void:
-	match idx:
-		0: # auto
-			toggle_auto()
-		1:
-			delete()
-
 func activate():
 	if not destination_node:
 		return
 	origin_node.request_send()
-
-func toggle_auto():
-	activatable.auto = !activatable.auto
 
 func delete() -> void:
 	_disconnect_origin_node()
