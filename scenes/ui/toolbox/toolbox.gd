@@ -1,38 +1,29 @@
-@tool
 extends PanelContainer
 
-@export var preview_scene : PackedScene : 
-	set(v):
-		preview_scene = v
-		update_configuration_warnings()
+@export var preview_scene : PackedScene
 
 @onready var items_container : VBoxContainer = $Items
+@onready var base_button : Button = $Items/BaseButton
 
-@export var items : Array[PackedScene] = []
+@export var items : Array[ToolBoxItem] = []
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-	if _get_configuration_warnings().size() > 0:
-		printerr("Toolbox configuration warnings: ", _get_configuration_warnings())
-		return
+	base_button.hide()
 	for i in range(items.size()):
-		var button = Button.new()
-		button.keep_pressed_outside = true
-		button.action_mode = Button.ActionMode.ACTION_MODE_BUTTON_PRESS
-		button.text = items[i].resource_path
+		var button = base_button.duplicate() as Button
+		button.icon = items[i].icon
+		button.tooltip_text = items[i].item_name
+		button.show()
 		items_container.add_child(button)
 		button.pressed.connect(_on_button_pressed.bind(i))
 
 func _on_button_pressed(index : int) -> void:
 	print("creating ", items[index].resource_path)
-	var item_preview = preview_scene.instantiate() as ItemPreview
-	item_preview.item = items[index]
-	get_tree().root.add_child(item_preview)
+	get_tree().root.add_child(create_item_preview(items[index]))
 
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = PackedStringArray()
-	if preview_scene == null:
-		warnings.append("Item preview scene is not set.")
-	
-	return warnings
+func create_item_preview(item : ToolBoxItem) -> ItemPreview:
+	var item_preview = preview_scene.instantiate() as ItemPreview
+	item_preview.item = item.target_scene
+	item_preview.preview_image = item.preview_image
+	item_preview.custom_args = item.custom_args
+	return item_preview
