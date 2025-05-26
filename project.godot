@@ -38,6 +38,11 @@ snappable=""
 resetabble=""
 activation="Nodes responsile to manage the objects activation, being them automatic or manual."
 
+[gui]
+
+theme/custom="uid://croqrg83t5eya"
+theme/custom_font="uid://c6xfw0xn1sxv6"
+
 [input]
 
 object_menu={
