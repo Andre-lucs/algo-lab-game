@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://croqrg83t5eya"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://croqrg83t5eya"]
 
 [ext_resource type="Texture2D" uid="uid://c4s4c3xx5xysg" path="res://assets/UI/PanelRect_300.png" id="1_25gst"]
+[ext_resource type="Texture2D" uid="uid://dpkpaadmfjjyl" path="res://assets/UI/PanelRect2.png" id="2_a7t71"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eq7o"]
 content_margin_left = 4.0
@@ -39,6 +40,19 @@ texture_margin_right = 19.0
 texture_margin_bottom = 19.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bk8va"]
+content_margin_left = 20.0
+content_margin_top = 40.0
+content_margin_right = 20.0
+content_margin_bottom = 40.0
+texture = ExtResource("2_a7t71")
+texture_margin_left = 19.0
+texture_margin_top = 19.0
+texture_margin_right = 19.0
+texture_margin_bottom = 19.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vp8tu"]
 content_margin_left = 4.0
@@ -108,6 +122,8 @@ expand_margin_bottom = 1.0
 Button/styles/normal = SubResource("StyleBoxFlat_4eq7o")
 Panel/styles/panel = SubResource("StyleBoxTexture_xk7ex")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_4eq7o")
+RedPanelContainer/base_type = &"PanelContainer"
+RedPanelContainer/styles/panel = SubResource("StyleBoxTexture_bk8va")
 ToolboxButton/base_type = &"Button"
 ToolboxButton/styles/focus = SubResource("StyleBoxFlat_vp8tu")
 ToolboxButton/styles/normal = SubResource("StyleBoxFlat_a7t71")
