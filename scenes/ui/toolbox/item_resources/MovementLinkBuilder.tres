@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=4 format=3 uid="uid://ryjjhxl48x3w"]
+
+[ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/PointyArrow.png" id="1_ojxy3"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_vlg51"]
+[ext_resource type="PackedScene" uid="uid://ct40k6beos0e6" path="res://scenes/objects/builders/path_builder.tscn" id="3_ngff6"]
+
+[resource]
+script = ExtResource("2_vlg51")
+item_name = "Link"
+icon = ExtResource("1_ojxy3")
+target_scene = ExtResource("3_ngff6")
+custom_args = Dictionary[String, Variant]({})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"

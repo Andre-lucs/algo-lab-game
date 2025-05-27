@@ -1,19 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddvb4iup6m8ow"]
+[gd_scene load_steps=10 format=3 uid="uid://ddvb4iup6m8ow"]
 
 [ext_resource type="Script" uid="uid://cfgfk504yyrm5" path="res://scenes/ui/toolbox/toolbox.gd" id="1_q0ytb"]
 [ext_resource type="PackedScene" uid="uid://dct57qb7onjyh" path="res://scenes/ui/toolbox/item_preview/item_preview.tscn" id="2_0ydux"]
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="4_a0thc"]
+[ext_resource type="Resource" uid="uid://doehu4k766ac0" path="res://scenes/ui/toolbox/item_resources/ContainerItem.tres" id="4_kf8s1"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="5_bh2xv"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="5_oaibn"]
-[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="6_kvim1"]
-
-[sub_resource type="Resource" id="Resource_6b6ni"]
-script = ExtResource("4_a0thc")
-item_name = "Container"
-icon = ExtResource("5_oaibn")
-preview_image = ExtResource("5_oaibn")
-target_scene = ExtResource("6_kvim1")
-custom_args = Dictionary[String, Variant]({})
-metadata/_custom_type_script = "uid://ct0y6m322lv47"
+[ext_resource type="Resource" uid="uid://b1xaq6o4gy17y" path="res://scenes/ui/toolbox/item_resources/ActivatorLinkBuilder.tres" id="6_x561o"]
+[ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="7_gaht0"]
+[ext_resource type="Resource" uid="uid://dqfohj8in8ax" path="res://scenes/ui/toolbox/item_resources/Operator.tres" id="8_6b6ni"]
 
 [node name="Toolbox" type="PanelContainer"]
 z_index = 1
@@ -24,7 +19,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 2
 script = ExtResource("1_q0ytb")
 preview_scene = ExtResource("2_0ydux")
-items = Array[ExtResource("4_a0thc")]([SubResource("Resource_6b6ni")])
+items = Array[ExtResource("4_a0thc")]([ExtResource("4_kf8s1"), ExtResource("5_bh2xv"), ExtResource("6_x561o"), ExtResource("7_gaht0"), ExtResource("8_6b6ni")])
 
 [node name="Items" type="VBoxContainer" parent="."]
 layout_mode = 2
