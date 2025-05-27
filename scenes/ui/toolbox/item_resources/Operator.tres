@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=4 format=3 uid="uid://dqfohj8in8ax"]
+
+[ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_fwi1r"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_0lxyi"]
+[ext_resource type="PackedScene" uid="uid://boiqm84g6cm77" path="res://scenes/objects/operator/operator.tscn" id="3_aa72u"]
+
+[resource]
+script = ExtResource("2_0lxyi")
+item_name = "Math Operator"
+icon = ExtResource("1_fwi1r")
+preview_image = ExtResource("1_fwi1r")
+target_scene = ExtResource("3_aa72u")
+custom_args = Dictionary[String, Variant]({})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"

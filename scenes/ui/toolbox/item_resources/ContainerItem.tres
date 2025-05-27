@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=4 format=3 uid="uid://doehu4k766ac0"]
+
+[ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="1_vl28h"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_636dn"]
+[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="3_78sql"]
+
+[resource]
+script = ExtResource("2_636dn")
+item_name = "Container"
+icon = ExtResource("1_vl28h")
+preview_image = ExtResource("1_vl28h")
+target_scene = ExtResource("3_78sql")
+custom_args = Dictionary[String, Variant]({})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"

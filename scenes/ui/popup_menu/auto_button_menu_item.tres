@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ObjectPopupMenuItem" load_steps=6 format=3 uid="uid://bx7gdn3lpxwhc"]
 
-[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/MenuIcons/AutoButton.png" id="1_kb6rc"]
+[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/UI/MenuIcons/AutoButton.png" id="1_kb6rc"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="2_dnb0a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kb6rc"]

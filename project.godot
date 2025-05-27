@@ -23,6 +23,8 @@ LevelManager="*res://scripts/level/level_manager.gd"
 
 folder_colors={
 "res://assets/": "yellow",
+"res://assets/UI/MenuIcons/src/": "gray",
+"res://assets/UI/src/": "gray",
 "res://levels/": "gray",
 "res://scenes/": "orange",
 "res://scenes/objects/": "orange",
@@ -37,6 +39,11 @@ connections=""
 snappable=""
 resetabble=""
 activation="Nodes responsile to manage the objects activation, being them automatic or manual."
+
+[gui]
+
+theme/custom="uid://croqrg83t5eya"
+theme/custom_font="uid://c6xfw0xn1sxv6"
 
 [input]
 

@@ -23,9 +23,9 @@ position = Vector2(568, 312)
 [node name="InputContainer" parent="." index="3" instance=ExtResource("4_w7r7j")]
 position = Vector2(160, 536)
 
-[node name="Container" parent="." index="6" instance=ExtResource("5_o6mel")]
+[node name="Container" parent="." index="5" instance=ExtResource("5_o6mel")]
 position = Vector2(264, 312)
 default_numbers = Array[int]([2, 5, 8])
 
-[node name="Container2" parent="." index="7" instance=ExtResource("5_o6mel")]
+[node name="Container2" parent="." index="6" instance=ExtResource("5_o6mel")]
 position = Vector2(712, 384)

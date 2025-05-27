@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=4 format=3 uid="uid://b1xaq6o4gy17y"]
+
+[ext_resource type="Texture2D" uid="uid://boes4gbtds67u" path="res://assets/UI/Electricity.png" id="1_ukf5r"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_htber"]
+[ext_resource type="PackedScene" uid="uid://c42hf3y7kqqu0" path="res://scenes/objects/builders/activation_link_builder.tscn" id="3_5h66m"]
+
+[resource]
+script = ExtResource("2_htber")
+item_name = "Activator"
+icon = ExtResource("1_ukf5r")
+target_scene = ExtResource("3_5h66m")
+custom_args = Dictionary[String, Variant]({})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"
