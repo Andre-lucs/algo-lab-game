@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
-[ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/Arrow.png" id="5_4dl3q"]
+[ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="5_4dl3q"]
 [ext_resource type="PackedScene" uid="uid://fuef6ulivwf1" path="res://scenes/ui/level_info/level_info.tscn" id="5_ry6pb"]
-[ext_resource type="Texture2D" uid="uid://ckklouct3m8n6" path="res://assets/UI/Reset.png" id="6_iiwgg"]
+[ext_resource type="Texture2D" uid="uid://ckklouct3m8n6" path="res://assets/UI/MenuIcons/Reset.png" id="6_iiwgg"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")

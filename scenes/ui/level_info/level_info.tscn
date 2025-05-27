@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://fuef6ulivwf1"]
 
 [ext_resource type="Script" uid="uid://c6hvf3t2jonte" path="res://scenes/ui/level_info/level_info.gd" id="1_a43rh"]
-[ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/PointyArrow.png" id="2_ok1fk"]
+[ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/MenuIcons/PointyArrow.png" id="2_ok1fk"]
 
 [node name="LevelInfo" type="HBoxContainer"]
 anchors_preset = 1

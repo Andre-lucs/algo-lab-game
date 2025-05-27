@@ -23,6 +23,8 @@ LevelManager="*res://scripts/level/level_manager.gd"
 
 folder_colors={
 "res://assets/": "yellow",
+"res://assets/UI/MenuIcons/src/": "gray",
+"res://assets/UI/src/": "gray",
 "res://levels/": "gray",
 "res://scenes/": "orange",
 "res://scenes/objects/": "orange",

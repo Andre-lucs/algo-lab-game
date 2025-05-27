@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6g0m3a8ey3wc"
-path="res://.godot/imported/Pause.png-8682272678b97f4b130cf415685f9d1d.ctex"
+uid="uid://d0sff8kq6tlyq"
+path="res://.godot/imported/PointyArrow.png-f22b36a02ffa1e434c47cd669ca7d701.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pause.png"
-dest_files=["res://.godot/imported/Pause.png-8682272678b97f4b130cf415685f9d1d.ctex"]
+source_file="res://assets/UI/MenuIcons/PointyArrow.png"
+dest_files=["res://.godot/imported/PointyArrow.png-f22b36a02ffa1e434c47cd669ca7d701.ctex"]
 
 [params]
 
