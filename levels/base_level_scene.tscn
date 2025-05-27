@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=9 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
+[ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/Arrow.png" id="5_4dl3q"]
 [ext_resource type="PackedScene" uid="uid://fuef6ulivwf1" path="res://scenes/ui/level_info/level_info.tscn" id="5_ry6pb"]
+[ext_resource type="Texture2D" uid="uid://ckklouct3m8n6" path="res://assets/UI/Reset.png" id="6_iiwgg"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")
@@ -13,9 +15,6 @@ level_description = "mande o numero para o container de validação"
 inputs = Array[PackedInt32Array]([PackedInt32Array(6), PackedInt32Array(4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(4)])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kqmoh"]
-size = Vector2(32, 32)
 
 [node name="level" type="Node2D"]
 process_mode = 1
@@ -57,15 +56,15 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "run"
-icon = SubResource("PlaceholderTexture2D_kqmoh")
-icon_alignment = 1
+tooltip_text = "Run Level"
+icon = ExtResource("5_4dl3q")
 
 [node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "reset"
+tooltip_text = "Reset Execution"
+icon = ExtResource("6_iiwgg")
 
 [node name="LevelInfo" parent="LevelUILayer/MarginContainer" instance=ExtResource("5_ry6pb")]
 unique_name_in_owner = true
