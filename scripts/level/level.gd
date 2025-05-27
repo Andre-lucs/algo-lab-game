@@ -5,8 +5,7 @@ signal level_completed
 signal level_failed
 
 @onready var level_executor : LevelExecutor = $LevelExecutor
-@export var level_title_label : RichTextLabel
-@export var level_description_label : RichTextLabel 
+@onready var level_info : LevelInfo = %LevelInfo
 
 @export var level_props : LevelPropsResource = null
 var validators_finished : int = 0
@@ -16,10 +15,7 @@ func _ready() -> void:
 		print("LevelPropsResource is not set on level.")
 		return
 
-	print("Level Name: ", level_props.level_name)
-	level_title_label.text = level_props.level_name
-	print("Level Description: ", level_props.level_description)
-	level_description_label.text = level_props.level_description
+	level_info.level_props = level_props
 
 	spawn_inputs()
 	spawn_validators()

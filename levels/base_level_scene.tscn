@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=8 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
+[ext_resource type="PackedScene" uid="uid://fuef6ulivwf1" path="res://scenes/ui/level_info/level_info.tscn" id="5_ry6pb"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")
@@ -16,11 +17,9 @@ metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kqmoh"]
 size = Vector2(32, 32)
 
-[node name="level" type="Node2D" node_paths=PackedStringArray("level_title_label", "level_description_label")]
+[node name="level" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_nns1f")
-level_title_label = NodePath("LevelUILayer/MarginContainer/Control2/LevelTitle")
-level_description_label = NodePath("LevelUILayer/MarginContainer/Control/LevelDescription")
 level_props = SubResource("Resource_306te")
 
 [node name="LevelExecutor" type="Node" parent="."]
@@ -31,6 +30,7 @@ metadata/_custom_type_script = "uid://bw7puwhchjbxu"
 anchor_mode = 0
 
 [node name="LevelUILayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="MarginContainer" type="MarginContainer" parent="LevelUILayer"]
 anchors_preset = 15
@@ -47,77 +47,29 @@ theme_override_constants/margin_bottom = 20
 [node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="LevelUILayer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-mouse_filter = 1
-
-[node name="LevelDescription" type="RichTextLabel" parent="LevelUILayer/MarginContainer/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.06
-anchor_right = 1.0
-offset_left = 0.279999
-offset_top = -11.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 8
-mouse_filter = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0.309804, 1)
-theme_override_constants/outline_size = 10
-text = "Descrição do nível
-"
-fit_content = true
-
-[node name="Control2" type="Control" parent="LevelUILayer/MarginContainer"]
+[node name="Top" type="HBoxContainer" parent="LevelUILayer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-mouse_filter = 1
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="LevelTitle" type="RichTextLabel" parent="LevelUILayer/MarginContainer/Control2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.06
-anchor_right = 1.0
-offset_left = 0.279999
-offset_top = -11.0
-offset_bottom = 12.0
-size_flags_vertical = 8
-mouse_filter = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0.309804, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/normal_font_size = 30
-text = "Titulo do nível
-"
-fit_content = true
-
-[node name="RunButton" type="Button" parent="LevelUILayer/MarginContainer/Control2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-size_flags_horizontal = 6
+[node name="RunButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "run"
 icon = SubResource("PlaceholderTexture2D_kqmoh")
 icon_alignment = 1
 
-[node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/Control2"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_bottom = 31.0
-grow_horizontal = 0
-size_flags_horizontal = 10
+[node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "reset"
 
-[connection signal="pressed" from="LevelUILayer/MarginContainer/Control2/RunButton" to="LevelExecutor" method="start_execution"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/Control2/ResetButton" to="LevelExecutor" method="reset_level"]
+[node name="LevelInfo" parent="LevelUILayer/MarginContainer" instance=ExtResource("5_ry6pb")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="start_execution"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/ResetButton" to="LevelExecutor" method="reset_level"]
