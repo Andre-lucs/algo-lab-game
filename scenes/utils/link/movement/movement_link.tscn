@@ -41,6 +41,6 @@ activatable = NodePath("../Activatable")
 
 [connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
-[connection signal="updated_path" from="." to="." method="_on_updated_path"]
+[connection signal="updated_path" from="." to="." method="_update_polygon"]
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="activated" from="Activatable" to="." method="activate"]
