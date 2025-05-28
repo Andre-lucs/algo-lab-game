@@ -9,6 +9,7 @@ signal number_received(number : Number)
 signal number_sent(number : Number)
 signal parent_moved()
 signal requesting_move()
+signal requesting_copy()
 signal new_input_path(path : MovementLink)
 signal new_output_path(path : MovementLink)
 
@@ -44,11 +45,14 @@ func send(number : Number):
 func update() -> void:
 	parent_moved.emit()
 
-func request_send() -> void:
+func request_send(copy := false) -> void:
 	if output_paths.is_empty():
 		return
 	if sends:
-		requesting_move.emit()
+		if copy:
+			requesting_copy.emit()
+		else:
+			requesting_move.emit()
 	
 func connect_path(path:MovementLink):
 	if path.origin_node == self: # C ->
