@@ -3,13 +3,12 @@ class_name MovementLink
 
 @export var origin_node : NumberMovement
 @export var destination_node : NumberMovement
-## Speed of the number moving along the path in **px/s**
-@export var speed : float = 150.0
+@export var move_duration : float = 1.0 # Duration of the move in seconds
 
 @onready var activatable : Activatable = $Activatable
 @onready var polygon_colision : CollisionPolygon2D = $ConnectionArea/CollisionPolygon2D
 
-var items : Array[PathFollow2D] = []
+var path_followers : Array[PathFollow2D] = []
 var _origin_parent : Node2D
 var _destination_parent : Node2D
 
@@ -30,7 +29,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 		super(delta)
-		if items.size() : _animate_moving_numbers(delta)
+		if path_followers.size() : _animate_moving_numbers(delta)
 
 func move_number(number : Number):
 	if number == null:
@@ -43,22 +42,22 @@ func move_number(number : Number):
 	else:
 		path_follow.add_child(number)
 	number.position = Vector2.ZERO
-	items.append(path_follow)
+	path_followers.append(path_follow)
 	start_moving.emit(number)
 	print("Moving number: ", number.value)
 
 func _animate_moving_numbers(delta : float):
-	for item in items:
-		item.progress += delta * speed
+	for item in path_followers:
+		item.progress_ratio += delta / move_duration
 		if item.progress_ratio >= 1:
 			# Remove the item from the array if it has reached the end
-			items.erase(item)
 			_on_reach_path_end(item)
 	
 func _on_reach_path_end(path_follow : PathFollow2D):
 	if path_follow.get_child_count() == 0:
 		printerr("No child found in PathFollow2D")
 		return
+	path_followers.erase(path_follow)
 	var child = path_follow.get_children().front()
 	if child == null:
 		printerr("No child found in PathFollow2D")

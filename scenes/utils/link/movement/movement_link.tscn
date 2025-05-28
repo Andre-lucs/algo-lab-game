@@ -10,7 +10,7 @@ points = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
 
 [node name="MovementLink" instance=ExtResource("1_h4gtw")]
 script = ExtResource("1_krvj1")
-speed = 150.0
+move_duration = 1.0
 
 [node name="Start" parent="." index="1"]
 collision_mask = 4
