@@ -57,13 +57,15 @@ func _on_reach_path_end(path_follow : PathFollow2D):
 	if path_follow.get_child_count() == 0:
 		printerr("No child found in PathFollow2D")
 		return
-	path_followers.erase(path_follow)
 	var child = path_follow.get_children().front()
 	if child == null:
 		printerr("No child found in PathFollow2D")
 		return
 	var number = child as Number
-	destination_node.receive(number)
+	var sucessfuly_moved = destination_node.receive(number)
+	if not sucessfuly_moved:
+		return
+	path_followers.erase(path_follow)
 	path_follow.queue_free()
 	# Emit a signal or call a function to indicate the number has reached its destination_node
 	end_moving.emit(number)

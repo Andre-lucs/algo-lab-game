@@ -14,8 +14,12 @@ signal new_output_path(path : MovementLink)
 
 var input_paths : Array[MovementLink] = []
 var output_paths : Array[MovementLink] = []
+var input_locked : bool = false
+var output_locked : bool = false
 
 func receive(number : Number):
+	if input_locked:
+		return false
 	if !receives or number == null:
 		return false
 	if number.is_inside_tree():
@@ -29,6 +33,8 @@ func receive(number : Number):
 	return false
 
 func send(number : Number):
+	if output_locked:
+		return false
 	if sends and number:
 		number_sent.emit(number)
 		return true
