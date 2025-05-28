@@ -9,13 +9,18 @@ signal number_received(number : Number)
 signal number_sent(number : Number)
 signal parent_moved()
 signal requesting_move()
+signal requesting_copy()
 signal new_input_path(path : MovementLink)
 signal new_output_path(path : MovementLink)
 
 var input_paths : Array[MovementLink] = []
 var output_paths : Array[MovementLink] = []
+var input_locked : bool = false
+var output_locked : bool = false
 
 func receive(number : Number):
+	if input_locked:
+		return false
 	if !receives or number == null:
 		return false
 	if number.is_inside_tree():
@@ -29,6 +34,8 @@ func receive(number : Number):
 	return false
 
 func send(number : Number):
+	if output_locked:
+		return false
 	if sends and number:
 		number_sent.emit(number)
 		return true
@@ -38,11 +45,14 @@ func send(number : Number):
 func update() -> void:
 	parent_moved.emit()
 
-func request_send() -> void:
+func request_send(copy := false) -> void:
 	if output_paths.is_empty():
 		return
 	if sends:
-		requesting_move.emit()
+		if copy:
+			requesting_copy.emit()
+		else:
+			requesting_move.emit()
 	
 func connect_path(path:MovementLink):
 	if path.origin_node == self: # C ->

@@ -23,17 +23,16 @@ var number_2 : Number
 var menu_option_index : int = 1
 
 func _on_number_1_received(number: Number) -> void:
-	if number_1:
-		number_1.queue_free()
 	number_1 = number
+	# setting this will prevent the number from being overridden by the next number received
+	number_1_conn.number_movement.input_locked = true
 	_setup_number_position(number_1, number_1_conn)
 	if number_2:
 		ready_for_result.emit()
 
 func _on_number_2_received(number: Number) -> void:
-	if number_2:
-		number_2.queue_free()
 	number_2 = number
+	number_2_conn.number_movement.input_locked = false
 	_setup_number_position(number_2, number_2_conn)
 	if number_1:
 		ready_for_result.emit()
@@ -64,6 +63,9 @@ func activate() -> void:
 	number_2.queue_free()
 	number_1 = null
 	number_2 = null
+	#makes it able to receive new numbers
+	number_1_conn.number_movement.input_locked = false
+	number_2_conn.number_movement.input_locked = false
 
 func _get_result_number() -> Number:
 	if number_1 == null or number_2 == null:

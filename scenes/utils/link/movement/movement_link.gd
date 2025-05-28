@@ -1,17 +1,19 @@
 extends Link
 class_name MovementLink
 
+const SIZE_PER_NODE : float = 32.0 # Size of each node in the path
+
 @export var origin_node : NumberMovement
 @export var destination_node : NumberMovement
-## Speed of the number moving along the path in **px/s**
-@export var speed : float = 150.0
+@export var move_duration : float = 1.0 # Duration of the move in seconds
 
 @onready var activatable : Activatable = $Activatable
 @onready var polygon_colision : CollisionPolygon2D = $ConnectionArea/CollisionPolygon2D
 
-var items : Array[PathFollow2D] = []
+var path_followers : Array[PathFollow2D] = []
 var _origin_parent : Node2D
 var _destination_parent : Node2D
+var _is_deliver_blocked := false
 
 signal start_moving(number : Number)
 signal end_moving(number : Number)
@@ -30,7 +32,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 		super(delta)
-		if items.size() : _animate_moving_numbers(delta)
+		if path_followers.size() : _animate_moving_numbers(delta)
 
 func move_number(number : Number):
 	if number == null:
@@ -43,31 +45,53 @@ func move_number(number : Number):
 	else:
 		path_follow.add_child(number)
 	number.position = Vector2.ZERO
-	items.append(path_follow)
+	path_followers.append(path_follow)
 	start_moving.emit(number)
 	print("Moving number: ", number.value)
-
+ 
+ ## Animate the numbers along the path. ---
+ ## This function updates the position of each number along the path based on their progress ratio. ---
+ ## If a number reaches the end of the path, it will try to deliver it to the destination node. ---
+ ## If the delivery is blocked, it will stop the movement of that number.
 func _animate_moving_numbers(delta : float):
-	for item in items:
-		item.progress += delta * speed
-		if item.progress_ratio >= 1:
-			# Remove the item from the array if it has reached the end
-			items.erase(item)
-			_on_reach_path_end(item)
+	var path_length := path.curve.get_baked_length()
+	var progress_limit 
+	var i = 0
+	while i < path_followers.size():
+		var item = path_followers[i]
+		progress_limit = path_length - i * SIZE_PER_NODE
+		if _is_deliver_blocked:
+			progress_limit -= SIZE_PER_NODE
+		item.progress_ratio = min(item.progress_ratio + delta / move_duration, 1.0)
+		item.progress = min(item.progress, progress_limit)
+		
+		# If this follower is at the end, try to deliver
+		if item.progress_ratio >= 1.0:
+			var delivered = _on_reach_path_end(item)
+			if delivered:
+				_is_deliver_blocked = false
+			else:
+				_is_deliver_blocked = true
+				var retry_timer = get_tree().create_timer(move_duration/2)
+				retry_timer.timeout.connect(func():_is_deliver_blocked = false)
+		i+=1
 	
-func _on_reach_path_end(path_follow : PathFollow2D):
+func _on_reach_path_end(path_follow : PathFollow2D) -> bool:
 	if path_follow.get_child_count() == 0:
 		printerr("No child found in PathFollow2D")
-		return
+		return false
 	var child = path_follow.get_children().front()
 	if child == null:
 		printerr("No child found in PathFollow2D")
-		return
+		return false
 	var number = child as Number
-	destination_node.receive(number)
+	var successfully_moved = destination_node.receive(number)
+	if not successfully_moved:
+		return false
+	path_followers.erase(path_follow)
 	path_follow.queue_free()
-	# Emit a signal or call a function to indicate the number has reached its destination_node
 	end_moving.emit(number)
+	return true
 
 func _update_polygon():
 	# Update the collision polygon to match the path
@@ -84,10 +108,7 @@ func delete() -> void:
 	_disconnect_destination_node()
 	queue_free()
 
-
-func _on_updated_path() -> void:
-	_update_polygon()
-
+#region Connections
 func _on_start_connection_changed(new_origin: ConnectionArea) -> void:
 	if new_origin == null:
 			_disconnect_origin_node()
@@ -145,3 +166,4 @@ func _disconnect_destination_node() -> void:
 					destination_node.input_paths.erase(self)
 			destination_node = null
 			_destination_parent = null
+#endregion
