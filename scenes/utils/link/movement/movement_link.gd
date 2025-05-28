@@ -85,8 +85,8 @@ func _on_reach_path_end(path_follow : PathFollow2D) -> bool:
 		printerr("No child found in PathFollow2D")
 		return false
 	var number = child as Number
-	var sucessfuly_moved = destination_node.receive(number)
-	if not sucessfuly_moved:
+	var successfully_moved = destination_node.receive(number)
+	if not successfully_moved:
 		return false
 	path_followers.erase(path_follow)
 	path_follow.queue_free()
