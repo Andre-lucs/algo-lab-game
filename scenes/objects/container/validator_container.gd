@@ -48,3 +48,8 @@ func _on_number_received(_number: int, correct: bool, finished: bool):
 		state_machine.travel("correct_number")
 	else:
 		state_machine.travel("wrong_number")
+
+func _on_reset_requested() -> void:
+	super()
+	stored_wrong_number = false
+	received_numbers.clear()

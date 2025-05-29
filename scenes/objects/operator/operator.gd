@@ -119,3 +119,15 @@ func delete() -> void:
 	if number_2:
 		number_2.queue_free()
 	queue_free()
+
+
+func _on_reset_requested() -> void:
+	if number_1:
+		number_1.queue_free()
+	if number_2:
+		number_2.queue_free()
+	number_1 = null
+	number_2 = null
+	number_1_conn.number_movement.set_deferred("input_locked",false)
+	number_2_conn.number_movement.set_deferred("input_locked",false)
+	_update_sign_label()

@@ -35,24 +35,11 @@ static func get_validator_container() -> ValidatorContainer:
 func _ready():
 	if stored_numbers.is_empty() and !default_numbers.is_empty():
 		_store_default_numbers()
-	
-	# # Set up the options
-	# var ptexture := PlaceholderTexture2D.new()
-	# ptexture.size = Vector2(32, 32)
-	# menu.items = [
-	# 	ObjectPopupMenuItem.new(
-	# 		ptexture,
-	# 		"Toggle Single Number Container",
-	# 		_toggle_single_number_container
-	# 	),
-	# 	
-	# ]
 
 func _process(_delta: float) -> void:
 	if grab.is_being_dragged():
 		number_movement.update()
 	if _needs_arrange:
-		_needs_arrange = false
 		_arrange_numbers()
 
 # Number Management ----
@@ -86,6 +73,12 @@ func _store_default_numbers():
 		default_numbers_insntances.append(Number.get_number(n))
 	store_multiple_numbers(default_numbers_insntances)	
 
+func update_default_numbers_to_current():
+	var new_numbers : Array[int] = []
+	for number in stored_numbers:
+		new_numbers.append(number.get_value())
+	default_numbers = new_numbers
+
 ## Gets the last number stored in the container and removes it from the list.
 func get_last_number() -> Number:
 	if stored_numbers.size() > 0:
@@ -106,13 +99,21 @@ func _clear_all_numbers():
 
 ## Posiciona visualmente os números dentro do container.
 func _arrange_numbers():
+	# Make a copy of the array to avoid issues if stored_numbers is modified during iteration
+	var numbers_snapshot := stored_numbers.duplicate()
+
 	# Calculate the total width of the numbers
 	var total_width = (stored_numbers.size() * number_spacing)
 	var half_width = total_width / 2.0
 
 	# Arrange the numbers
-	for i in range(stored_numbers.size()):
-			var num : Number = stored_numbers[i]
+	for i in range(numbers_snapshot.size()):
+			var num : Number = numbers_snapshot[i]
+			# Check if the number is still in stored_numbers and valid
+			if not stored_numbers.has(num):
+				continue
+			if not is_instance_valid(num):
+				continue
 			if not num.is_inside_tree():
 					numbers.add_child(num)
 			elif num.get_parent() != numbers:
@@ -122,6 +123,7 @@ func _arrange_numbers():
 
 	# Adjust the walls and other elements to stay centered
 	animate_resizing(total_width + 24)
+	_needs_arrange = false
 
 var resize_tween : Tween
 ## Anima o redimensionamento visual do container com base na largura.
@@ -164,3 +166,11 @@ func _toggle_single_number_container():
 		var number := (stored_numbers.front() as Number).duplicate()
 		_clear_all_numbers()
 		store_number(number, true)
+
+func _on_reset_requested() -> void:
+	_needs_arrange = false
+	for num in stored_numbers:
+		if num.is_inside_tree():
+			num.queue_free()
+	stored_numbers.clear()
+	_store_default_numbers()

@@ -32,8 +32,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 		super(delta)
+		if activatable.is_paused:
+			return
 		if path_followers.size() : _animate_moving_numbers(delta)
-
+#region numbermovement
 func move_number(number : Number):
 	if number == null:
 		return
@@ -54,6 +56,8 @@ func move_number(number : Number):
  ## If a number reaches the end of the path, it will try to deliver it to the destination node. ---
  ## If the delivery is blocked, it will stop the movement of that number.
 func _animate_moving_numbers(delta : float):
+	if path_followers.is_empty():
+		return
 	var path_length := path.curve.get_baked_length()
 	var progress_limit 
 	var i = 0
@@ -92,7 +96,7 @@ func _on_reach_path_end(path_follow : PathFollow2D) -> bool:
 	path_follow.queue_free()
 	end_moving.emit(number)
 	return true
-
+#endregion
 func _update_polygon():
 	# Update the collision polygon to match the path
 	var polygon = bake_polygon()
@@ -167,3 +171,11 @@ func _disconnect_destination_node() -> void:
 			destination_node = null
 			_destination_parent = null
 #endregion
+
+
+func _on_reset_requested() -> void:
+	# Reset the path followers and remove them from the scene
+	for follower in path_followers:
+		follower.queue_free()
+	path_followers.clear()
+	_is_deliver_blocked = false

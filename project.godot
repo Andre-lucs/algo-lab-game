@@ -36,9 +36,8 @@ folder_colors={
 [global_group]
 
 connections=""
-snappable=""
-resetabble=""
 activation="Nodes responsile to manage the objects activation, being them automatic or manual."
+resettable="Nodes that notify the parent to reset or reset itself"
 
 [gui]
 

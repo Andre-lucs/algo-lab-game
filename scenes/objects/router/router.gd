@@ -51,3 +51,13 @@ func _number_scale_animation(number: Number) -> void:
 	var anim = create_tween()
 	anim.tween_property(number, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	anim.play()
+
+
+func _on_reset_requested() -> void:
+	for number in number_queue:
+		if number.is_inside_tree():
+			number.queue_free()
+	number_queue.clear()
+	next_path = 0
+	_update_arrow(0)
+	
