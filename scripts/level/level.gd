@@ -66,9 +66,6 @@ func on_number_received(number: int, correct: bool, finished: bool) -> void:
 		return  # Evita processamento se a execução já foi encerrada
 	
 	if not correct:
-		print("Incorrect number received: ", number)
-		level_executor.finish_execution(false)
-		get_tree().set_deferred("paused", true)
 		level_failed.emit()
 		return
 	
@@ -79,7 +76,14 @@ func on_number_received(number: int, correct: bool, finished: bool) -> void:
 		validators_finished += 1
 	
 	if validators_finished == level_props.outputs.size():
-		print("Level completed!")
 		level_completed.emit()
-		level_executor.finish_execution(true)
-		get_tree().set_deferred("paused", true)
+
+func _on_level_failed() -> void:
+	print("Level failed!")
+	level_executor.finish_execution(false)
+	validators_finished = 0
+
+func _on_level_completed() -> void:
+	print("Level completed!")
+	level_executor.finish_execution(true)
+	$AnimationPlayer.play("level_complete")

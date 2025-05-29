@@ -7,7 +7,7 @@
 script = ExtResource("1_haypd")
 level_name = "Como usar o caminho"
 level_description = "Selecione o PATH na barra e clique nos containers para mandar o numero. \\n Após isso presione o botão de PLAY."
-inputs = Array[PackedInt32Array]([PackedInt32Array(2)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(2)])
+inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 3)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 3)])
 custom_layout = ExtResource("1_cuo2t")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
