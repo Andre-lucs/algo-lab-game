@@ -22,7 +22,7 @@ func _ready() -> void:
 	_connect_destination(destination_connection)
 
 func activate() -> void:
-	if destination:
+	if destination and not destination.is_paused:
 		destination.activate()
 		activated_destination.emit(destination)
 
