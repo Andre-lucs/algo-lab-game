@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://dri5jdx2psmae"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_kvlvk"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_soc8o"]
+[ext_resource type="PackedScene" uid="uid://cb3am21qtapjp" path="res://levels/layouts/base_layout.tscn" id="3_dchmn"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="4_r7ux1"]
+[ext_resource type="Resource" uid="uid://c7qvwcx1cbw1x" path="res://levels/level_data/level_3.tres" id="4_soc8o"]
+
+[resource]
+script = ExtResource("4_r7ux1")
+level_name = "Ordem Importa"
+level_description = "Receba dois números e envie o correto.
+Qual deles vai para a saída?
+
+Obs: o segundo."
+inputs = Array[PackedInt32Array]([PackedInt32Array(3), PackedInt32Array(7)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(7)])
+custom_layout = ExtResource("3_dchmn")
+next_level = ExtResource("4_soc8o")
+available_objects = Array[ExtResource("1_kvlvk")]([ExtResource("2_soc8o")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

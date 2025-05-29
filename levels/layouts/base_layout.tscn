@@ -7,4 +7,7 @@
 level_props = null
 
 [node name="InputContainer" parent="." index="3" instance=ExtResource("2_noerf")]
-position = Vector2(136, 160)
+position = Vector2(136, 331)
+
+[node name="InputContainer2" parent="." index="4" instance=ExtResource("2_noerf")]
+position = Vector2(136, 416)

@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=3 format=3 uid="uid://b4jgjwwfe56ep"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://b4jgjwwfe56ep"]
 
-[ext_resource type="PackedScene" uid="uid://cb3am21qtapjp" path="res://levels/layouts/base_layout.tscn" id="1_cuo2t"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_3macx"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="1_haypd"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_p8hvt"]
+[ext_resource type="PackedScene" uid="uid://cdmog860fbcv8" path="res://levels/layouts/number_movement_example.tscn" id="3_p8hvt"]
+[ext_resource type="Resource" uid="uid://dri5jdx2psmae" path="res://levels/level_data/level_2.tres" id="4_p8hvt"]
 
 [resource]
 script = ExtResource("1_haypd")
-level_name = "Como usar o caminho"
-level_description = "Selecione o PATH na barra e clique nos containers para mandar o numero. \\n Após isso presione o botão de PLAY."
-inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 3)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 3)])
-custom_layout = ExtResource("1_cuo2t")
+level_name = "Primeira Transferência"
+level_description = "Bem-vindo ao Algolab! Neste laboratório, números são suas ferramentas.
+Sua primeira missão: leve o número até a saída."
+inputs = Array[PackedInt32Array]([PackedInt32Array(3)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3)])
+custom_layout = ExtResource("3_p8hvt")
+next_level = ExtResource("4_p8hvt")
+available_objects = Array[ExtResource("1_3macx")]([ExtResource("2_p8hvt")])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
