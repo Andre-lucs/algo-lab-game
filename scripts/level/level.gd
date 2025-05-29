@@ -6,6 +6,7 @@ signal level_failed
 
 @onready var level_executor : LevelExecutor = $LevelExecutor
 @onready var level_info : LevelInfo = %LevelInfo
+@onready var toolbox: ObjectToolBox = %Toolbox
 
 @export var level_props : LevelPropsResource = null
 var validators_finished : int = 0
@@ -16,6 +17,9 @@ func _ready() -> void:
 		return
 
 	level_info.level_props = level_props
+	if level_props.available_objects:
+		print("setting custom avaliable objects to: ", level_props.available_objects)
+		toolbox.items = level_props.available_objects
 
 	spawn_inputs()
 	spawn_validators()
@@ -25,17 +29,19 @@ func spawn_inputs() -> void:
 	var y_input_position = get_viewport_rect().size.y / (level_props.inputs.size()+1)
 	var i = 1
 	for idx in range(used_count, level_props.inputs.size()): #creates new containers for the rest of the inputs if needded
-		var input = level_props.inputs[idx]
+		var input := level_props.inputs[idx]
 		var container := NumberContainer.get_input_container()
 		# var number := Number.get_number(input[0]) # depois atualizar para containers com multiplos numeros
-		container.default_number = input[0]
+		container.default_numbers = []
+		for n in input:
+			container.default_numbers.append(n)
 		# container.call_deferred("store_number", number)
 		container.position = Vector2(100, y_input_position * i)
 		i += 1
 		add_child(container)
 
 func use_existing_input_containers() -> int:
-	var existent_inputs : Array = get_tree().get_nodes_in_group("input_containers").filter(func(node): return node is NumberContainer)
+	var existent_inputs : Array = get_children().filter(func(node): return node is InputContainer)
 	var used_count = 0
 	for con in existent_inputs:
 		var container : NumberContainer = con
@@ -87,3 +93,10 @@ func _on_level_completed() -> void:
 	print("Level completed!")
 	level_executor.finish_execution(true)
 	$AnimationPlayer.play("level_complete")
+
+
+func _go_to_next_level() -> void:
+	if not level_props.next_level:
+		get_tree().change_scene_to_file("res://scenes/ui/screens/start_menu.tscn")
+		return
+	LevelManager.load_level(level_props.next_level)

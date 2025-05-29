@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=16 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_l63b4"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
 [ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="5_4dl3q"]
@@ -15,64 +16,13 @@ level_name = "Nivelzao"
 level_description = "mande o numero para o container de validação"
 inputs = Array[PackedInt32Array]([PackedInt32Array(6), PackedInt32Array(4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(4)])
+available_objects = Array[ExtResource("2_l63b4")]([])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 
 [sub_resource type="LabelSettings" id="LabelSettings_l63b4"]
 font_size = 64
 outline_size = 10
 outline_color = Color(0.101961, 0.101961, 0.101961, 1)
-
-[sub_resource type="Animation" id="Animation_4dl3q"]
-resource_name = "UI_moving_in"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_left")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [-150, 20]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_top")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [-150, 20]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_right")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [-150, 20]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_bottom")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [170, 20]
-}
 
 [sub_resource type="Animation" id="Animation_iiwgg"]
 length = 0.001
@@ -173,6 +123,58 @@ tracks/7/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_4dl3q"]
+resource_name = "UI_moving_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [170, 20]
+}
+
 [sub_resource type="Animation" id="Animation_l63b4"]
 resource_name = "level_complete"
 length = 0.3
@@ -259,6 +261,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Top" type="HBoxContainer" parent="LevelUILayer/MarginContainer"]
@@ -342,3 +345,4 @@ libraries = {
 [connection signal="level_failed" from="." to="." method="_on_level_failed"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="start_execution"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/ResetButton" to="LevelExecutor" method="reset_level"]
+[connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
