@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://k72qkss8srnd"]
+
+[ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
+[ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="2_regqu"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="3_f8v14"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_mr1dq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_regqu"]
+line_spacing = 0.0
+font_size = 32
+outline_size = 8
+outline_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_auqp5"]
+radius = 32.0
+
+[node name="LevelInput" type="Node2D"]
+script = ExtResource("1_regqu")
+numbers = Array[float]([2.0, 5.0])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hga22")
+
+[node name="NextNumber" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -18.5
+offset_right = 20.0
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_regqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resettable" type="Node" parent="."]
+script = ExtResource("2_regqu")
+metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
+[node name="NumberMovement" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("3_f8v14")
+root = NodePath("..")
+receives = false
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
+[node name="ConnectionArea" parent="." node_paths=PackedStringArray("number_movement") instance=ExtResource("4_mr1dq")]
+receives = false
+number_movement = NodePath("../NumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_auqp5")
+
+[connection signal="reset_requested" from="Resettable" to="." method="reset"]
+[connection signal="requesting_copy" from="NumberMovement" to="." method="move_number" binds= [true]]
+[connection signal="requesting_move" from="NumberMovement" to="." method="move_number"]
