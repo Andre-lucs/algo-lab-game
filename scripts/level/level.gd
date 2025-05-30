@@ -7,6 +7,8 @@ signal level_failed
 @onready var level_executor : LevelExecutor = $LevelExecutor
 @onready var level_info : LevelInfo = %LevelInfo
 @onready var toolbox: ObjectToolBox = %Toolbox
+@onready var level_limits : ReferenceRect = $LevelLimits
+@onready var camera : ControllableCamera2D = $ControllableCamera2D
 
 @export var level_props : LevelPropsResource = null
 @export var level_input_nodes : Array[LevelInput] = []
@@ -26,6 +28,11 @@ func _ready() -> void:
 	if level_input_nodes.size() == 0 or level_output_nodes.size() == 0:
 		print("No input or output nodes set for the level.")
 		return
+
+	camera.limit_left = level_limits.position.x
+	camera.limit_top = level_limits.position.y
+	camera.limit_right = level_limits.position.x + level_limits.size.x
+	camera.limit_bottom = level_limits.position.y + level_limits.size.y
 	
 	init_inputs()
 	init_validators()
