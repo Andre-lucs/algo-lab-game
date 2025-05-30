@@ -2,7 +2,6 @@ extends Node2D
 class_name NumberContainer
 
 static var container_scene : PackedScene = preload("res://scenes/objects/container/container.tscn")
-static var input_container_scene : PackedScene = preload("res://scenes/objects/container/input_container.tscn")
 
 @export var default_numbers: Array[int] = []
 @export var number_spacing: int = 40 # Spacing between numbers
@@ -22,14 +21,6 @@ var _needs_arrange : bool = false
 
 static func get_instance() -> NumberContainer:
 	var container = container_scene.instantiate()
-	return container
-
-static func get_input_container() -> NumberContainer:
-	var container = input_container_scene.instantiate()
-	return container
-
-static func get_validator_container() -> ValidatorContainer:
-	var container = ValidatorContainer.get_instance()
 	return container
 
 func _ready():

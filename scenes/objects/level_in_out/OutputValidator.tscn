@@ -24,6 +24,7 @@ hframes = 3
 frame = 2
 
 [node name="RequestedNumber" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.556863)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -9,7 +9,10 @@ enum State {
 signal received_wrong_number(number: float)
 signal received_correct_number(number: float, finished: bool)
 
-@export var expected_numbers: Array[float] = []
+@export var expected_numbers: Array[float] = []:
+	set(value):
+		expected_numbers = value.duplicate()
+		reset()
 
 @onready var number_display : Label = $RequestedNumber
 @onready var sprite : Sprite2D = $Sprite2D
@@ -39,6 +42,7 @@ func check_number(number:Number) -> void:
 	else:
 		received_wrong_number.emit(value)
 		state = State.WRONG_NUMBER
+	number.queue_free()
 
 func reset() -> void:
 	next_number_index = 0
@@ -52,9 +56,5 @@ func _update_display() -> void:
 		number_display.text = ""
 		number_display.modulate = Color.TRANSPARENT
 		return
-	number_display.modulate = Color.WHITE
 	number_display.scale = Vector2(0.2, 0.2)
-	var anim = number_display.create_tween().set_parallel(true)
-	anim.tween_property(number_display, "modulate", Color.WHITE, 0.2).set_ease(Tween.EASE_IN_OUT)
-	anim.tween_property(number_display, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)
-	anim.play()
+	number_display.create_tween().tween_property(number_display, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)

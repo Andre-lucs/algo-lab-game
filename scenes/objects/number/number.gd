@@ -8,7 +8,7 @@ static var number_scene : PackedScene = preload("res://scenes/objects/number/num
 func _ready():
 	update_label()
 
-func get_value():
+func get_value() -> int:
 	return value
 
 func set_value(new_value: int):
