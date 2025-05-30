@@ -179,3 +179,15 @@ func _on_reset_requested() -> void:
 		follower.queue_free()
 	path_followers.clear()
 	_is_deliver_blocked = false
+
+func _update_end():
+	super()
+	if points.size() == 0: return 
+	if destination_connection == null: return
+
+	var last_point = points[points.size()-1]
+	var penultimate_point = points[points.size()-2]
+
+	var new_last_point = last_point.move_toward(penultimate_point, SIZE_PER_NODE)
+	points[points.size()-1] = new_last_point
+	end.position = new_last_point
