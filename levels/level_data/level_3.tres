@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_cwxbm"]
 [ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_4f3al"]
-[ext_resource type="PackedScene" uid="uid://cb3am21qtapjp" path="res://levels/layouts/base_layout.tscn" id="3_8naig"]
+[ext_resource type="PackedScene" uid="uid://ch3krk7ps3ljj" path="res://levels/layouts/2-2.tscn" id="3_cwxbm"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="4_rd1un"]
 
 [resource]
@@ -12,6 +12,6 @@ level_description = "Você precisa entregar dois números diferentes para dois d
 Escolha e organize os caminhos corretamente."
 inputs = Array[PackedInt32Array]([PackedInt32Array(3), PackedInt32Array(7)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(3), PackedInt32Array(7)])
-custom_layout = ExtResource("3_8naig")
+custom_layout = ExtResource("3_cwxbm")
 available_objects = Array[ExtResource("1_cwxbm")]([ExtResource("2_4f3al")])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
