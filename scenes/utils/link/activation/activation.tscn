@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm2dffmkn1e7t"]
+[gd_scene load_steps=3 format=3 uid="uid://dm2dffmkn1e7t"]
 
 [ext_resource type="Script" uid="uid://cx6rmmgs3l1du" path="res://scenes/utils/link/activation/activatable.gd" id="1_e8yyc"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="2_el068"]
 
 [node name="Activation" type="Node" groups=["activation"]]
 script = ExtResource("1_e8yyc")
@@ -9,4 +10,9 @@ script = ExtResource("1_e8yyc")
 wait_time = 0.5
 one_shot = true
 
+[node name="Resettable" type="Node" parent="."]
+script = ExtResource("2_el068")
+metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
 [connection signal="timeout" from="ActivationTimer" to="." method="_on_activation_timer_timeout"]
+[connection signal="reset_requested" from="Resettable" to="." method="reset"]

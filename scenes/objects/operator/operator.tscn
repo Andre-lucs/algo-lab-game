@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://boiqm84g6cm77"]
+[gd_scene load_steps=20 format=3 uid="uid://boiqm84g6cm77"]
 
 [ext_resource type="Script" uid="uid://ctj5grkwiab3a" path="res://scenes/objects/operator/operator.gd" id="1_bqpnd"]
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_xs7on"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/UI/MenuIcons/Minus.png" id="8_uj48i"]
 [ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/UI/MenuIcons/Multi.png" id="9_8fhei"]
 [ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/UI/MenuIcons/Divide.png" id="10_e1413"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="12_rc6xw"]
 
 [sub_resource type="SystemFont" id="SystemFont_bqpnd"]
 font_names = PackedStringArray("Monospace")
@@ -102,6 +103,10 @@ root = NodePath("../..")
 receives = false
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
+[node name="Resettable" type="Node" parent="Traits"]
+script = ExtResource("12_rc6xw")
+metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
 [node name="MouseInteractionArea2D" type="Area2D" parent="."]
 collision_layer = 2147483648
 collision_mask = 0
@@ -155,3 +160,4 @@ shape = SubResource("CapsuleShape2D_ehaq0")
 [connection signal="number_received" from="Traits/Number1Movement" to="." method="_on_number_1_received"]
 [connection signal="number_received" from="Traits/Number2Movement" to="." method="_on_number_2_received"]
 [connection signal="requesting_move" from="Traits/ResultMovement" to="." method="activate"]
+[connection signal="reset_requested" from="Traits/Resettable" to="." method="_on_reset_requested"]

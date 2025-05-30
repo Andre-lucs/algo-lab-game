@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=14 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
 [ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="3_tifd7"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_tifd7"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_e3mdc"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="7_23n6n"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="7_lkqc4"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="8_0of0j"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
@@ -49,7 +50,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
 size = Vector2(64, 64)
 
-[node name="Container" type="Node2D" groups=["resetabble"]]
+[node name="Container" type="Node2D"]
 script = ExtResource("1_r3ic2")
 
 [node name="Walls" type="NinePatchRect" parent="."]
@@ -94,6 +95,10 @@ script = ExtResource("6_e3mdc")
 root = NodePath("..")
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
+[node name="Resettable" type="Node" parent="."]
+script = ExtResource("7_23n6n")
+metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
 [node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("7_lkqc4")]
 activatable = NodePath("../Activatable")
 number_movement = NodePath("../NumberMovement")
@@ -121,4 +126,5 @@ shape = SubResource("RectangleShape2D_l2343")
 [connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
 [connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
 [connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
+[connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
 [connection signal="requesting_highlight" from="ConnectionArea" to="." method="_on_connection_area_requesting_highlight"]

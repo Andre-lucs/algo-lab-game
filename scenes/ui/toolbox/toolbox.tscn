@@ -21,11 +21,8 @@ script = ExtResource("1_q0ytb")
 preview_scene = ExtResource("2_0ydux")
 items = Array[ExtResource("4_a0thc")]([ExtResource("4_kf8s1"), ExtResource("5_bh2xv"), ExtResource("6_x561o"), ExtResource("7_gaht0"), ExtResource("8_6b6ni")])
 
-[node name="Items" type="VBoxContainer" parent="."]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="BaseButton" type="Button" parent="Items"]
+[node name="BaseButton" type="Button" parent="."]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -37,3 +34,7 @@ keep_pressed_outside = true
 icon = ExtResource("5_oaibn")
 icon_alignment = 1
 expand_icon = true
+
+[node name="Items" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5

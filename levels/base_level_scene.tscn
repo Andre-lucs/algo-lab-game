@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=16 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_l63b4"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
 [ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="5_4dl3q"]
 [ext_resource type="PackedScene" uid="uid://fuef6ulivwf1" path="res://scenes/ui/level_info/level_info.tscn" id="5_ry6pb"]
 [ext_resource type="Texture2D" uid="uid://ckklouct3m8n6" path="res://assets/UI/MenuIcons/Reset.png" id="6_iiwgg"]
+[ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/MenuIcons/PointyArrow.png" id="8_iiwgg"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")
@@ -14,10 +16,225 @@ level_name = "Nivelzao"
 level_description = "mande o numero para o container de validação"
 inputs = Array[PackedInt32Array]([PackedInt32Array(6), PackedInt32Array(4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(4)])
+available_objects = Array[ExtResource("2_l63b4")]([])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 
+[sub_resource type="LabelSettings" id="LabelSettings_l63b4"]
+font_size = 64
+outline_size = 10
+outline_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[sub_resource type="Animation" id="Animation_iiwgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelCompleteLayer/Background:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.117, 0.117, 0.18, 0.756863)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LevelCompleteLayer/GridContainer:theme_override_constants/v_separation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LevelCompleteLayer/GridContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LevelCompleteLayer:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4dl3q"]
+resource_name = "UI_moving_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [-150, 20]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelUILayer/MarginContainer:theme_override_constants/margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [170, 20]
+}
+
+[sub_resource type="Animation" id="Animation_l63b4"]
+resource_name = "level_complete"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelCompleteLayer/Background:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.117, 0.117, 0.18, 0), Color(0.117, 0.117, 0.18, 0.756863)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelCompleteLayer/GridContainer:theme_override_constants/v_separation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [500, 20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelCompleteLayer/GridContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelCompleteLayer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l63b4"]
+_data = {
+&"RESET": SubResource("Animation_iiwgg"),
+&"UI_moving_in": SubResource("Animation_4dl3q"),
+&"level_complete": SubResource("Animation_l63b4")
+}
+
 [node name="level" type="Node2D"]
-process_mode = 1
 script = ExtResource("1_nns1f")
 level_props = SubResource("Resource_306te")
 
@@ -44,6 +261,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Top" type="HBoxContainer" parent="LevelUILayer/MarginContainer"]
@@ -70,5 +288,61 @@ icon = ExtResource("6_iiwgg")
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="MouseBlock" type="Control" parent="LevelCompleteLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+
+[node name="Background" type="ColorRect" parent="LevelCompleteLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117, 0.117, 0.18, 0.756863)
+
+[node name="GridContainer" type="GridContainer" parent="LevelCompleteLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -259.5
+offset_top = -66.5
+offset_right = 259.5
+offset_bottom = 66.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 20
+
+[node name="LevelCompleteLabel" type="Label" parent="LevelCompleteLayer/GridContainer"]
+layout_mode = 2
+text = "Nível Concluido"
+label_settings = SubResource("LabelSettings_l63b4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="LevelCompleteLayer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Próximo nível"
+icon = ExtResource("8_iiwgg")
+icon_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l63b4")
+}
+
+[connection signal="level_completed" from="." to="." method="_on_level_completed"]
+[connection signal="level_failed" from="." to="." method="_on_level_failed"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="start_execution"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/ResetButton" to="LevelExecutor" method="reset_level"]
+[connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdmog860fbcv8"]
+
+[ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_w3iit"]
+[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="2_0nor8"]
+[ext_resource type="PackedScene" uid="uid://durujj55wgqx3" path="res://scenes/utils/link/movement/movement_link.tscn" id="3_yxvtu"]
+[ext_resource type="PackedScene" uid="uid://k72qkss8srnd" path="res://scenes/objects/level_in_out/LevelInput.tscn" id="4_6a22w"]
+[ext_resource type="PackedScene" uid="uid://cvauq1jyuru82" path="res://scenes/objects/level_in_out/OutputValidator.tscn" id="5_absau"]
+
+[node name="NumberMovementExample" node_paths=PackedStringArray("level_input_nodes", "level_output_nodes") instance=ExtResource("1_w3iit")]
+level_input_nodes = [NodePath("LevelInput")]
+level_output_nodes = [NodePath("OutputValidator")]
+
+[node name="Container" parent="." index="5" instance=ExtResource("2_0nor8")]
+position = Vector2(352, 192)
+default_numbers = Array[int]([4])
+
+[node name="Container2" parent="." index="6" instance=ExtResource("2_0nor8")]
+position = Vector2(672, 192)
+
+[node name="MovementLink" parent="." index="7" node_paths=PackedStringArray("origin_connection", "destination_connection") instance=ExtResource("3_yxvtu")]
+position = Vector2(512, 192)
+origin_connection = NodePath("../Container/ConnectionArea")
+destination_connection = NodePath("../Container2/ConnectionArea")
+
+[node name="LevelInput" parent="." index="8" instance=ExtResource("4_6a22w")]
+position = Vector2(128, 352)
+
+[node name="OutputValidator" parent="." index="9" instance=ExtResource("5_absau")]
+position = Vector2(800, 352)
+
+[editable path="Container"]
+[editable path="Container2"]

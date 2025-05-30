@@ -11,6 +11,7 @@ enum AutoState {
 signal activated
 ## May be used to change the appearance of the object to sign that it is automatic or not
 signal changed_auto_state(state: AutoState)
+signal paused_activation
 
 @export var target : Node
 @export var trigger_signals : Array[String]
@@ -22,6 +23,7 @@ signal changed_auto_state(state: AutoState)
 
 
 var activation_queue : int = 0
+var is_paused : bool = false
 
 @onready var activation_timer : Timer = $ActivationTimer
 
@@ -35,6 +37,9 @@ func start_activation_if_auto() -> void:
 	activate()
 
 func activate(times : int = 1) -> void:
+	# Forces re activation if the timer is paused
+	if is_paused:
+		is_paused = false
 	activation_queue += times
 	print("queued activations: ", activation_queue)
 	if not activation_timer.is_stopped():
@@ -42,6 +47,9 @@ func activate(times : int = 1) -> void:
 	activation_timer.start()
 	
 func _send_activation() -> void:
+	# If is paused, don't send activation and don't consume the activation queue
+	if is_paused:
+		return
 	activated.emit()
 	print("Activated: ", get_parent().name)
 	activation_queue -= 1
@@ -50,6 +58,12 @@ func _send_activation() -> void:
 		return
 	activation_timer.start()
 	
+func pause_activation() -> void:
+	paused_activation.emit()
+	activation_timer.stop()
+	is_paused = true
+	print("Activation paused for: ", get_parent().name)
+
 func _on_activation_timer_timeout() -> void:
 	_send_activation()
 
@@ -66,3 +80,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if trigger_signals.size() == 0:
 		warnings.append("No trigger signals set")
 	return warnings
+
+func reset() -> void:
+	# Reset the activation state
+	activation_queue = 0
+	is_paused = false
+	activation_timer.stop()

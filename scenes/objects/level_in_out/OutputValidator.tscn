@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvauq1jyuru82"]
+
+[ext_resource type="Texture2D" uid="uid://dvrvvlrxraf8d" path="res://assets/Validator.png" id="1_0invr"]
+[ext_resource type="Script" uid="uid://b0eyo5ajw4v8f" path="res://scenes/objects/level_in_out/output_validator.gd" id="1_bf6jn"]
+[ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="2_md46i"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="3_bf6jn"]
+[ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_pkd8x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j7v7c"]
+line_spacing = 0.0
+font_size = 32
+outline_size = 8
+outline_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dm5f8"]
+radius = 32.0
+
+[node name="OutputValidator" type="Node2D"]
+script = ExtResource("1_bf6jn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0invr")
+hframes = 3
+frame = 2
+
+[node name="RequestedNumber" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.556863)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_j7v7c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NumberMovement" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("2_md46i")
+root = NodePath("..")
+sends = false
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
+
+[node name="Resettable" type="Node" parent="."]
+script = ExtResource("3_bf6jn")
+metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
+[node name="ConnectionArea" parent="." node_paths=PackedStringArray("number_movement") instance=ExtResource("4_pkd8x")]
+sends = false
+number_movement = NodePath("../NumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_dm5f8")
+
+[connection signal="number_received" from="NumberMovement" to="." method="check_number"]
+[connection signal="reset_requested" from="Resettable" to="." method="reset"]

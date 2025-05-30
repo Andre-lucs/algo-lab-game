@@ -26,36 +26,29 @@ func _ready() -> void:
 func start_execution():
 	if execution_in_progress:
 		return
+	reset_level()
 	execution_in_progress = true
 	emit_signal("execution_started")
 	activate_automatic_items()
 
 func activate_automatic_items():
-
-	var activatables = get_tree().get_nodes_in_group("activation").filter(func(a): return a is Activatable)
-
-	for activatable in activatables:
-		if activatable is Activatable:
-			activatable.start_activation_if_auto()
+	get_tree().call_group("activation", "start_activation_if_auto")
 
 func finish_execution(success: bool):
 	if not execution_in_progress:
 		return
 	execution_in_progress = false
+	get_tree().call_group("activation", "pause_activation")
 	print("level concluido" if success else "level falhou")
-	emit_signal("execution_finished", success)
 	execution_finished.emit(success)
 		
 
 func reset_level():
 	print("Resetando o nível...")
 	execution_in_progress = false
+	get_tree().call_group("activation", "pause_activation")
 	
 	# Resetar validadores
 	level.validators_finished = 0
 	
-	var resetabbles = get_tree().get_nodes_in_group("resetabble")
-
-	for resettable in resetabbles:
-		if resettable.has_method("reset"):
-			resettable.reset()  # se tiver lógica de animação ou estado interno
+	get_tree().call_group("resettable", "reset")  # Reseta todos os resettable

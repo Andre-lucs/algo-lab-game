@@ -2,9 +2,12 @@ extends Resource
 class_name LevelPropsResource
 
 @export var level_name: String
-@export var level_description: String
+@export_multiline var level_description: String
 
 @export var inputs : Array[PackedInt32Array] = []
 @export var outputs : Array[PackedInt32Array] = []
 
 @export var custom_layout: PackedScene
+
+@export var next_level : LevelPropsResource
+@export var available_objects: Array[ToolBoxItem]
