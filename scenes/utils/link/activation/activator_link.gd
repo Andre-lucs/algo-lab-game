@@ -22,7 +22,13 @@ func _ready() -> void:
 	_connect_destination(destination_connection)
 
 func activate() -> void:
-	if destination and not destination.is_paused:
+	if destination:
+		# If is automatic, toggle pause/resume state
+		if destination.auto == Activatable.AutoState.ON:
+			if destination.is_paused:
+				destination.resume_activation()
+			else:
+				destination.pause_activation()
 		destination.activate()
 		activated_destination.emit(destination)
 

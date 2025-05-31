@@ -38,7 +38,7 @@ func finish_execution(success: bool):
 	if not execution_in_progress:
 		return
 	execution_in_progress = false
-	get_tree().call_group("activation", "pause_activation")
+	get_tree().call_group("activation", "reset")
 	print("level concluido" if success else "level falhou")
 	execution_finished.emit(success)
 		

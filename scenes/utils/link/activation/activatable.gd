@@ -37,9 +37,9 @@ func start_activation_if_auto() -> void:
 	activate()
 
 func activate(times : int = 1) -> void:
-	# Forces re activation if the timer is paused
-	if is_paused:
-		is_paused = false
+	# # Forces re activation if the timer is paused
+	# if is_paused:
+	# 	is_paused = false
 	activation_queue += times
 	print("queued activations: ", activation_queue)
 	if not activation_timer.is_stopped():
@@ -50,11 +50,14 @@ func _send_activation() -> void:
 	# If is paused, don't send activation and don't consume the activation queue
 	if is_paused:
 		return
+	if activation_queue <= 0:
+		print("No activations in queue for: ", get_parent().name)
+		return
 	activated.emit()
 	print("Activated: ", get_parent().name)
-	activation_queue -= 1
+	activation_queue -= 1 if auto != AutoState.ON else 0 
 	# If there are more activations in the queue, start the timer again
-	if activation_queue == 0:
+	if activation_queue == 0 or is_paused:
 		return
 	activation_timer.start()
 	
@@ -63,6 +66,13 @@ func pause_activation() -> void:
 	activation_timer.stop()
 	is_paused = true
 	print("Activation paused for: ", get_parent().name)
+
+func resume_activation() -> void:
+	if not is_paused:
+		return
+	print("Resuming activation for: ", get_parent().name)
+	is_paused = false
+	_send_activation()
 
 func _on_activation_timer_timeout() -> void:
 	_send_activation()
