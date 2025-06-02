@@ -19,6 +19,7 @@ signal clicked_delete
 signal clicked_item(item: ObjectPopupMenuItem, idx: int)
 
 func _ready() -> void:
+	items = items.duplicate()
 	if show_auto_button:
 		var auto_button = preload("res://scenes/ui/popup_menu/auto_button_menu_item.tres").duplicate()
 		items.push_front(auto_button)

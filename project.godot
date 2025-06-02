@@ -27,7 +27,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Fantail-Interactive.top_down_camera/plugin.cfg")
+enabled=PackedStringArray()
 
 [file_customization]
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://dri5jdx2psmae"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_hm3oe"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_345hk"]
+[ext_resource type="PackedScene" uid="uid://hv8pv6chmu2w" path="res://levels/layouts/2-1.tscn" id="3_6a5dc"]
+[ext_resource type="Resource" uid="uid://c7qvwcx1cbw1x" path="res://levels/level_data/movement_levels/level_4.tres" id="4_55tnf"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="5_nyf11"]
+
+[resource]
+script = ExtResource("5_nyf11")
+level_name = "Escolhendo o Caminho"
+level_description = "Agora temos mais de uma entrada, mas só uma saída esperando um número específico.  
+Preste atenção no que o validador espera e envie o número certo para ele."
+inputs = Array[PackedInt32Array]([PackedInt32Array(5), PackedInt32Array(3)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3)])
+custom_layout = ExtResource("3_6a5dc")
+next_level = ExtResource("4_55tnf")
+available_objects = Array[ExtResource("1_hm3oe")]([ExtResource("2_345hk")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

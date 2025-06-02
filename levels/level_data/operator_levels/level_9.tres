@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=7 format=3 uid="uid://1cenwekpa0jo"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_iqqni"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_htcq2"]
+[ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="3_2g0lj"]
+[ext_resource type="Resource" uid="uid://dqfohj8in8ax" path="res://scenes/ui/toolbox/item_resources/Operator.tres" id="4_06lbi"]
+[ext_resource type="PackedScene" uid="uid://hv8pv6chmu2w" path="res://levels/layouts/2-1.tscn" id="5_ck6rt"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="6_8mdv8"]
+
+[resource]
+script = ExtResource("6_8mdv8")
+level_name = "Ordem Importa?"
+level_description = "Com a soma não importa se a ordem dos números.
+Agora com subtração é outra história.
+(Troque a operação feita pelo operador para subtração no menu dele.)"
+inputs = Array[PackedInt32Array]([PackedInt32Array(6, 2), PackedInt32Array(3, 7)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(-3, 5)])
+custom_layout = ExtResource("5_ck6rt")
+available_objects = Array[ExtResource("1_iqqni")]([ExtResource("2_htcq2"), ExtResource("3_2g0lj"), ExtResource("4_06lbi")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

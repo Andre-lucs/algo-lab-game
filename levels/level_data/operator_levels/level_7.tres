@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=7 format=3 uid="uid://bdqikqt7tyc6k"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_ecr4t"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_bgo36"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_q0yq7"]
+[ext_resource type="Resource" uid="uid://dqfohj8in8ax" path="res://scenes/ui/toolbox/item_resources/Operator.tres" id="4_s8lc5"]
+[ext_resource type="Resource" uid="uid://cqjx645skq6w1" path="res://levels/level_data/operator_levels/level_8.tres" id="5_bgo36"]
+[ext_resource type="PackedScene" uid="uid://hv8pv6chmu2w" path="res://levels/layouts/2-1.tscn" id="5_wydhi"]
+
+[resource]
+script = ExtResource("2_q0yq7")
+level_name = "Somando Soluções"
+level_description = "Hora de introduzir o Operador Matemático!  
+Combine dois números e envie o resultado.  
+Neste desafio, será necessário somar valores antes de entregá-los às saídas corretas."
+inputs = Array[PackedInt32Array]([PackedInt32Array(1, 3), PackedInt32Array(2, 4)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, 7)])
+custom_layout = ExtResource("5_wydhi")
+next_level = ExtResource("5_bgo36")
+available_objects = Array[ExtResource("1_ecr4t")]([ExtResource("2_bgo36"), ExtResource("4_s8lc5")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
