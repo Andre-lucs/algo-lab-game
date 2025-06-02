@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6bvxr3x73tm2"]
+[gd_scene load_steps=13 format=3 uid="uid://b6bvxr3x73tm2"]
 
 [ext_resource type="Script" uid="uid://dgvuclnt0f6m8" path="res://scenes/objects/router/router.gd" id="1_7lc45"]
 [ext_resource type="Texture2D" uid="uid://de6s63mi8q7fl" path="res://assets/Router.png" id="2_u5p3i"]
@@ -10,6 +10,20 @@
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="8_57qxo"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="9_5vyb0"]
 
+[sub_resource type="Shader" id="Shader_7lc45"]
+code = "shader_type canvas_item;
+
+uniform vec4 color : source_color = vec4(1.0);
+
+void fragment() {
+	COLOR = mix(color, COLOR, 1.0- COLOR.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u5p3i"]
+shader = SubResource("Shader_7lc45")
+shader_parameter/color = Color(1, 1, 1, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_i86h8"]
 radius = 32.0
 
@@ -19,6 +33,13 @@ script = ExtResource("1_7lc45")
 
 [node name="Rotative" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="Outline" type="Sprite2D" parent="Rotative"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_u5p3i")
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_u5p3i")
+vframes = 2
 
 [node name="ArrowSprite" type="Sprite2D" parent="Rotative"]
 scale = Vector2(1.1, 1.1)
@@ -52,8 +73,8 @@ root = NodePath("../..")
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
 [node name="Activation" parent="Traits" node_paths=PackedStringArray("target") instance=ExtResource("7_g1176")]
-target = NodePath("../NumberMovement")
-trigger_signals = Array[String](["number_sent"])
+target = NodePath("../..")
+trigger_signals = Array[String](["sent_number"])
 base_delay = 0.5
 
 [node name="Resettable" type="Node" parent="Traits"]
@@ -83,4 +104,5 @@ shape = SubResource("CircleShape2D_i86h8")
 [connection signal="new_output_path" from="Traits/NumberMovement" to="." method="_update_arrow" unbinds=1]
 [connection signal="number_received" from="Traits/NumberMovement" to="." method="enqueue_number"]
 [connection signal="activated" from="Traits/Activation" to="." method="dequeue_number"]
+[connection signal="success_activated" from="Traits/Activation" to="." method="_on_activation_success_activated"]
 [connection signal="reset_requested" from="Traits/Resettable" to="." method="_on_reset_requested"]

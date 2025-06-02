@@ -191,3 +191,10 @@ func _update_end():
 	var new_last_point = last_point.move_toward(penultimate_point, SIZE_PER_NODE)
 	points[points.size()-1] = new_last_point
 	end.position = new_last_point
+
+
+func _on_success_activated() -> void:
+	var t := create_tween()
+	t.tween_property(self, "modulate", Global.Colors["red"], 0.1)
+	t.tween_property(self, "modulate", Global.Colors["white"], 0.2)
+	t.play()

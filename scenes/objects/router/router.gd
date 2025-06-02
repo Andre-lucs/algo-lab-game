@@ -1,5 +1,7 @@
 class_name Router extends Node2D
 
+signal sent_number(path: MovementLink, number: Number)
+
 @onready var rotative: Node2D = %Rotative
 @onready var numbers_container: Node2D = %Numbers
 @onready var number_movement: NumberMovement = %NumberMovement
@@ -8,6 +10,10 @@ class_name Router extends Node2D
 var number_queue: Array[Number] = []
 ## next_path index on number_movement.output_paths
 var next_path: int = 0
+
+func _ready() -> void:
+	%Outline.scale = Vector2.ZERO
+	%Outline.material.set_shader_parameter("color", Global.Colors["red"])
 
 func enqueue_number(number:Number) -> void:
 	number.move_to(Vector2.ZERO, numbers_container)
@@ -25,6 +31,7 @@ func dequeue_number():
 		return
 	var number := number_queue.pop_front() as Number
 	path.move_number(number)
+	sent_number.emit(path, number)
 
 	if not number_queue.is_empty() : _number_scale_animation(number_queue.front())
 	_update_arrow(1)
@@ -61,3 +68,10 @@ func _on_reset_requested() -> void:
 	next_path = 0
 	_update_arrow(0)
 	
+
+func _on_activation_success_activated() -> void:
+	var t := create_tween()
+	t.tween_property(%Outline, "scale", Vector2(1.2,1.2), 0.1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	t.tween_interval(0.1)
+	t.tween_property(%Outline, "scale", Vector2.ZERO, 0.2)
+	t.play()

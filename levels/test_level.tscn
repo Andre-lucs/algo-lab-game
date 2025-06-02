@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://beses1ovxi7a8"]
+[gd_scene load_steps=8 format=3 uid="uid://beses1ovxi7a8"]
 
 [ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_gmgay"]
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_o6mel"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_w7r7j"]
 [ext_resource type="PackedScene" uid="uid://k72qkss8srnd" path="res://scenes/objects/level_in_out/LevelInput.tscn" id="4_e7anx"]
 [ext_resource type="PackedScene" uid="uid://cvauq1jyuru82" path="res://scenes/objects/level_in_out/OutputValidator.tscn" id="5_ur00s"]
+[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="6_e7anx"]
 
 [sub_resource type="Resource" id="Resource_e7anx"]
 script = ExtResource("2_w7r7j")
 level_name = "Test Level"
 level_description = "This is the test level"
-inputs = Array[PackedInt32Array]([PackedInt32Array(3, 5)])
+inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(3, 5)])
 available_objects = Array[ExtResource("2_o6mel")]([])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
@@ -25,3 +26,10 @@ position = Vector2(140, 318)
 
 [node name="OutputValidator" parent="." index="6" instance=ExtResource("5_ur00s")]
 position = Vector2(744, 320)
+
+[node name="Container2" parent="." index="8" instance=ExtResource("6_e7anx")]
+position = Vector2(184, 160)
+default_numbers = Array[int]([6, 7])
+
+[node name="Container3" parent="." index="9" instance=ExtResource("6_e7anx")]
+position = Vector2(624, 320)
