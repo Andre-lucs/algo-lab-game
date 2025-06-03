@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://egp0h1iv4mjx"]
+
+[ext_resource type="Script" uid="uid://b5neuvgmhxd45" path="res://scenes/ui/number_listing/number_listing.gd" id="1_d88k8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7irtc"]
+font_size = 24
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="NumberListing" type="PanelContainer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_d88k8")
+
+[node name="BaseNumLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "2"
+label_settings = SubResource("LabelSettings_7irtc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
