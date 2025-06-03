@@ -13,7 +13,7 @@ func highlight(options : HighlightOptions, length : HighlightLength, custom_colo
 		length, custom_color
 	)
 
-func highlight_type_compact(type: HighlightOptions.ObjectType,flow_in: bool, flow_out: bool, length: HighlightLength = HighlightLength.SHORT, custom_color: Color = Global.Colors["ligth_blue"]) -> void:
+func highlight_type_compact(type: HighlightOptions.ObjectType,flow_in: bool, flow_out: bool, length: HighlightLength = HighlightLength.SHORT, custom_color: Color = Global.Colors["light_blue"]) -> void:
 	var options := HighlightOptions.new()
 	options.type = type
 	options.flow_in = flow_in
