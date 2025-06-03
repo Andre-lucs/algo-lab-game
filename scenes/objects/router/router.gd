@@ -11,10 +11,6 @@ var number_queue: Array[Number] = []
 ## next_path index on number_movement.output_paths
 var next_path: int = 0
 
-func _ready() -> void:
-	%Outline.scale = Vector2.ZERO
-	%Outline.material.set_shader_parameter("color", Global.Colors["red"])
-
 func enqueue_number(number:Number) -> void:
 	number.move_to(Vector2.ZERO, numbers_container)
 	number_queue.append(number)
@@ -68,10 +64,3 @@ func _on_reset_requested() -> void:
 	next_path = 0
 	_update_arrow(0)
 	
-
-func _on_activation_success_activated() -> void:
-	var t := create_tween()
-	t.tween_property(%Outline, "scale", Vector2(1.2,1.2), 0.1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	t.tween_interval(0.1)
-	t.tween_property(%Outline, "scale", Vector2.ZERO, 0.2)
-	t.play()

@@ -193,8 +193,12 @@ func _update_end():
 	end.position = new_last_point
 
 
-func _on_success_activated() -> void:
+func _play_red_animation() -> void:
+	var og_wid := self.width
 	var t := create_tween()
-	t.tween_property(self, "modulate", Global.Colors["red"], 0.1)
-	t.tween_property(self, "modulate", Global.Colors["white"], 0.2)
+	t.parallel().tween_property(self, "width", og_wid * 1.2, 0.1)
+	t.parallel().tween_property(self, "modulate", Global.Colors["red"], 0.1)
+	t.tween_interval(0.2)
+	t.parallel().tween_property(self, "width", og_wid, 0.1)
+	t.parallel().tween_property(self, "modulate", Global.Colors["white"], 0.2)
 	t.play()

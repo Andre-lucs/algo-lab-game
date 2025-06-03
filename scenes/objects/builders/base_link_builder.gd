@@ -10,14 +10,10 @@ var destination_click_position: Vector2
 @export var layer: int = 3
 
 func _ready() -> void:
-	highlight_on_layer() # Highlight the number 
+	_highlight_out()
 
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
-
-func highlight_on_layer(area2d_layer : int = layer, sender : bool = true):
-	var method = "highlight_sender" if sender else "highlight_receiver"
-	get_tree().call_group("connections", method, area2d_layer)
 
 func try_set_origin(candidate: ConnectionArea) -> bool:
 	if origin_node != null:
@@ -52,7 +48,7 @@ func _input(_event: InputEvent) -> void:
 			
 			if origin_node == null:
 				if try_set_origin(area):
-					highlight_on_layer(layer, false)  # highlight os receivers
+					_highlight_in()
 					break
 			elif origin_node != area: # Se o Builder já tiver um origin_node, não pode ser o mesmo
 				if try_set_destination(area):
@@ -60,6 +56,11 @@ func _input(_event: InputEvent) -> void:
 					break
 	if Input.is_action_just_released("base_cancel"):
 		queue_free()  # Remove o Builder se o botão direito do mouse for pressionado
+
+func _highlight_in() -> void:
+	assert(false, "Method _highlight_in() not implemented in BaseLinkBuilder")
+func _highlight_out() -> void:
+	assert(false, "Method _highlight_out() not implemented in BaseLinkBuilder")
 
 func build_object() -> void:
 	# override this method in the derived class
