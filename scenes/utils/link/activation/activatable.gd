@@ -9,6 +9,7 @@ enum AutoState {
 }
 
 signal activated
+signal success_activated
 ## May be used to change the appearance of the object to sign that it is automatic or not
 signal changed_auto_state(state: AutoState)
 signal paused_activation
@@ -29,6 +30,12 @@ var is_paused : bool = false
 
 func _ready() -> void:
 	activation_timer.wait_time = base_delay
+
+	for trigger_signal in trigger_signals:
+		if not target.has_signal(trigger_signal):
+			push_error("Target does not have signal: " + trigger_signal)
+			continue
+		target.connect(trigger_signal, func(_1=null,_2=null,_3=null,_4=null,_5=null,_6=null,_7=null,_8=null):_trigger_success_activation())
 
 func start_activation_if_auto() -> void:
 	activation_timer.one_shot = is_manual()
@@ -61,6 +68,14 @@ func _send_activation() -> void:
 		return
 	activation_timer.start()
 	
+func _trigger_success_activation() -> void:
+	# This function is called when the target emits a signal that indicates a successful activation
+	if is_paused:
+		print("Activation paused, ignoring success signal for: ", get_parent().name)
+		return
+	success_activated.emit()
+	print("Success activation for: ", get_parent().name)
+
 func pause_activation() -> void:
 	paused_activation.emit()
 	activation_timer.stop()

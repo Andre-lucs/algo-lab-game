@@ -129,11 +129,6 @@ func animate_resizing(new_width: float, duration: float = 0.2):
 	# resize_tween.parallel().tween_property(connection_area, "scale:x", new_width / 64, duration)
 	resize_tween.play()
 
-# Connection Area Callbacks ----
-
-func _on_connection_area_requesting_highlight() -> void:
-	animation.play("scale_animation")
-
 # Movement Callbacks ----
 
 func _on_number_movement_number_received(number:Number) -> void:

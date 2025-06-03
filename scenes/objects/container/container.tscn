@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=17 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="7_23n6n"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="7_lkqc4"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="8_0of0j"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="10_e3mdc"]
+[ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="11_b588d"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
 
 [sub_resource type="Animation" id="Animation_cmen7"]
@@ -49,6 +51,13 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
 size = Vector2(64, 64)
+
+[sub_resource type="Resource" id="Resource_q33kv"]
+script = ExtResource("11_b588d")
+type = 0
+flow_in = true
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [node name="Container" type="Node2D"]
 script = ExtResource("1_r3ic2")
@@ -122,9 +131,15 @@ script = ExtResource("11_tifd7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
 shape = SubResource("RectangleShape2D_l2343")
 
+[node name="Highlightable" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("10_e3mdc")
+highlight_options = SubResource("Resource_q33kv")
+scale_target = NodePath("..")
+outline_target = NodePath("../Walls")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
 [connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
 [connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
-[connection signal="requesting_highlight" from="ConnectionArea" to="." method="_on_connection_area_requesting_highlight"]

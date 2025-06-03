@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6bvxr3x73tm2"]
+[gd_scene load_steps=14 format=3 uid="uid://b6bvxr3x73tm2"]
 
 [ext_resource type="Script" uid="uid://dgvuclnt0f6m8" path="res://scenes/objects/router/router.gd" id="1_7lc45"]
 [ext_resource type="Texture2D" uid="uid://de6s63mi8q7fl" path="res://assets/Router.png" id="2_u5p3i"]
@@ -8,7 +8,16 @@
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="7_7lc45"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="7_g1176"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="8_57qxo"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="8_y732w"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="9_5vyb0"]
+[ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="9_5wgt4"]
+
+[sub_resource type="Resource" id="Resource_fhc7l"]
+script = ExtResource("9_5wgt4")
+type = 0
+flow_in = true
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i86h8"]
 radius = 32.0
@@ -52,13 +61,20 @@ root = NodePath("../..")
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
 [node name="Activation" parent="Traits" node_paths=PackedStringArray("target") instance=ExtResource("7_g1176")]
-target = NodePath("../NumberMovement")
-trigger_signals = Array[String](["number_sent"])
+target = NodePath("../..")
+trigger_signals = Array[String](["sent_number"])
 base_delay = 0.5
 
 [node name="Resettable" type="Node" parent="Traits"]
 script = ExtResource("7_7lc45")
 metadata/_custom_type_script = "uid://dmbgxyol7327d"
+
+[node name="Highlightable" type="Node" parent="Traits" node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("8_y732w")
+highlight_options = SubResource("Resource_fhc7l")
+scale_target = NodePath("../../Rotative")
+outline_target = NodePath("../../Rotative/ArrowSprite")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
 
 [node name="MouseInteractionArea2D" type="Area2D" parent="."]
 collision_layer = 2147483648
@@ -83,4 +99,5 @@ shape = SubResource("CircleShape2D_i86h8")
 [connection signal="new_output_path" from="Traits/NumberMovement" to="." method="_update_arrow" unbinds=1]
 [connection signal="number_received" from="Traits/NumberMovement" to="." method="enqueue_number"]
 [connection signal="activated" from="Traits/Activation" to="." method="dequeue_number"]
+[connection signal="success_activated" from="Traits/Activation" to="Traits/Highlightable" method="play_outline_animation"]
 [connection signal="reset_requested" from="Traits/Resettable" to="." method="_on_reset_requested"]

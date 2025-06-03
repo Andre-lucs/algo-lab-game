@@ -6,6 +6,20 @@ var activation_link_scene: PackedScene = preload("res://scenes/utils/link/activa
 func _init() -> void:
 	layer = 4
 
+func _highlight_out() -> void:
+	_highlight_activatable(false, true)
+	_highlight_activatable()
+
+func _highlight_in() -> void:
+	_highlight_activatable(true, false)
+	_highlight_activatable()
+
+func _highlight_activatable(_in := true, _out := true) -> void:
+	Highlight.highlight_type_compact(HighlightOptions.ObjectType.ACTIVATABLE, 
+																		_in, _out, 
+																		Highlight.HighlightLength.SHORT, Global.Colors["red"])
+
+
 func build_object() -> void:
 	if activation_link_scene == null:
 		printerr("Cannot build activation link – missing scene.")

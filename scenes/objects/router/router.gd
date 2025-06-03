@@ -1,5 +1,7 @@
 class_name Router extends Node2D
 
+signal sent_number(path: MovementLink, number: Number)
+
 @onready var rotative: Node2D = %Rotative
 @onready var numbers_container: Node2D = %Numbers
 @onready var number_movement: NumberMovement = %NumberMovement
@@ -25,6 +27,7 @@ func dequeue_number():
 		return
 	var number := number_queue.pop_front() as Number
 	path.move_number(number)
+	sent_number.emit(path, number)
 
 	if not number_queue.is_empty() : _number_scale_animation(number_queue.front())
 	_update_arrow(1)

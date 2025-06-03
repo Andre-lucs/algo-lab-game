@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://k72qkss8srnd"]
+[gd_scene load_steps=11 format=3 uid="uid://k72qkss8srnd"]
 
 [ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
 [ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="2_regqu"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="3_f8v14"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_mr1dq"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_mr1dq"]
+[ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_auqp5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_regqu"]
 line_spacing = 0.0
@@ -14,6 +16,13 @@ outline_color = Color(0.101961, 0.101961, 0.101961, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_auqp5"]
 radius = 32.0
+
+[sub_resource type="Resource" id="Resource_1sse5"]
+script = ExtResource("7_auqp5")
+type = 0
+flow_in = false
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [node name="LevelInput" type="Node2D"]
 script = ExtResource("1_regqu")
@@ -54,6 +63,13 @@ number_movement = NodePath("../NumberMovement")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
 visible = false
 shape = SubResource("CircleShape2D_auqp5")
+
+[node name="Highlightable" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("6_mr1dq")
+highlight_options = SubResource("Resource_1sse5")
+scale_target = NodePath("../Sprite2D")
+outline_target = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
 
 [connection signal="reset_requested" from="Resettable" to="." method="reset"]
 [connection signal="requesting_copy" from="NumberMovement" to="." method="move_number" binds= [true]]

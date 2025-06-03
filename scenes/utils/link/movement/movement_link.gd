@@ -191,3 +191,14 @@ func _update_end():
 	var new_last_point = last_point.move_toward(penultimate_point, SIZE_PER_NODE)
 	points[points.size()-1] = new_last_point
 	end.position = new_last_point
+
+
+func _play_red_animation() -> void:
+	var og_wid := self.width
+	var t := create_tween()
+	t.parallel().tween_property(self, "width", og_wid * 1.2, 0.1)
+	t.parallel().tween_property(self, "modulate", Global.Colors["red"], 0.1)
+	t.tween_interval(0.2)
+	t.parallel().tween_property(self, "width", og_wid, 0.1)
+	t.parallel().tween_property(self, "modulate", Global.Colors["white"], 0.2)
+	t.play()

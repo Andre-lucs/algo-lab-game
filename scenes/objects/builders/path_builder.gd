@@ -6,6 +6,19 @@ var path_scene: PackedScene = preload("res://scenes/utils/link/movement/movement
 func _init() -> void:
 	layer = 3
 
+func _highlight_out() -> void:
+	_highlight_movement(false, true)
+	_highlight_movement()
+
+func _highlight_in() -> void:
+	_highlight_movement(true, false)
+	_highlight_movement()
+
+func _highlight_movement(_in := true, _out := true) -> void:
+	Highlight.highlight_type_compact(HighlightOptions.ObjectType.NUMBER_MOVEMENT, 
+																		_in, _out, 
+																		Highlight.HighlightLength.SHORT, Global.Colors["white"])
+
 func create_path():
 	if path_scene == null:
 		printerr("Cannot create path – missing scene.")

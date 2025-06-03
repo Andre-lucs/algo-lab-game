@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://boiqm84g6cm77"]
+[gd_scene load_steps=23 format=3 uid="uid://boiqm84g6cm77"]
 
 [ext_resource type="Script" uid="uid://ctj5grkwiab3a" path="res://scenes/objects/operator/operator.gd" id="1_bqpnd"]
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_xs7on"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/UI/MenuIcons/Minus.png" id="8_uj48i"]
 [ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/UI/MenuIcons/Multi.png" id="9_8fhei"]
 [ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/UI/MenuIcons/Divide.png" id="10_e1413"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="12_7o0lp"]
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="12_rc6xw"]
+[ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="13_3elu8"]
 
 [sub_resource type="SystemFont" id="SystemFont_bqpnd"]
 font_names = PackedStringArray("Monospace")
@@ -31,6 +33,13 @@ frames = Array[Texture2D]([ExtResource("7_qp6pp"), ExtResource("8_uj48i"), ExtRe
 text = "Change Operation"
 initial_frame = 0
 metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
+
+[sub_resource type="Resource" id="Resource_v7yan"]
+script = ExtResource("13_3elu8")
+type = 0
+flow_in = true
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehaq0"]
 radius = 32.0
@@ -96,6 +105,14 @@ root = NodePath("../..")
 sends = false
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
+[node name="Highlightable" type="Node" parent="Traits" node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("12_7o0lp")
+highlight_options = SubResource("Resource_v7yan")
+scale_target = NodePath("../../Sprite2D")
+outline_target = NodePath("../../Sprite2D")
+outline_width = 2.0
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
 [node name="ResultMovement" type="Node" parent="Traits" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 script = ExtResource("6_1qald")
@@ -157,6 +174,7 @@ shape = SubResource("CapsuleShape2D_ehaq0")
 [connection signal="clicked_delete" from="Traits/ObjectPopupMenu" to="." method="delete"]
 [connection signal="clicked_item" from="Traits/ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_item"]
 [connection signal="activated" from="Traits/Activation" to="." method="activate"]
+[connection signal="success_activated" from="Traits/Activation" to="Traits/Highlightable" method="play_outline_animation"]
 [connection signal="number_received" from="Traits/Number1Movement" to="." method="_on_number_1_received"]
 [connection signal="number_received" from="Traits/Number2Movement" to="." method="_on_number_2_received"]
 [connection signal="requesting_move" from="Traits/ResultMovement" to="." method="activate"]

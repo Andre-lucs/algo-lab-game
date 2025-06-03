@@ -1,13 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://durujj55wgqx3"]
+[gd_scene load_steps=10 format=3 uid="uid://durujj55wgqx3"]
 
 [ext_resource type="PackedScene" uid="uid://lhfuu6wk1i5g" path="res://scenes/utils/link/link.tscn" id="1_h4gtw"]
 [ext_resource type="Script" uid="uid://boiboc6ds5xa5" path="res://scenes/utils/link/movement/movement_link.gd" id="1_krvj1"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="3_ak07b"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_8vcjx"]
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="4_grwci"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_f3h2w"]
+[ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_w8f3m"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h4gtw"]
 points = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
+
+[sub_resource type="Resource" id="Resource_q4hsm"]
+script = ExtResource("7_w8f3m")
+type = 1
+flow_in = true
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [node name="MovementLink" instance=ExtResource("1_h4gtw")]
 script = ExtResource("1_krvj1")
@@ -44,9 +53,18 @@ activatable = NodePath("../Activatable")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ConnectionArea" index="0"]
 
+[node name="Highlightable" type="Node" parent="." index="7"]
+script = ExtResource("6_f3h2w")
+highlight_options = SubResource("Resource_q4hsm")
+auto_play_scale_animation = false
+auto_play_outline_animation = false
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
 [connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
 [connection signal="updated_path" from="." to="." method="_update_polygon"]
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="activated" from="Activatable" to="." method="activate"]
+[connection signal="success_activated" from="Activatable" to="." method="_play_red_animation"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
+[connection signal="highlighted" from="Highlightable" to="." method="_play_red_animation"]
