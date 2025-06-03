@@ -9,6 +9,7 @@ static var scene : PackedScene = preload("res://scenes/objects/level_in_out/Leve
 
 @onready var num_move : NumberMovement = $NumberMovement
 @onready var next_number_display: Label = $NextNumber
+@onready var number_listing: NumberListing = %NumberListing
 
 var numbers_to_move: Array[float]
 
@@ -21,9 +22,11 @@ func move_number(copy := false) -> void:
 	var number := Number.get_number(numbers_to_move.front()) if copy else Number.get_number(numbers_to_move.pop_front())
 	num_move.send(number)
 	_update_last_number_display()
+	number_listing.update_display()
 
 func reset() -> void:
 	numbers_to_move = numbers.duplicate()
+	number_listing.numbers = numbers_to_move
 	_update_last_number_display()
 
 func _update_last_number_display() -> void:

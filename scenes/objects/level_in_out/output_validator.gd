@@ -16,6 +16,7 @@ signal received_correct_number(number: float, finished: bool)
 
 @onready var number_display : Label = $RequestedNumber
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var number_listing: NumberListing = %NumberListing
 
 var next_number_index: int = 0
 var state: State = State.WAITING_NUMBER: 
@@ -48,6 +49,7 @@ func reset() -> void:
 	next_number_index = 0
 	_update_display()
 	state = State.WAITING_NUMBER
+	number_listing.numbers = expected_numbers.slice(next_number_index)
 
 func _update_display() -> void:
 	if next_number_index < expected_numbers.size():
@@ -56,5 +58,7 @@ func _update_display() -> void:
 		number_display.text = ""
 		number_display.modulate = Color.TRANSPARENT
 		return
+	number_listing.numbers = expected_numbers.slice(next_number_index)
+	number_listing.update_display()
 	number_display.scale = Vector2(0.2, 0.2)
 	number_display.create_tween().tween_property(number_display, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)

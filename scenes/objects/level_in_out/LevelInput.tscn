@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://k72qkss8srnd"]
+[gd_scene load_steps=14 format=3 uid="uid://k72qkss8srnd"]
 
 [ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
 [ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_mr1dq"]
 [ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_mr1dq"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_auqp5"]
+[ext_resource type="PackedScene" uid="uid://egp0h1iv4mjx" path="res://scenes/ui/number_listing/number_listing.tscn" id="9_1sse5"]
+[ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="9_cn4sb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_regqu"]
 line_spacing = 0.0
@@ -23,6 +25,9 @@ type = 0
 flow_in = false
 flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x705m"]
+radius = 32.0
 
 [node name="LevelInput" type="Node2D"]
 script = ExtResource("1_regqu")
@@ -70,6 +75,27 @@ highlight_options = SubResource("Resource_1sse5")
 scale_target = NodePath("../Sprite2D")
 outline_target = NodePath("../Sprite2D")
 metadata/_custom_type_script = "uid://bfib056ywhjif"
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("9_cn4sb")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+shape = SubResource("CircleShape2D_x705m")
+
+[node name="NumberListing" parent="." node_paths=PackedStringArray("mouse_area") instance=ExtResource("9_1sse5")]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_bottom = 0.0
+grow_vertical = 0
+pivot_offset = Vector2(30, 30)
+size_flags_horizontal = 6
+mouse_area = NodePath("../MouseInteractionArea2D")
 
 [connection signal="reset_requested" from="Resettable" to="." method="reset"]
 [connection signal="requesting_copy" from="NumberMovement" to="." method="move_number" binds= [true]]

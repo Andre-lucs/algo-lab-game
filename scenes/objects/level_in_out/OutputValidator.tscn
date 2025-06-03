@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvauq1jyuru82"]
+[gd_scene load_steps=14 format=3 uid="uid://cvauq1jyuru82"]
 
 [ext_resource type="Texture2D" uid="uid://dvrvvlrxraf8d" path="res://assets/Validator.png" id="1_0invr"]
 [ext_resource type="Script" uid="uid://b0eyo5ajw4v8f" path="res://scenes/objects/level_in_out/output_validator.gd" id="1_bf6jn"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_pkd8x"]
 [ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_j7v7c"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_dm5f8"]
+[ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="8_d7fjr"]
+[ext_resource type="PackedScene" uid="uid://egp0h1iv4mjx" path="res://scenes/ui/number_listing/number_listing.tscn" id="9_ufcds"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j7v7c"]
 line_spacing = 0.0
@@ -23,6 +25,9 @@ type = 0
 flow_in = true
 flow_out = false
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d48l0"]
+radius = 32.0
 
 [node name="OutputValidator" type="Node2D"]
 script = ExtResource("1_bf6jn")
@@ -71,10 +76,29 @@ shape = SubResource("CircleShape2D_dm5f8")
 script = ExtResource("6_j7v7c")
 highlight_options = SubResource("Resource_d7fjr")
 scale_target = NodePath("../Sprite2D")
-auto_scale_animation_amount = 1.1
 outline_target = NodePath("../Sprite2D")
-outline_animation = true
 metadata/_custom_type_script = "uid://bfib056ywhjif"
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("8_d7fjr")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+shape = SubResource("CircleShape2D_d48l0")
+
+[node name="NumberListing" parent="." node_paths=PackedStringArray("mouse_area") instance=ExtResource("9_ufcds")]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_bottom = 0.0
+grow_vertical = 0
+pivot_offset = Vector2(30, 30)
+size_flags_horizontal = 6
+mouse_area = NodePath("../MouseInteractionArea2D")
 
 [connection signal="number_received" from="NumberMovement" to="." method="check_number"]
 [connection signal="reset_requested" from="Resettable" to="." method="reset"]
