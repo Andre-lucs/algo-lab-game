@@ -17,6 +17,7 @@ offset_right = 100.0
 offset_bottom = 60.0
 size_flags_horizontal = 0
 size_flags_vertical = 2
+theme_type_variation = &"BlueBorderPanelContainer"
 script = ExtResource("1_q0ytb")
 preview_scene = ExtResource("2_0ydux")
 items = Array[ExtResource("4_a0thc")]([ExtResource("4_kf8s1"), ExtResource("5_bh2xv"), ExtResource("6_x561o"), ExtResource("7_gaht0"), ExtResource("8_6b6ni")])
