@@ -2,6 +2,9 @@ class_name LevelInput extends Node2D
 
 static var scene : PackedScene = preload("res://scenes/objects/level_in_out/LevelInput.tscn")
 
+## Emmited when there are no more numbers to move
+signal empty 
+
 @export var numbers: Array[float] = []:
 	set(value):
 		numbers = value.duplicate()
@@ -23,6 +26,8 @@ func move_number(copy := false) -> void:
 	num_move.send(number)
 	_update_last_number_display()
 	number_listing.update_display()
+	if number and numbers_to_move.is_empty(): # when the last number is moved
+		empty.emit()
 
 func reset() -> void:
 	numbers_to_move = numbers.duplicate()

@@ -8,6 +8,7 @@ enum State {
 
 signal received_wrong_number(number: float)
 signal received_correct_number(number: float, finished: bool)
+signal validation_complete
 
 @export var expected_numbers: Array[float] = []:
 	set(value):
@@ -36,6 +37,7 @@ func check_number(number:Number) -> void:
 		received_correct_number.emit(value, finished)
 		if finished:
 			state = State.COMPLETED
+			validation_complete.emit()
 		else:
 			sprite.frame = State.COMPLETED
 			var tween = create_tween()

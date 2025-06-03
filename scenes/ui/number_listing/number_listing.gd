@@ -5,6 +5,7 @@ const SEPARATION := 10
 
 @export var mouse_area : MouseInteractionArea2D
 @export var show_on_hover := true
+@export var time_hovering := 1.0
 
 @onready var base_num_label: Label = %BaseNumLabel
 @onready var numbers_container: HBoxContainer = $HBoxContainer
@@ -47,7 +48,7 @@ func update_display():
 			hide()
 
 func _on_mouse_entered() -> void:
-	await get_tree().create_timer(.4).timeout
+	await get_tree().create_timer(time_hovering).timeout
 	if not mouse_area.mouse_over:return
 	display()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://k72qkss8srnd"]
+[gd_scene load_steps=15 format=3 uid="uid://k72qkss8srnd"]
 
 [ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
 [ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_auqp5"]
 [ext_resource type="PackedScene" uid="uid://egp0h1iv4mjx" path="res://scenes/ui/number_listing/number_listing.tscn" id="9_1sse5"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="9_cn4sb"]
+[ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="10_cn4sb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_regqu"]
 line_spacing = 0.0
@@ -61,8 +62,10 @@ root = NodePath("..")
 receives = false
 metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
-[node name="ConnectionArea" parent="." node_paths=PackedStringArray("number_movement") instance=ExtResource("4_mr1dq")]
+[node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("4_mr1dq")]
+collision_layer = 12
 receives = false
+activatable = NodePath("../Activation")
 number_movement = NodePath("../NumberMovement")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
@@ -97,6 +100,12 @@ pivot_offset = Vector2(30, 30)
 size_flags_horizontal = 6
 mouse_area = NodePath("../MouseInteractionArea2D")
 
+[node name="Activation" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_cn4sb")]
+target = NodePath("..")
+trigger_signals = Array[String](["empty"])
+auto = 0
+
 [connection signal="reset_requested" from="Resettable" to="." method="reset"]
 [connection signal="requesting_copy" from="NumberMovement" to="." method="move_number" binds= [true]]
 [connection signal="requesting_move" from="NumberMovement" to="." method="move_number"]
+[connection signal="success_activated" from="Activation" to="Highlightable" method="play_outline_animation"]
