@@ -58,6 +58,10 @@ func hide_container() -> void:
 func show_container() -> void:
 	target_position = screen_width - size.x
 
+func show_full_container() -> void:
+	target_position = screen_width - (screen_width * screen_size_limit)
+	custom_minimum_size.x = screen_width * screen_size_limit
+
 func _on_arrow_toggled(toggled_on: bool) -> void:
 	is_hidden = toggled_on
 	create_tween().tween_property(arrow, "rotation_degrees", 180 if toggled_on else 0, 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)

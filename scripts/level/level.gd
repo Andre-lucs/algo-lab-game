@@ -36,6 +36,7 @@ func _ready() -> void:
 	
 	init_inputs()
 	init_validators()
+	level_info.show_full_container()
 
 func init_inputs() -> void:
 	for i in range(level_props.inputs.size()):
