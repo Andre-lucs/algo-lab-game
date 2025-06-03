@@ -58,11 +58,11 @@ func _input(_event: InputEvent) -> void:
 		queue_free()  # Remove o Builder se o botão direito do mouse for pressionado
 
 func _highlight_in() -> void:
-	assert(false, "Method _highlight_in() not implemented in BaseLinkBuilder")
+	assert(false, "Abstract method _highlight_in() must be implemented in a subclass of BaseLinkBuilder.")
 func _highlight_out() -> void:
-	assert(false, "Method _highlight_out() not implemented in BaseLinkBuilder")
+	assert(false, "Abstract method _highlight_out() must be implemented in a subclass of BaseLinkBuilder.")
 
 func build_object() -> void:
 	# override this method in the derived class
-	assert(false, "build_object() not implemented in BaseLinkBuilder")
+	assert(false, "Abstract method build_object() must be implemented in a subclass of BaseLinkBuilder.")
 	pass
