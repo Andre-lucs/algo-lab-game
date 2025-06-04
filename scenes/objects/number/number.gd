@@ -17,7 +17,7 @@ func _ready():
 
 func _draw() -> void:
 	draw_rect(label.get_rect().grow(1.2), Color(0, 0, 0, 0.8), false, 5)
-	mouse_col_shape.shape.size = label.get_rect().grow(1.2).size
+	if is_node_ready() : mouse_col_shape.shape.size = label.get_rect().grow(1.2).size
 
 func _unhandled_input(event: InputEvent) -> void:
 	_handle_editing_input(event)

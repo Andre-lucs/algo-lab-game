@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=5 format=3 uid="uid://bgun6t66qh8oq"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_2t65g"]
+[ext_resource type="PackedScene" uid="uid://cebmicxn76gb0" path="res://scenes/objects/number/number.tscn" id="2_lx42f"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xag4j"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_paa45"]
+size = Vector2(24, 24)
+
+[resource]
+script = ExtResource("1_2t65g")
+item_name = "Number"
+icon = SubResource("PlaceholderTexture2D_xag4j")
+preview_image = SubResource("PlaceholderTexture2D_paa45")
+target_scene = ExtResource("2_lx42f")
+custom_args = Dictionary[String, Variant]({
+"editable": true,
+"value": 0.0
+})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"
