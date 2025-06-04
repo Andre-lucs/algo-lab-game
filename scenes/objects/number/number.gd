@@ -3,15 +3,20 @@ class_name Number extends Node2D
 
 static var number_scene : PackedScene = preload("res://scenes/objects/number/number.tscn")
 
-@export var value: int = 0 : set = set_value
+@export var value: float = 0 : set = set_value
+
+@onready var label: Label = $Label
 
 func _ready():
 	update_label()
 
-func get_value() -> int:
+func get_value() -> float:
 	return value
 
-func set_value(new_value: int):
+func get_string() -> String:
+	return str(value).replace(".0", "").replace(",0", "")
+
+func set_value(new_value: float):
 	value = new_value
 	update_label()
 
@@ -32,8 +37,8 @@ func move_to(new_position: Vector2, new_parent : Node2D = null, new_rotation: fl
 	anim.parallel().tween_property(self, "rotation", new_rotation, duration)
 	anim.play()
 
-static func get_number(int_number : int) -> Number:
+static func get_number(float_number : float) -> Number:
 	# Cria uma instância do número
 	var number = number_scene.instantiate() as Number
-	number.set_value(int_number)
+	number.set_value(float_number)
 	return number

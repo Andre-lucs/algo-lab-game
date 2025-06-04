@@ -3,8 +3,8 @@ class_name NumberContainer
 
 static var container_scene : PackedScene = preload("res://scenes/objects/container/container.tscn")
 
-@export var default_numbers: Array[int] = []
-@export var number_spacing: int = 40 # Spacing between numbers
+@export var default_numbers: Array[float] = []
+@export var number_spacing: float = 40 # Spacing between numbers
 @export var single_number_container: bool = false # If true, only one number can be stored
 
 @onready var numbers : Node2D = $Numbers
@@ -65,7 +65,7 @@ func _store_default_numbers():
 	store_multiple_numbers(default_numbers_insntances)	
 
 func update_default_numbers_to_current():
-	var new_numbers : Array[int] = []
+	var new_numbers : Array[float] = []
 	for number in stored_numbers:
 		new_numbers.append(number.get_value())
 	default_numbers = new_numbers
