@@ -91,6 +91,7 @@ libraries = {
 script = ExtResource("3_tifd7")
 parent = NodePath("..")
 interaction_area = NodePath("../MouseInteractionArea2D")
+grab_priority = 0
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_tifd7")]
@@ -148,7 +149,6 @@ shape = SubResource("RectangleShape2D_l2343")
 [node name="GrabbingAreaDetector" parent="." instance=ExtResource("12_b588d")]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GrabbingAreaDetector"]
-visible = false
 shape = SubResource("RectangleShape2D_q33kv")
 
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
@@ -157,3 +157,4 @@ shape = SubResource("RectangleShape2D_q33kv")
 [connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
 [connection signal="number_released_over" from="GrabbingAreaDetector" to="." method="add_default_number" unbinds=1]
+[connection signal="number_removed" from="GrabbingAreaDetector" to="." method="remove_default_number" unbinds=1]

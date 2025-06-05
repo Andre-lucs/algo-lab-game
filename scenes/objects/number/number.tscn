@@ -12,6 +12,7 @@ outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75mtp"]
+size = Vector2(28.4, 29.9)
 
 [node name="Number" type="Node2D"]
 z_index = 5
@@ -22,6 +23,8 @@ value = 20.0
 script = ExtResource("2_txii2")
 parent = NodePath("..")
 interaction_area = NodePath("../MouseInteractionArea2D")
+grab_priority = 2
+grab_speed = 0
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="Label" type="Label" parent="."]

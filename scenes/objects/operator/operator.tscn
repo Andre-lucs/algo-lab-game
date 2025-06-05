@@ -80,6 +80,7 @@ vertical_alignment = 1
 script = ExtResource("3_rc6xw")
 parent = NodePath("../..")
 interaction_area = NodePath("../../MouseInteractionArea2D")
+grab_speed = 2
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_fthne")]

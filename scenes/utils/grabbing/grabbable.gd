@@ -1,38 +1,112 @@
 extends Node
 class_name Grabbable
 
+enum GrabPriority {
+	LOW,
+	MEDIUM,
+	HIGH
+}
+
+enum GrabbingSpeed {
+	FAST,
+	NORMAL,
+	SLOW
+}
+
+const DELAY_SPEEDS = {
+	GrabbingSpeed.FAST: 0.1,
+	GrabbingSpeed.NORMAL: 0.2,
+	GrabbingSpeed.SLOW: 0.3
+}
+
 @export var parent : Node2D
-## If wants the grab release to have some interaction use a GrabbingAreaDetector
+## If wants the grab release to have some interaction use a GrabbingAreaDetector or just activate the correct layer
 @export var interaction_area : MouseInteractionArea2D 
+@export var grab_priority : GrabPriority = GrabPriority.MEDIUM
+@export var grab_speed : GrabbingSpeed = GrabbingSpeed.NORMAL
 
 signal released(original_position: Vector2,  new_position: Vector2)
 
 var active : bool = false
 var offset : Vector2 = Vector2.ZERO  # Offset between mouse and parent position
 var original_position : Vector2 = Vector2.ZERO
+var _grab_timer: float = 0.0
+var _waiting_for_grab: bool = false
 
-func _process(_delta):
+func _enter_tree() -> void:
+	if not is_in_group("grabbable"):
+		add_to_group("grabbable")
+
+func _ready() -> void:
+	if interaction_area:
+		interaction_area.area_exited.connect(_on_leaving_grabbing_area_detector)
+
+func _process(delta):
 	if active and parent:
 		# Update the parent's position while maintaining the offset
 		var mouse_position = parent.get_global_mouse_position()
 		parent.global_position = mouse_position + offset
+	elif _waiting_for_grab:
+		_grab_timer += delta
+		if _grab_timer >= DELAY_SPEEDS[grab_speed]:
+			_waiting_for_grab = false
+			_grab_timer = 0.0
+			if validate_dragging():
+				begin_dragging()
+			else:
+				invalidate_grab()
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("object_grab"):
 		if interaction_area and interaction_area.is_mouse_over():
-			_on_button_down()
+			if validate_dragging():
+				_waiting_for_grab = true
+				_grab_timer = 0.0
 	
-	if Input.is_action_just_released("object_grab"):
-		if interaction_area and interaction_area.is_mouse_over():
+	if active and Input.is_action_just_released("object_grab") :
+		if _waiting_for_grab:
+				_waiting_for_grab = false
+				_grab_timer = 0.0
+		elif active and interaction_area:
 			_on_button_up()
 
-func _on_button_down() -> void:
-	if parent:
-		# Calculate the offset when the button is pressed
-		var mouse_position = parent.get_global_mouse_position()
-		offset = parent.global_position - mouse_position
-		original_position = parent.global_position
-		active = true
+func validate_dragging() -> bool:
+	if not parent:
+		return false
+	if not interaction_area:
+		return false
+	if not interaction_area.is_mouse_over():
+		return false
+	if _is_other_grab_active():
+		return false
+	
+	return true
+
+func _is_other_grab_active() -> bool:
+	var grabbables = get_tree().get_nodes_in_group("grabbable")
+	for grabbable in grabbables:
+		if grabbable is Grabbable and grabbable.is_being_dragged() and grabbable != self:
+			if grab_priority < grabbable.grab_priority:
+				return true
+	return false
+
+func begin_dragging() -> void:
+	# Calculate the offset when the button is pressed
+	var mouse_position = parent.get_global_mouse_position()
+	offset = parent.global_position - mouse_position
+	original_position = parent.global_position
+	active = true
+	filter_grabbing_by_priority.call_deferred()
+
+func filter_grabbing_by_priority():
+	var grab_nodes = get_tree().get_nodes_in_group("grabbable").filter(func(g): return g.active)
+	if grab_nodes.is_empty():
+		return
+	grab_nodes.sort_custom(func(g1,g2): return g1.grab_priority > g2.grab_priority)
+	if grab_nodes.front() != self:
+		# If this grabbable is not the highest priority, stop dragging
+		invalidate_grab()
+		return
 
 func _on_button_up() -> void:
 	active = false
@@ -41,6 +115,19 @@ func _on_button_up() -> void:
 	if not release_areas.is_empty():
 		var release_area := release_areas.front() as GrabbingAreaDetector
 		release_area.catch_object(parent, original_position)
+
+func invalidate_grab():
+	if not is_being_dragged():
+		return
+	parent.global_position = original_position
+	active = false
+
+func _on_leaving_grabbing_area_detector(area : Area2D):
+	if not area is GrabbingAreaDetector:
+		return
+	var detector := area as GrabbingAreaDetector
+	print("Leaving grabbing area detector: ", detector.name)
+	detector.removed_object_from_area(parent, original_position)
 
 func is_being_dragged() -> bool:
 	return active

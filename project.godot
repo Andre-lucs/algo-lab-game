@@ -49,6 +49,7 @@ folder_colors={
 connections=""
 activation="Nodes responsile to manage the objects activation, being them automatic or manual."
 resettable="Nodes that notify the parent to reset or reset itself"
+grabbable="Grabbable nodes use this to check if others are active"
 
 [gui]
 

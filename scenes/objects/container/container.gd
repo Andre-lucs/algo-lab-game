@@ -65,14 +65,30 @@ func _store_default_numbers():
 	store_multiple_numbers(default_numbers_insntances)	
 
 func add_default_number(number:Number):
+	if number in stored_numbers:
+		prints("Number already stored, not adding again.")
+		return
 	number.editable = false
 	store_number(number, true)
 	update_default_numbers_to_current()
 
+func remove_default_number(number:Number):
+	if number in stored_numbers:
+		stored_numbers.erase(number)
+		number.reparent.call_deferred(get_tree().current_scene)
+		number.editable = true
+		_needs_arrange = true
+		update_default_numbers_to_current()
+	else:
+		prints("Number not found in stored numbers, cannot remove.")
+
 func update_default_numbers_to_current():
 	var new_numbers : Array[float] = []
-	for number in stored_numbers:
-		new_numbers.append(number.get_value())
+	for n in stored_numbers:
+		if n is Number:
+			new_numbers.push_front(n.get_value()) # using push_front to maintain order
+		else:
+			prints("Stored item is not a Number instance, skipping.")
 	default_numbers = new_numbers
 
 ## Gets the last number stored in the container and removes it from the list.
