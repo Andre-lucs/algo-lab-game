@@ -102,7 +102,7 @@ func filter_grabbing_by_priority():
 	var grab_nodes = get_tree().get_nodes_in_group("grabbable").filter(func(g): return g.active)
 	if grab_nodes.is_empty():
 		return
-	grab_nodes.sort_custom(func(g1,g2): return g1.grab_priority > g2.grab_priority)
+	grab_nodes.sort_custom(func(g1, g2): return int(g2.grab_priority - g1.grab_priority))
 	if grab_nodes.front() != self:
 		# If this grabbable is not the highest priority, stop dragging
 		invalidate_grab()
