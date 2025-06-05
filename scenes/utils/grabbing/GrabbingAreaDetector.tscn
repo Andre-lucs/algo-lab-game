@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://civogmp2g1ge6"]
+
+[ext_resource type="Script" uid="uid://ci33l3a46w6jj" path="res://scenes/utils/grabbing/GrabbingAreaDetector.gd" id="1_yrx5r"]
+
+[node name="GrabbingAreaDetector" type="Area2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_yrx5r")
+metadata/_custom_type_script = "uid://ci33l3a46w6jj"

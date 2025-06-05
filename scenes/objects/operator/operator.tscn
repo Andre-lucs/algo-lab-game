@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ctj5grkwiab3a" path="res://scenes/objects/operator/operator.gd" id="1_bqpnd"]
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="1_xs7on"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="2_r1olv"]
-[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="3_rc6xw"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="3_rc6xw"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_fthne"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="5_0iqj6"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_1qald"]

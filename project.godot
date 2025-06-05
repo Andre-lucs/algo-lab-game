@@ -112,6 +112,7 @@ edit_number_stop={
 2d_physics/layer_2="containers"
 2d_physics/layer_3="path_connection"
 2d_physics/layer_4="activation_connection"
+2d_physics/layer_5="grab_release_detection"
 
 [rendering]
 
