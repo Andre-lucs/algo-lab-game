@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/UI/MenuIcons/Minus.png" id="8_uj48i"]
 [ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/UI/MenuIcons/Multi.png" id="9_8fhei"]
 [ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/UI/MenuIcons/Divide.png" id="10_e1413"]
-[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="12_7o0lp"]
-[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="12_rc6xw"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scenes/utils/highlight/highlightable.gd" id="12_7o0lp"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scenes/utils/resettable.gd" id="12_rc6xw"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="13_3elu8"]
 
 [sub_resource type="SystemFont" id="SystemFont_bqpnd"]
@@ -80,6 +80,7 @@ vertical_alignment = 1
 script = ExtResource("3_rc6xw")
 parent = NodePath("../..")
 interaction_area = NodePath("../../MouseInteractionArea2D")
+grab_speed = 2
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_fthne")]

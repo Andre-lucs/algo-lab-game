@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://boiboc6ds5xa5" path="res://scenes/utils/link/movement/movement_link.gd" id="1_krvj1"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="3_ak07b"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_8vcjx"]
-[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="4_grwci"]
-[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_f3h2w"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scenes/utils/resettable.gd" id="4_grwci"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scenes/utils/highlight/highlightable.gd" id="6_f3h2w"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_w8f3m"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h4gtw"]
