@@ -64,6 +64,11 @@ func _store_default_numbers():
 		default_numbers_insntances.append(Number.get_number(n))
 	store_multiple_numbers(default_numbers_insntances)	
 
+func add_default_number(number:Number):
+	number.editable = false
+	store_number(number, true)
+	update_default_numbers_to_current()
+
 func update_default_numbers_to_current():
 	var new_numbers : Array[float] = []
 	for number in stored_numbers:
