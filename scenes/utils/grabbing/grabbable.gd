@@ -123,10 +123,9 @@ func invalidate_grab():
 	active = false
 
 func _on_leaving_grabbing_area_detector(area : Area2D):
-	if not area is GrabbingAreaDetector:
+	if not area is GrabbingAreaDetector or not active:
 		return
 	var detector := area as GrabbingAreaDetector
-	print("Leaving grabbing area detector: ", detector.name)
 	detector.removed_object_from_area(parent, original_position)
 
 func is_being_dragged() -> bool:

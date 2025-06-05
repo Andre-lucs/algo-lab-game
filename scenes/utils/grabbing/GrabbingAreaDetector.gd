@@ -19,7 +19,6 @@ func catch_object(object : Node2D, last_global_pos : Vector2):
 
 func removed_object_from_area(object : Node2D, last_global_pos : Vector2):
 	if object in remove_cooldown:
-		print("Object is in cooldown, ignoring removal.")
 		return # Already in cooldown, ignore this removal
 	if object is Number:
 		number_removed.emit(object as Number, last_global_pos)
