@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgvuclnt0f6m8" path="res://scenes/objects/router/router.gd" id="1_7lc45"]
 [ext_resource type="Texture2D" uid="uid://de6s63mi8q7fl" path="res://assets/Router.png" id="2_u5p3i"]
-[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="4_5wgt4"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="4_5wgt4"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="5_fhc7l"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="6_kl5ab"]
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="7_7lc45"]

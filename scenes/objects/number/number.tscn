@@ -1,28 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://cebmicxn76gb0"]
+[gd_scene load_steps=6 format=3 uid="uid://cebmicxn76gb0"]
 
 [ext_resource type="Script" uid="uid://b3yiaijo7ic5q" path="res://scenes/objects/number/number.gd" id="1_olnlg"]
-[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scripts/grabbable.gd" id="2_txii2"]
+[ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="2_txii2"]
+[ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="3_75mtp"]
 
-[sub_resource type="Gradient" id="Gradient_yhsph"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.616, 0.741333, 0.789333, 1)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1.03106, 1.03106, 1.03106, 0.987544, 1, 1, 1, 0)
+[sub_resource type="LabelSettings" id="LabelSettings_75mtp"]
+line_spacing = 0.0
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wksxw"]
-gradient = SubResource("Gradient_yhsph")
-width = 32
-height = 32
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75mtp"]
 
 [node name="Number" type="Node2D"]
 z_index = 5
 script = ExtResource("1_olnlg")
-value = 1
+value = 20.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_wksxw")
+[node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent", "interaction_area")]
+script = ExtResource("2_txii2")
+parent = NodePath("..")
+interaction_area = NodePath("../MouseInteractionArea2D")
+metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -30,16 +30,48 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -11.0
-offset_right = 12.0
-offset_bottom = 12.0
+offset_left = -4.5
+offset_top = -9.16667
+offset_right = 4.5
+offset_bottom = 9.16667
 grow_horizontal = 2
 grow_vertical = 2
-text = "1"
+text = "20"
+label_settings = SubResource("LabelSettings_75mtp")
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent")]
-script = ExtResource("2_txii2")
-parent = NodePath("..")
-metadata/_custom_type_script = "uid://21g4c8kgecht"
+[node name="EditingPrompt" type="LineEdit" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.2813
+offset_top = -27.0
+offset_right = 21.2813
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+text = "12"
+alignment = 1
+max_length = 6
+expand_to_text_length = true
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="MouseInteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 16
+script = ExtResource("3_75mtp")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
+shape = SubResource("RectangleShape2D_75mtp")
+
+[connection signal="focus_exited" from="EditingPrompt" to="." method="_on_editing_prompt_focus_exited"]
+[connection signal="text_submitted" from="EditingPrompt" to="." method="_on_editing_prompt_text_submitted"]
