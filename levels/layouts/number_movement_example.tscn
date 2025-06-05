@@ -12,7 +12,7 @@ level_output_nodes = [NodePath("OutputValidator")]
 
 [node name="Container" parent="." index="5" instance=ExtResource("2_0nor8")]
 position = Vector2(352, 192)
-default_numbers = Array[int]([4])
+default_numbers = Array[float]([4.0])
 
 [node name="Container2" parent="." index="6" instance=ExtResource("2_0nor8")]
 position = Vector2(672, 192)

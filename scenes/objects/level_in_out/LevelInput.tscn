@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
 [ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
-[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="2_regqu"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scenes/utils/resettable.gd" id="2_regqu"]
 [ext_resource type="Script" uid="uid://cwhvnxwvdhkh5" path="res://scenes/utils/link/movement/number_movement.gd" id="3_f8v14"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_mr1dq"]
-[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scripts/highlightable.gd" id="6_mr1dq"]
+[ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scenes/utils/highlight/highlightable.gd" id="6_mr1dq"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_auqp5"]
 [ext_resource type="PackedScene" uid="uid://egp0h1iv4mjx" path="res://scenes/ui/number_listing/number_listing.tscn" id="9_1sse5"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="9_cn4sb"]

@@ -49,6 +49,7 @@ func play_outline_animation(length : Highlight.HighlightLength = Highlight.Highl
 	outline_target.material = material
 	material.set_shader_parameter("color", color)
 	material.set_shader_parameter("width", outline_width)
+	material.set_shader_parameter("pattern", 1)
 	
 	var t := create_tween()
 	t.tween_interval(_highlight_timings[length])

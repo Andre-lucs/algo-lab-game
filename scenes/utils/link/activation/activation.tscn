@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dm2dffmkn1e7t"]
 
 [ext_resource type="Script" uid="uid://cx6rmmgs3l1du" path="res://scenes/utils/link/activation/activatable.gd" id="1_e8yyc"]
-[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scripts/resettable.gd" id="2_el068"]
+[ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scenes/utils/resettable.gd" id="2_el068"]
 
 [node name="Activation" type="Node" groups=["activation"]]
 script = ExtResource("1_e8yyc")
