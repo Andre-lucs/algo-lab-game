@@ -20,7 +20,6 @@ signal operator_activated(result: Number)
 
 var number_1 : Number
 var number_2 : Number
-var menu_option_index : int = 1
 
 func _on_number_1_received(number: Number) -> void:
 	number_1 = number
@@ -94,9 +93,6 @@ func _set_operator_type(value: OperatorType) -> void:
 	_update_sign_label()
 	
 func _update_sign_label() -> void:
-	var menu_item : ObjectPopupMenuItem = menu.items[menu_option_index]
-	var menu_item_button : TextureButton = menu.hbox.get_child(menu_option_index) as TextureButton
-	menu_item.set_frame(operator_type, menu_item_button)
 	match operator_type:
 		OperatorType.ADD:
 			sign_label.text = "+"
@@ -110,8 +106,8 @@ func _update_sign_label() -> void:
 
 func _on_object_popup_menu_clicked_item(item:ObjectPopupMenuItem, idx:int) -> void:
 	match idx:
-		1:
-			operator_type = menu.items[menu_option_index].current_frame as OperatorType
+		0:
+			operator_type = item.current_frame as OperatorType
 
 func delete() -> void:
 	if number_1:

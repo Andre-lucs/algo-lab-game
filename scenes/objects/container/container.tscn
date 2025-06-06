@@ -94,9 +94,9 @@ interaction_area = NodePath("../MouseInteractionArea2D")
 grab_priority = 0
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("activatable", "interaction_area") instance=ExtResource("4_tifd7")]
-activatable = NodePath("../Activatable")
+[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area", "activatable") instance=ExtResource("4_tifd7")]
 interaction_area = NodePath("../MouseInteractionArea2D")
+activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
 target = NodePath("../NumberMovement")

@@ -5,6 +5,7 @@ class_name ObjectPopupMenuItem
 @export var text : String
 @export var initial_frame : int = 0
 
+var custom_callback : Callable
 var current_frame := 0 
 
 func next_frame(button : TextureButton) -> void:

@@ -2,39 +2,58 @@
 
 [ext_resource type="Script" uid="uid://iwt7ng8vywfo" path="res://scenes/ui/popup_menu/object_popup_menu.gd" id="1_7sao0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73e83"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.6, 0.6, 0.6, 0.529412)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.219608, 0.219608, 0.219608, 0.823529)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ki4sr"]
 
 [node name="ObjectPopupMenu" type="Node"]
 script = ExtResource("1_7sao0")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
-size = Vector2i(20, 42)
-theme_override_styles/panel = SubResource("StyleBoxFlat_73e83")
+size = Vector2i(200, 120)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ki4sr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PopupPanel"]
+[node name="Control" type="Control" parent="PopupPanel"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 5.0
-offset_right = 10.0
-offset_bottom = 37.0
+offset_right = 200.0
+offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PopupPanel/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_right = 49.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_type_variation = &"SimplePanel"
+
+[node name="DefaultItems" type="HBoxContainer" parent="PopupPanel/Control/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer2" type="PanelContainer" parent="PopupPanel/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -37.0
+offset_right = 49.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"SimplePanel"
+
+[node name="CustomItems" type="HBoxContainer" parent="PopupPanel/Control/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
+alignment = 1
