@@ -34,13 +34,14 @@ func _ready() -> void:
 		var new_custom_items = custom_items.map(func(i): return i.duplicate(true))
 		custom_items = []
 		custom_items.assign(new_custom_items)
-		prints(custom_items, new_custom_items)
-	
 	
 	# Remove duplicates from default items
 	for i in default_buttons_to_show.duplicate():
 		if default_buttons_to_show.count(i) > 1:
 			default_buttons_to_show.erase(i)
+	if not activatable:
+		print_debug("Activatable not set, auto button will not work")
+		default_buttons_to_show.erase(DefaultItems.AUTO)
 		
 	# Create default items from resources
 	for item in default_buttons_to_show:
@@ -53,6 +54,7 @@ func _ready() -> void:
 				DefaultItems.AUTO:
 					item_instance.custom_callback = _pressed_auto.bind(item_instance)
 					item_instance.initial_frame = Activatable.AutoState.values().find(activatable.auto)
+					activatable.changed_auto_state.connect(func(): item_instance.set_frame(activatable.auto, _get_default_button(DefaultItems.AUTO)))
 				DefaultItems.DELETE:
 					item_instance.custom_callback = _pressed_delete
 			default_items.push_back(item_instance)
@@ -81,20 +83,19 @@ func update_menu_items() -> void:
 	
 func show_popup() -> void:
 	if popup_panel.is_visible():
-		popup_panel.hide()
-	else:
-		# moves the popup panel to above the mouse position
-		popup_panel.size.x = max(custom_items_box.size.x, default_items_box.size.x)
-		popup_panel.position = get_viewport().get_mouse_position() - Vector2(popup_panel.size) / 2
-		
-		popup_panel.position.y = max(popup_panel.position.y, 0)  # Prevents popup from going off-screen top
-		popup_panel.position.y = min(popup_panel.position.y, get_viewport().size.y - popup_panel.size.y)  # Prevents popup from going off-screen bottom
-		popup_panel.position.x = max(popup_panel.position.x, 0)  # Prevents popup from going off-screen left
-		popup_panel.position.x = min(popup_panel.position.x, get_viewport().size.x - popup_panel.size.x)  # Prevents popup from going off-screen right
+		return
+	var click_pos = get_viewport().get_mouse_position()
+	# moves the popup panel to above the mouse position
+	popup_panel.position = click_pos - (Vector2(popup_panel.size) / 2)
+	
+	popup_panel.position.y = max(popup_panel.position.y, 0)  # Prevents popup from going off-screen top
+	popup_panel.position.y = min(popup_panel.position.y, get_viewport().size.y - popup_panel.size.y)  # Prevents popup from going off-screen bottom
+	popup_panel.position.x = max(popup_panel.position.x, 0)  # Prevents popup from going off-screen left
+	popup_panel.position.x = min(popup_panel.position.x, get_viewport().size.x - popup_panel.size.x)  # Prevents popup from going off-screen right
 
-		popup_panel.popup()
+	popup_panel.popup()
 
-func _input(_event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if interaction_area and Input.is_action_just_pressed("object_menu"):
 		if interaction_area.is_mouse_over():
 			show_popup()
@@ -121,9 +122,17 @@ func _generate_button(item : ObjectPopupMenuItem, idx : int) -> TextureButton:
 	return button
 
 func _pressed_auto(item : ObjectPopupMenuItem) -> void:
-	var button := default_items_box.get_child(default_buttons_to_show.find(DefaultItems.AUTO)) as TextureButton
-	item.next_frame(button)
+	item.next_frame(_get_default_button(DefaultItems.AUTO))
 	if Activatable.AutoState.values().has(item.current_frame):
 		activatable.auto = item.current_frame as Activatable.AutoState
 func _pressed_delete():
 	clicked_delete.emit()
+
+func _resize() -> void:
+	popup_panel.size.x = max(custom_items_box.get_parent().size.x, default_items_box.get_parent().size.x)
+
+func _get_default_button(item: DefaultItems) -> TextureButton:
+	var idx = default_buttons_to_show.find(item)
+	if idx < 0 or idx >= default_items_box.get_child_count():
+		return null
+	return default_items_box.get_child(idx) as TextureButton
