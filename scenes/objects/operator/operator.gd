@@ -21,6 +21,11 @@ signal operator_activated(result: Number)
 var number_1 : Number
 var number_2 : Number
 
+func _ready() -> void:
+	# If set trough inspector, set the operator type for the menu
+	(menu.custom_items.front() as ObjectPopupMenuItem).set_frame(operator_type, menu.custom_items_box.get_child(0) as TextureButton)
+	_update_sign_label()
+
 func _on_number_1_received(number: Number) -> void:
 	number_1 = number
 	# setting this will prevent the number from being overridden by the next number received
@@ -88,7 +93,6 @@ func _get_result_number() -> Number:
 func _set_operator_type(value: OperatorType) -> void:
 	operator_type = value
 	if not is_inside_tree():
-		_update_sign_label.call_deferred()
 		return
 	_update_sign_label()
 	
