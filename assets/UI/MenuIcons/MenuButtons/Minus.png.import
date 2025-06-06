@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds1n8gywbc5e3"
-path="res://.godot/imported/Minus.png-6aaec0f6fe087e51de054669adbde2aa.ctex"
+path="res://.godot/imported/Minus.png-583bcfe51b7558316af0f30ad3568ef5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/MenuIcons/Minus.png"
-dest_files=["res://.godot/imported/Minus.png-6aaec0f6fe087e51de054669adbde2aa.ctex"]
+source_file="res://assets/UI/MenuIcons/MenuButtons/Minus.png"
+dest_files=["res://.godot/imported/Minus.png-583bcfe51b7558316af0f30ad3568ef5.ctex"]
 
 [params]
 

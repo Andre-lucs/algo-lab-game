@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ObjectPopupMenuItem" load_steps=3 format=3 uid="uid://c6ey0hs2g3kt5"]
 
-[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/UI/MenuIcons/TrashCan.png" id="1_vosjc"]
+[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/UI/MenuIcons/MenuButtons/TrashCan.png" id="1_vosjc"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="2_kdi0v"]
 
 [resource]
