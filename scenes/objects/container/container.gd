@@ -94,7 +94,11 @@ func update_default_numbers_to_current():
 ## Gets the last number stored in the container and removes it from the list.
 func get_last_number(copy := false) -> Number:
 	if stored_numbers.size() > 0:
-		var num : Number = stored_numbers.pop_back() if not copy else stored_numbers.back().duplicate()
+		var num : Number
+		if not copy:
+			num = stored_numbers.pop_back()
+		else:
+			num = stored_numbers.back().duplicate()
 		if num.get_parent() == numbers and not copy:
 			num.get_parent().remove_child(num)
 		_needs_arrange = true
