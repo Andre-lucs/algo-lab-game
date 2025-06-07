@@ -83,11 +83,14 @@ interaction_area = NodePath("../../MouseInteractionArea2D")
 grab_speed = 2
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area", "activatable") instance=ExtResource("4_fthne")]
+[node name="ObjectPopupMenu" parent="Traits" node_paths=PackedStringArray("interaction_area", "activatable", "rotation_target") instance=ExtResource("4_fthne")]
 unique_name_in_owner = true
 interaction_area = NodePath("../../MouseInteractionArea2D")
-activatable = NodePath("../Activation")
+default_buttons_to_show = Array[int]([0, 1, 2])
 custom_items = Array[ExtResource("6_4deob")]([SubResource("Resource_7o0lp")])
+activatable = NodePath("../Activation")
+rotation_target = NodePath("../..")
+rotation_duration = 0.1
 
 [node name="Activation" parent="Traits" node_paths=PackedStringArray("target") instance=ExtResource("5_0iqj6")]
 target = NodePath("../..")
