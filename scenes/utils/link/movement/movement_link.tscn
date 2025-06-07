@@ -1,15 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://durujj55wgqx3"]
+[gd_scene load_steps=15 format=3 uid="uid://durujj55wgqx3"]
 
 [ext_resource type="PackedScene" uid="uid://lhfuu6wk1i5g" path="res://scenes/utils/link/link.tscn" id="1_h4gtw"]
 [ext_resource type="Script" uid="uid://boiboc6ds5xa5" path="res://scenes/utils/link/movement/movement_link.gd" id="1_krvj1"]
 [ext_resource type="PackedScene" uid="uid://dm2dffmkn1e7t" path="res://scenes/utils/link/activation/activation.tscn" id="3_ak07b"]
+[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="3_q4hsm"]
 [ext_resource type="PackedScene" uid="uid://bjwa7poyvyxhu" path="res://scenes/utils/link/connection/connection_area.tscn" id="4_8vcjx"]
+[ext_resource type="Texture2D" uid="uid://bj8sxmlqp2d7m" path="res://assets/UI/MenuIcons/MenuButtons/MoveCopyButton.png" id="4_fyc0m"]
 [ext_resource type="Script" uid="uid://dmbgxyol7327d" path="res://scenes/utils/resettable.gd" id="4_grwci"]
 [ext_resource type="Script" uid="uid://bfib056ywhjif" path="res://scenes/utils/highlight/highlightable.gd" id="6_f3h2w"]
 [ext_resource type="Script" uid="uid://bm1he3x5w8vxv" path="res://scripts/resources/HighlightOptions.gd" id="7_w8f3m"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h4gtw"]
 points = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwl7b"]
+atlas = ExtResource("4_fyc0m")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfeqr"]
+atlas = ExtResource("4_fyc0m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_3co3k"]
+script = ExtResource("3_q4hsm")
+frames = Array[Texture2D]([SubResource("AtlasTexture_pwl7b"), SubResource("AtlasTexture_kfeqr")])
+text = "Toggle MOVE mode"
+initial_frame = 0
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
 [sub_resource type="Resource" id="Resource_q4hsm"]
 script = ExtResource("7_w8f3m")
@@ -20,6 +37,7 @@ metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [node name="MovementLink" instance=ExtResource("1_h4gtw")]
 script = ExtResource("1_krvj1")
+move_mode = 0
 move_duration = 1.0
 
 [node name="Start" parent="." index="1"]
@@ -35,6 +53,7 @@ shape = SubResource("ConvexPolygonShape2D_h4gtw")
 polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
 
 [node name="ObjectPopupMenu" parent="." index="3" node_paths=PackedStringArray("activatable")]
+custom_items = Array[ExtResource("3_q4hsm")]([SubResource("Resource_3co3k")])
 activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." index="4" node_paths=PackedStringArray("target") instance=ExtResource("3_ak07b")]
@@ -64,6 +83,7 @@ metadata/_custom_type_script = "uid://bfib056ywhjif"
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]
 [connection signal="updated_path" from="." to="." method="_update_polygon"]
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
+[connection signal="clicked_item" from="ObjectPopupMenu" to="." method="_on_object_popup_menu_clicked_item"]
 [connection signal="activated" from="Activatable" to="." method="activate"]
 [connection signal="success_activated" from="Activatable" to="." method="_play_red_animation"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]

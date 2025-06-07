@@ -1,10 +1,25 @@
 extends Link
 class_name MovementLink
 
+enum Modes{
+	MOVE,
+	COPY
+}
+
+const colors := {
+	Modes.MOVE: Global.Colors["light_blue"],
+	Modes.COPY: Global.Colors["green"]
+}
+
 const SIZE_PER_NODE : float = 32.0 # Size of each node in the path
 
 @export var origin_node : NumberMovement
 @export var destination_node : NumberMovement
+@export var move_mode : Modes = Modes.MOVE :# Mode of the movement (MOVE or COPY)
+	set(value):
+		move_mode = value
+		if is_inside_tree():
+			_update_color()
 @export var move_duration : float = 1.0 # Duration of the move in seconds
 
 @onready var activatable : Activatable = $Activatable
@@ -20,6 +35,7 @@ signal end_moving(number : Number)
 
 func _ready() -> void:
 		super()
+		_update_color()
 		if origin_connection.number_movement == null or destination_connection.number_movement == null:
 			printerr("Origin or destination_node is not linked to a NumberMovement.")
 			delete()
@@ -105,7 +121,7 @@ func _update_polygon():
 func activate():
 	if not destination_node:
 		return
-	origin_node.request_send()
+	origin_node.request_send(true if move_mode == Modes.COPY else false)
 
 func delete() -> void:
 	_disconnect_origin_node()
@@ -192,13 +208,23 @@ func _update_end():
 	points[points.size()-1] = new_last_point
 	end.position = new_last_point
 
+func _update_color(animate := false) -> void:
+	self.self_modulate = colors[move_mode]
+	end.modulate = colors[move_mode]
+	start.modulate = colors[move_mode]
 
 func _play_red_animation() -> void:
 	var og_wid := self.width
 	var t := create_tween()
 	t.parallel().tween_property(self, "width", og_wid * 1.2, 0.1)
-	t.parallel().tween_property(self, "modulate", Global.Colors["red"], 0.1)
+	t.parallel().tween_property(self, "self_modulate", Global.Colors["red"], 0.1)
+	t.parallel().tween_property(end, "modulate", Global.Colors["red"], 0.1)
 	t.tween_interval(0.2)
 	t.parallel().tween_property(self, "width", og_wid, 0.1)
-	t.parallel().tween_property(self, "modulate", Global.Colors["white"], 0.2)
+	t.parallel().tween_property(self, "self_modulate", colors[move_mode], 0.2)
+	t.parallel().tween_property(end, "modulate", colors[move_mode], 0.2)
 	t.play()
+
+
+func _on_object_popup_menu_clicked_item(item:ObjectPopupMenuItem, idx:int) -> void:
+	move_mode = item.current_frame as Modes
