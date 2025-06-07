@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5f3vg23gv3kg"]
+
+[ext_resource type="Script" uid="uid://c4vibp1db5a1" path="res://scenes/ui/popup_menu/default_buttons/default_menu_item.gd" id="1_djcug"]
+[ext_resource type="Texture2D" uid="uid://b1nyxrdj0rpsw" path="res://assets/UI/MenuIcons/MenuButtons/AutoButton.png" id="2_tixe2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvhj6"]
+atlas = ExtResource("2_tixe2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vbje"]
+atlas = ExtResource("2_tixe2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb5yd"]
+atlas = ExtResource("2_tixe2")
+region = Rect2(64, 0, 32, 32)
+
+[node name="AutoButton" type="TextureButton"]
+tooltip_text = "Auto"
+script = ExtResource("1_djcug")
+frames = Array[Texture2D]([SubResource("AtlasTexture_wvhj6"), SubResource("AtlasTexture_4vbje"), SubResource("AtlasTexture_kb5yd")])
+metadata/_custom_type_script = "uid://c4vibp1db5a1"

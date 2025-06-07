@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://61pco8juip4m"]
+
+[ext_resource type="Script" uid="uid://c4vibp1db5a1" path="res://scenes/ui/popup_menu/default_buttons/default_menu_item.gd" id="1_sxef6"]
+[ext_resource type="Texture2D" uid="uid://c68tipw71k7tk" path="res://assets/UI/MenuIcons/MenuButtons/RotateButton.png" id="2_sxef6"]
+
+[node name="AutoButton" type="TextureButton"]
+tooltip_text = "Rotate"
+script = ExtResource("1_sxef6")
+frames = Array[Texture2D]([ExtResource("2_sxef6")])
+metadata/_custom_type_script = "uid://c4vibp1db5a1"

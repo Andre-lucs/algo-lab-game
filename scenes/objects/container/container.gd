@@ -92,10 +92,14 @@ func update_default_numbers_to_current():
 	default_numbers = new_numbers
 
 ## Gets the last number stored in the container and removes it from the list.
-func get_last_number() -> Number:
+func get_last_number(copy := false) -> Number:
 	if stored_numbers.size() > 0:
-		var num : Number = stored_numbers.pop_back()
-		if num.get_parent() == numbers:
+		var num : Number
+		if not copy:
+			num = stored_numbers.pop_back()
+		else:
+			num = stored_numbers.back().duplicate()
+		if num.get_parent() == numbers and not copy:
 			num.get_parent().remove_child(num)
 		_needs_arrange = true
 		return num
@@ -158,7 +162,12 @@ func _on_number_movement_number_received(number:Number) -> void:
 func _on_number_movement_requesting_move() -> void:
 	if stored_numbers.is_empty():
 		return
-	number_movement.send(get_last_number())
+	number_movement.send(get_last_number()) # TODO: update to send to the correct destination
+
+func _on_number_movement_requesting_copy() -> void:
+	if stored_numbers.is_empty():
+		return
+	number_movement.send(get_last_number(true)) # TODO: update to send to the correct destination
 
 func delete() -> void:
 	print("Delete option pressed")
@@ -173,6 +182,7 @@ func _toggle_single_number_container():
 		var number := (stored_numbers.front() as Number).duplicate()
 		_clear_all_numbers()
 		store_number(number, true)
+		update_default_numbers_to_current()
 
 func _on_reset_requested() -> void:
 	_needs_arrange = false
@@ -181,3 +191,9 @@ func _on_reset_requested() -> void:
 			num.queue_free()
 	stored_numbers.clear()
 	_store_default_numbers()
+
+
+func _on_menu_clicked_item(_item:ObjectPopupMenuItem, idx:int) -> void:
+	match idx:
+		0:
+			_toggle_single_number_container()

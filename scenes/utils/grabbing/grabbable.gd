@@ -57,17 +57,18 @@ func _process(delta):
 				invalidate_grab()
 
 func _input(_event: InputEvent) -> void:
+	if not interaction_area:
+		return
 	if Input.is_action_just_pressed("object_grab"):
 		if interaction_area and interaction_area.is_mouse_over():
 			if validate_dragging():
 				_waiting_for_grab = true
 				_grab_timer = 0.0
 	
-	if active and Input.is_action_just_released("object_grab") :
-		if _waiting_for_grab:
-				_waiting_for_grab = false
-				_grab_timer = 0.0
-		elif active and interaction_area:
+	if Input.is_action_just_released("object_grab") :
+		_waiting_for_grab = false
+		_grab_timer = 0.0
+		if active:
 			_on_button_up()
 
 func validate_dragging() -> bool:

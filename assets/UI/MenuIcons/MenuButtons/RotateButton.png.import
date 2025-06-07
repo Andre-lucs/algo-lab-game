@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cleilk2cl12k2"
-path="res://.godot/imported/TrashCan.png-5d95c5d5ca2b14dc6a91c6b003a8c606.ctex"
+uid="uid://c68tipw71k7tk"
+path="res://.godot/imported/RotateButton.png-9994f08eb1cfdc18cddf851f91d81c12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/MenuIcons/TrashCan.png"
-dest_files=["res://.godot/imported/TrashCan.png-5d95c5d5ca2b14dc6a91c6b003a8c606.ctex"]
+source_file="res://assets/UI/MenuIcons/MenuButtons/RotateButton.png"
+dest_files=["res://.godot/imported/RotateButton.png-9994f08eb1cfdc18cddf851f91d81c12.ctex"]
 
 [params]
 
