@@ -15,9 +15,9 @@ enum RotationDirection {
 }
 
 const default_items_resources := {
-	DefaultItems.ROTATE: preload("uid://csqrpeyufd3uk"),
-	DefaultItems.AUTO: preload("uid://bx7gdn3lpxwhc"),
-	DefaultItems.DELETE: preload("uid://c6ey0hs2g3kt5")
+	DefaultItems.ROTATE: preload("uid://61pco8juip4m"),
+	DefaultItems.AUTO: preload("uid://b5f3vg23gv3kg"),
+	DefaultItems.DELETE: preload("uid://bbcve0py72msf")
 }
 
 const BUTTON_SIZE := Vector2(32, 32)  # Size of the buttons in the popup menu
@@ -40,7 +40,7 @@ const BUTTON_SIZE := Vector2(32, 32)  # Size of the buttons in the popup menu
 @export_range(0, 360, 15) var rotation_angle : float = 90.0
 @export var rotation_duration : float = 0.2
 
-var default_items : Array[ObjectPopupMenuItem] = []
+var default_items : Array[DefaultMenuItem] = []
 var _rotated: bool = false
 
 signal clicked_delete
@@ -75,8 +75,8 @@ func _initialize_default_buttons():
 		if not default_items_resources.has(item):
 			continue
 		var resource = default_items_resources[item]
-		if resource is ObjectPopupMenuItem:
-			var item_instance = resource.duplicate(true) as ObjectPopupMenuItem
+		if resource is PackedScene:
+			var item_instance = resource.instantiate()
 			# Set custom callbacks for each item
 			match item:
 				DefaultItems.ROTATE:
@@ -84,7 +84,7 @@ func _initialize_default_buttons():
 				DefaultItems.AUTO:
 					item_instance.custom_callback = _pressed_auto.bind(item_instance)
 					item_instance.initial_frame = Activatable.AutoState.values().find(activatable.auto)
-					activatable.changed_auto_state.connect(func(): item_instance.set_frame(activatable.auto, _get_default_button(DefaultItems.AUTO)))
+					activatable.changed_auto_state.connect(item_instance.set_frame)
 				DefaultItems.DELETE:
 					item_instance.custom_callback = _pressed_delete
 			default_items.push_back(item_instance)
@@ -99,9 +99,8 @@ func update_menu_items() -> void:
 		custom_items_box.get_parent().hide()
 
 	for i in range(default_items.size()):
-		var item = default_items[i]
-		var button = _generate_button(item, i)
-		default_items_box.add_child(button)
+		var item := default_items[i]
+		default_items_box.add_child(item)
 
 	for i in range(custom_items.size()):
 		var item = custom_items[i]
@@ -155,8 +154,8 @@ func _on_custom_button_pressed(idx : int) -> void:
 	item.next_frame(button)
 	clicked_item.emit(item, idx)
 
-func _pressed_auto(item : ObjectPopupMenuItem) -> void:
-	item.next_frame(_get_default_button(DefaultItems.AUTO))
+func _pressed_auto(item : DefaultMenuItem) -> void:
+	item.next_frame()
 	if Activatable.AutoState.values().has(item.current_frame):
 		activatable.auto = item.current_frame as Activatable.AutoState
 func _pressed_delete():
@@ -173,9 +172,3 @@ func _pressed_rotate() -> void:
 		
 		create_tween().tween_property(rotation_target, "rotation_degrees", rotation_target.rotation_degrees + angle, rotation_duration)
 #endregion
-
-func _get_default_button(item: DefaultItems) -> TextureButton:
-	var idx = default_buttons_to_show.find(item)
-	if idx < 0 or idx >= default_items_box.get_child_count():
-		return null
-	return default_items_box.get_child(idx) as TextureButton

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbcve0py72msf"]
+
+[ext_resource type="Script" uid="uid://c4vibp1db5a1" path="res://scenes/ui/popup_menu/default_buttons/default_menu_item.gd" id="1_urljh"]
+[ext_resource type="Texture2D" uid="uid://cleilk2cl12k2" path="res://assets/UI/MenuIcons/MenuButtons/TrashCan.png" id="2_urljh"]
+
+[node name="AutoButton" type="TextureButton"]
+tooltip_text = "Delete"
+script = ExtResource("1_urljh")
+frames = Array[Texture2D]([ExtResource("2_urljh")])
+metadata/_custom_type_script = "uid://c4vibp1db5a1"
