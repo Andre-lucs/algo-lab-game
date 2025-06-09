@@ -52,7 +52,15 @@ func activate(times : int = 1) -> void:
 	if not activation_timer.is_stopped():
 		return
 	activation_timer.start()
-	
+
+# This function is called to trigger an activation immediately
+func instant_activation() -> void:
+	if is_paused:
+		print("Activation paused, ignoring instant activation for: ", get_parent().name)
+		return
+	activation_queue += 1
+	_send_activation()
+
 func _send_activation() -> void:
 	# If is paused, don't send activation and don't consume the activation queue
 	if is_paused:

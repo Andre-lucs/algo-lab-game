@@ -29,7 +29,7 @@ func activate() -> void:
 				destination.resume_activation()
 			else:
 				destination.pause_activation()
-		destination.activate()
+		destination.instant_activation()
 		activated_destination.emit(destination)
 
 func delete() -> void:
