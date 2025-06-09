@@ -121,7 +121,7 @@ func _update_polygon():
 func activate():
 	if not destination_node:
 		return
-	origin_node.request_send(true if move_mode == Modes.COPY else false)
+	origin_node.request_send(self, true if move_mode == Modes.COPY else false)
 
 func delete() -> void:
 	_disconnect_origin_node()

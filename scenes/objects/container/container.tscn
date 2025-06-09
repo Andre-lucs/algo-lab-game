@@ -60,7 +60,8 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("6_0of0j")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_eu0yu"]
+[sub_resource type="Resource" id="Resource_lkqc4"]
+resource_local_to_scene = true
 script = ExtResource("5_lkqc4")
 frames = Array[Texture2D]([SubResource("AtlasTexture_yt8c2"), SubResource("AtlasTexture_kfx3i")])
 text = "Toggle single number"
@@ -113,7 +114,7 @@ metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area", "activatable") instance=ExtResource("4_tifd7")]
 interaction_area = NodePath("../MouseInteractionArea2D")
-custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_eu0yu")])
+custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_lkqc4")])
 activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]

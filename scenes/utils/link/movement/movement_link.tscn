@@ -22,6 +22,7 @@ atlas = ExtResource("4_fyc0m")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="Resource" id="Resource_3co3k"]
+resource_local_to_scene = true
 script = ExtResource("3_q4hsm")
 frames = Array[Texture2D]([SubResource("AtlasTexture_pwl7b"), SubResource("AtlasTexture_kfeqr")])
 text = "Toggle MOVE mode"

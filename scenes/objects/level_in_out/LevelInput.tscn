@@ -106,6 +106,6 @@ trigger_signals = Array[String](["empty"])
 auto = 0
 
 [connection signal="reset_requested" from="Resettable" to="." method="reset"]
-[connection signal="requesting_copy" from="NumberMovement" to="." method="move_number" binds= [true]]
-[connection signal="requesting_move" from="NumberMovement" to="." method="move_number"]
+[connection signal="requesting_copy" from="NumberMovement" to="." method="_on_number_movement_requesting_copy"]
+[connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
 [connection signal="success_activated" from="Activation" to="Highlightable" method="play_outline_animation"]

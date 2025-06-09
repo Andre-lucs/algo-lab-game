@@ -19,7 +19,7 @@ color = Color(0.42, 0.42, 0.42, 1)
 polygon = PackedVector2Array(-16, -8, 8, -8, 8, 8, -16, 8)
 
 [node name="ObjectPopupMenu" parent="." index="3"]
-show_auto_button = false
+default_buttons_to_show = Array[int]([2])
 
 [connection signal="end_connection_changed" from="." to="." method="_on_end_connection_changed"]
 [connection signal="start_connection_changed" from="." to="." method="_on_start_connection_changed"]

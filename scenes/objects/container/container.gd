@@ -159,15 +159,15 @@ func animate_resizing(new_width: float, duration: float = 0.2):
 func _on_number_movement_number_received(number:Number) -> void:
 	store_number(number, true)
 
-func _on_number_movement_requesting_move() -> void:
+func _on_number_movement_requesting_move(send_back_number: Callable) -> void:
 	if stored_numbers.is_empty():
 		return
-	number_movement.send(get_last_number()) # TODO: update to send to the correct destination
+	send_back_number.call(get_last_number()) # Send the last number
 
-func _on_number_movement_requesting_copy() -> void:
+func _on_number_movement_requesting_copy(send_back_number:Callable) -> void:
 	if stored_numbers.is_empty():
 		return
-	number_movement.send(get_last_number(true)) # TODO: update to send to the correct destination
+	send_back_number.call(get_last_number(true)) # Send a copy of the last number
 
 func delete() -> void:
 	print("Delete option pressed")

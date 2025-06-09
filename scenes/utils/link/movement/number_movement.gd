@@ -8,8 +8,8 @@ extends Node
 signal number_received(number : Number)
 signal number_sent(number : Number)
 signal parent_moved()
-signal requesting_move()
-signal requesting_copy()
+signal requesting_move(send_requested_number : Callable)
+signal requesting_copy(send_requested_number : Callable)
 signal new_input_path(path : MovementLink)
 signal new_output_path(path : MovementLink)
 
@@ -41,18 +41,31 @@ func send(number : Number):
 		return true
 	return false
 
+func send_to_path(number : Number, idx : int):
+	if output_locked:
+		return false
+	if sends and number:
+		var path := get_output_paths()[idx]
+		if path:
+			path.move_number(number)
+		return true
+	return false
+
 # This function is called when the parent node is moved
 func update() -> void:
 	parent_moved.emit()
 
-func request_send(copy := false) -> void:
+func request_send(requester : MovementLink = null, copy := false) -> void:
 	if output_paths.is_empty():
 		return
 	if sends:
+		var requester_idx := get_output_paths().find(requester)
+		if requester_idx == -1:
+			return
 		if copy:
-			requesting_copy.emit()
+			requesting_copy.emit(send_to_path.bind(requester_idx))
 		else:
-			requesting_move.emit()
+			requesting_move.emit(send_to_path.bind(requester_idx))
 	
 func connect_path(path:MovementLink):
 	if path.origin_node == self: # C ->
