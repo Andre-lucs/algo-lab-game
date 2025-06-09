@@ -37,7 +37,7 @@ func _update_last_number_display() -> void:
 func _get_number_to_move(remove_number := true) -> Number:
 	if numbers_to_move.is_empty():
 		return null
-	var number := numbers_to_move.front() as Number
+	var number := Number.get_number(numbers_to_move.front())
 	if remove_number:
 		numbers_to_move.pop_front()
 		if numbers_to_move.is_empty():

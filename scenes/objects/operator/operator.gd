@@ -18,8 +18,22 @@ signal operator_activated(result: Number)
 @onready var result_movement : NumberMovement = %ResultMovement
 @onready var menu : ObjectPopupMenu = %ObjectPopupMenu
 
-var number_1 : Number
-var number_2 : Number
+var number_1 : Number:
+	set(value):
+		if value == null:
+			if number_1: number_1.queue_free()
+			number_1_conn.number_movement.input_locked = false
+		else:
+			number_1_conn.number_movement.input_locked = true
+		number_1 = value
+var number_2 : Number:
+	set(value):
+		if value == null:
+			if number_2: number_2.queue_free()
+			number_2_conn.number_movement.input_locked = false
+		else:
+			number_2_conn.number_movement.input_locked = true
+		number_2 = value
 var result_num : Number
 
 func _ready() -> void:
@@ -30,14 +44,12 @@ func _ready() -> void:
 func _on_number_1_received(number: Number) -> void:
 	number_1 = number
 	# setting this will prevent the number from being overridden by the next number received
-	number_1_conn.number_movement.input_locked = true
 	_setup_number_position(number_1, number_1_conn)
 	if number_2:
 		ready_for_result.emit()
 
 func _on_number_2_received(number: Number) -> void:
 	number_2 = number
-	number_2_conn.number_movement.input_locked = false
 	_setup_number_position(number_2, number_2_conn)
 	if number_1:
 		ready_for_result.emit()
@@ -87,13 +99,8 @@ func _make_operation() -> void:
 	result_num = result
 	result_num.move_to(Vector2.ZERO, self)
 
-	number_1.queue_free()
-	number_2.queue_free()
 	number_1 = null
 	number_2 = null
-	#makes it able to receive new numbers
-	number_1_conn.number_movement.input_locked = false
-	number_2_conn.number_movement.input_locked = false
 	
 # sends the result number to the result movement without specifying a requester
 func activate() -> void:
@@ -101,11 +108,13 @@ func activate() -> void:
 	if result_num == null:
 		return
 	result_movement.send(result_num)
+	result_num = null
 
 func send_result(send_requested_number:Callable) -> void:
 	_make_operation()
 	if result_num:
 		send_requested_number.call(result_num)
+		result_num = null
 	else:
 		print("No result number to send")
 

@@ -33,11 +33,15 @@ func receive(number : Number):
 		return true
 	return false
 
+# Sends a number to a random output path
 func send(number : Number):
 	if output_locked:
 		return false
-	if sends and number:
-		number_sent.emit(number)
+	if sends and number and not output_paths.is_empty():
+		var path := output_paths.pick_random() as MovementLink
+		if path:
+			path.move_number(number)
+			number_sent.emit(number)
 		return true
 	return false
 
