@@ -1,15 +1,16 @@
 extends Node2D
 class_name NumberContainer
 
+const NumberSlot = preload("res://scenes/objects/container/number_slot.gd")
+
 static var container_scene : PackedScene = preload("res://scenes/objects/container/container.tscn")
 
 @export var default_numbers: Array[float] = []
-@export var number_spacing: float = 40 # Spacing between numbers
 @export var single_number_container: bool = false # If true, only one number can be stored
 
-@onready var numbers : Node2D = $Numbers
-@onready var walls : NinePatchRect = $Walls
-@onready var animation : AnimationPlayer = $AnimationPlayer
+@onready var front_slot : NumberSlot = %FrontNumberSlot
+@onready var back_slot : NumberSlot = %BackNumberSlot
+
 @onready var grab : Grabbable = $Grabbable
 @onready var connection_area : ConnectionArea = $ConnectionArea
 @onready var activatable : Activatable = $Activatable
@@ -33,7 +34,7 @@ func _process(_delta: float) -> void:
 	if _needs_arrange:
 		_arrange_numbers()
 
-# Number Management ----
+#region Number Management
 
 ## Armazena um número e o adiciona visualmente ao container.
 ## @param number O número a ser armazenado.
@@ -97,64 +98,68 @@ func get_last_number(copy := false) -> Number:
 		var num : Number
 		if not copy:
 			num = stored_numbers.pop_back()
+			back_slot.number = null
 		else:
 			num = stored_numbers.back().duplicate()
-		if num.get_parent() == numbers and not copy:
-			num.get_parent().remove_child(num)
 		_needs_arrange = true
 		return num
 	return null
 
 func _clear_all_numbers():
-	for number in $Numbers.get_children():
-		if number is Number:
-			number.queue_free()
+	for number in stored_numbers:
+		number.queue_free()
 	stored_numbers.clear()
+	front_slot.number = null
+	back_slot.number = null
+#endregion
 
 # Number Arrangement ----
 
 ## Posiciona visualmente os números dentro do container.
 func _arrange_numbers():
-	# Make a copy of the array to avoid issues if stored_numbers is modified during iteration
-	var numbers_snapshot := stored_numbers.duplicate()
-
-	# Calculate the total width of the numbers
-	var total_width = (stored_numbers.size() * number_spacing)
-	var half_width = total_width / 2.0
-
-	# Arrange the numbers
-	for i in range(numbers_snapshot.size()):
-			var num : Number = numbers_snapshot[i]
-			# Check if the number is still in stored_numbers and valid
-			if not stored_numbers.has(num):
-				continue
-			if not is_instance_valid(num):
-				continue
-			if not num.is_inside_tree():
-					numbers.add_child(num)
-			elif num.get_parent() != numbers:
-					num.reparent(numbers)
-			# Position each number relative to the center
-			num.position = Vector2((i * number_spacing) - half_width+24, 0)
-
-	# Adjust the walls and other elements to stay centered
-	animate_resizing(total_width + 24)
 	_needs_arrange = false
 
-var resize_tween : Tween
-## Anima o redimensionamento visual do container com base na largura.
-## @param new_width Nova largura visual.
-## @param duration Duração da animação (em segundos).
-func animate_resizing(new_width: float, duration: float = 0.2):
-	if resize_tween and resize_tween.is_running():
-		resize_tween.kill()
-	resize_tween = create_tween()
-	resize_tween.parallel().tween_property(walls, "size:x", new_width, duration)
-	resize_tween.parallel().tween_property(walls, "position:x", -new_width / 2, duration)
-	# resize_tween.parallel().tween_property(connection_area, "scale:x", new_width / 64, duration)
-	resize_tween.play()
+	match stored_numbers.size():
+		0:
+			_set_slot_numbers(true)
+		1:
+			_set_slot_numbers(true)
+			var number = stored_numbers.front()
+			number.move_to(Vector2.ZERO, self)
+		2:
+			_set_slot_numbers()
+		3:
+			_set_slot_numbers()
+			var middle_number = stored_numbers[1]
+			middle_number.move_to(Vector2.ZERO, self)
+		_:
+			_set_slot_numbers()
+			var middle_numbers = stored_numbers.slice(1, -1)
+			for n in middle_numbers:
+				n.move_to(Vector2.ZERO, self)
+				n.hide()
+			var float_numbers :Array[float] = []
+			for n in middle_numbers:
+				float_numbers.append(n.get_value())
+			%NumberListing.numbers = float_numbers
+			%NumberListing.update_display()
+			%SeeMoreLabel.show()
+	# Using an if to avoid repeating the hide/show logic
+	if stored_numbers.size() <= 3:
+		%SeeMoreLabel.hide()
+		for n in stored_numbers:
+			n.show()
+		
 
-# Movement Callbacks ----
+func _set_slot_numbers(nullify_slots := false):
+	if nullify_slots:
+		front_slot.number = null
+		back_slot.number = null
+		return
+	front_slot.number = stored_numbers.front()
+	back_slot.number = stored_numbers.back()
+
+#region Callbacks
 
 func _on_number_movement_number_received(number:Number) -> void:
 	store_number(number, true)
@@ -197,3 +202,5 @@ func _on_menu_clicked_item(_item:ObjectPopupMenuItem, idx:int) -> void:
 	match idx:
 		0:
 			_toggle_single_number_container()
+
+#endregion

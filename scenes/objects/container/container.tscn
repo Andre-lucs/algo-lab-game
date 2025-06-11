@@ -1,8 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=25 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
+[ext_resource type="Script" uid="uid://d37hdrfapdtfx" path="res://scenes/objects/container/number_slot.gd" id="3_0of0j"]
 [ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="3_tifd7"]
+[ext_resource type="PackedScene" uid="uid://egp0h1iv4mjx" path="res://scenes/ui/number_listing/number_listing.tscn" id="3_yt8c2"]
 [ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_tifd7"]
 [ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="5_lkqc4"]
 [ext_resource type="Texture2D" uid="uid://bhvwh5nvmrvif" path="res://assets/UI/MenuIcons/MenuButtons/SingleMultiButton.png" id="6_0of0j"]
@@ -15,42 +17,13 @@
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="11_tifd7"]
 [ext_resource type="PackedScene" uid="uid://civogmp2g1ge6" path="res://scenes/utils/grabbing/GrabbingAreaDetector.tscn" id="12_b588d"]
 
-[sub_resource type="Animation" id="Animation_cmen7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
+[sub_resource type="LabelSettings" id="LabelSettings_yt8c2"]
+font_size = 32
+outline_size = 10
+outline_color = Color(0.101961, 0.101961, 0.101961, 1)
 
-[sub_resource type="Animation" id="Animation_3s5j0"]
-resource_name = "scale_animation"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(2, 0.5, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ooe7e"]
-_data = {
-&"RESET": SubResource("Animation_cmen7"),
-&"scale_animation": SubResource("Animation_3s5j0")
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfx3i"]
+size = Vector2(40, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yt8c2"]
 atlas = ExtResource("6_0of0j")
@@ -60,7 +33,7 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("6_0of0j")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_lkqc4"]
+[sub_resource type="Resource" id="Resource_yt8c2"]
 resource_local_to_scene = true
 script = ExtResource("5_lkqc4")
 frames = Array[Texture2D]([SubResource("AtlasTexture_yt8c2"), SubResource("AtlasTexture_kfx3i")])
@@ -86,9 +59,9 @@ script = ExtResource("1_r3ic2")
 
 [node name="Walls" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
-offset_left = -32.0
+offset_left = -49.0
 offset_top = -32.0
-offset_right = 32.0
+offset_right = 49.0
 offset_bottom = 32.0
 texture = ExtResource("2_23n6n")
 patch_margin_left = 10
@@ -97,13 +70,52 @@ patch_margin_right = 10
 patch_margin_bottom = 10
 axis_stretch_horizontal = 2
 
-[node name="Numbers" type="Node2D" parent="."]
+[node name="SeeMoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.16667
+offset_right = 20.0
+offset_bottom = 9.16667
+grow_horizontal = 2
+grow_vertical = 2
+text = "..."
+label_settings = SubResource("LabelSettings_yt8c2")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-process_mode = 3
-libraries = {
-&"": SubResource("AnimationLibrary_ooe7e")
-}
+[node name="SeeNumbersArea" type="Area2D" parent="SeeMoreLabel"]
+position = Vector2(26, 18.3333)
+collision_layer = 2147483648
+collision_mask = 0
+script = ExtResource("11_tifd7")
+metadata/_custom_type_script = "uid://ck6y410gncrcr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeeMoreLabel/SeeNumbersArea"]
+shape = SubResource("RectangleShape2D_kfx3i")
+
+[node name="NumberListing" parent="SeeMoreLabel" node_paths=PackedStringArray("mouse_area") instance=ExtResource("3_yt8c2")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = -74.3333
+offset_bottom = -14.3333
+mouse_area = NodePath("../SeeNumbersArea")
+time_hovering = 0.5
+
+[node name="FrontNumberSlot" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-30, 0)
+script = ExtResource("3_0of0j")
+
+[node name="BackNumberSlot" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(32, 0)
+script = ExtResource("3_0of0j")
 
 [node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent", "interaction_area")]
 script = ExtResource("3_tifd7")
@@ -114,7 +126,7 @@ metadata/_custom_type_script = "uid://21g4c8kgecht"
 
 [node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area", "activatable") instance=ExtResource("4_tifd7")]
 interaction_area = NodePath("../MouseInteractionArea2D")
-custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_lkqc4")])
+custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_yt8c2")])
 activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
