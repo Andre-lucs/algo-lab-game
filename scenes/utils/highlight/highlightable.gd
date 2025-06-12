@@ -5,7 +5,7 @@ signal highlighted
 @export var highlight_options: HighlightOptions
 @export_group("Scale Animation")
 @export var auto_play_scale_animation: bool = true
-@export var scale_target : Node2D
+@export var scale_target : CanvasItem
 @export var scale_animation_amount: float = 1.2
 @export_group("Outline Animation")
 @export var auto_play_outline_animation: bool = true
@@ -35,7 +35,11 @@ func highlight(length : Highlight.HighlightLength ,custom_color : Color = Color.
 func play_scale_animation(length : Highlight.HighlightLength = Highlight.HighlightLength.SHORT) -> void:
 	if not scale_target or scale_animation_amount <= 0:
 		return
-	var og_scale := scale_target.scale
+	if not ("scale" in scale_target):
+		return
+	if scale_target is Control:
+		scale_target.pivot_offset = scale_target.size / 2 # Center the pivot for Control nodes
+	var og_scale : Vector2 = scale_target.scale as Vector2
 	var t := create_tween()
 	t.tween_property(scale_target, "scale", og_scale * scale_animation_amount, 0.2)
 	t.tween_property(scale_target, "scale", og_scale, 0.2).set_delay(_highlight_timings[length])

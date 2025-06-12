@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=26 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
@@ -25,6 +25,9 @@ outline_color = Color(0.101961, 0.101961, 0.101961, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfx3i"]
 size = Vector2(40, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yt8c2"]
+size = Vector2(26, 54)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yt8c2"]
 atlas = ExtResource("6_0of0j")
 region = Rect2(0, 0, 32, 32)
@@ -49,10 +52,10 @@ flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
-size = Vector2(64, 64)
+size = Vector2(14, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q33kv"]
-size = Vector2(64, 64)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu0yu"]
+size = Vector2(96, 64)
 
 [node name="Container" type="Node2D"]
 script = ExtResource("1_r3ic2")
@@ -109,13 +112,35 @@ time_hovering = 0.5
 
 [node name="FrontNumberSlot" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-30, 0)
+position = Vector2(-40, 0)
 script = ExtResource("3_0of0j")
+
+[node name="FrontConnection" parent="FrontNumberSlot" node_paths=PackedStringArray("number_movement") instance=ExtResource("7_lkqc4")]
+number_movement = NodePath("../FrontNumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontNumberSlot/FrontConnection"]
+shape = SubResource("RectangleShape2D_yt8c2")
+
+[node name="FrontNumberMovement" type="Node" parent="FrontNumberSlot" node_paths=PackedStringArray("root")]
+script = ExtResource("6_e3mdc")
+root = NodePath("../..")
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
 [node name="BackNumberSlot" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(32, 0)
+position = Vector2(40, 0)
 script = ExtResource("3_0of0j")
+
+[node name="BackConnection" parent="BackNumberSlot" node_paths=PackedStringArray("number_movement") instance=ExtResource("7_lkqc4")]
+number_movement = NodePath("../BackNumberMovement")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackNumberSlot/BackConnection"]
+shape = SubResource("RectangleShape2D_yt8c2")
+
+[node name="BackNumberMovement" type="Node" parent="BackNumberSlot" node_paths=PackedStringArray("root")]
+script = ExtResource("6_e3mdc")
+root = NodePath("../..")
+metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
 [node name="Grabbable" type="Node" parent="." node_paths=PackedStringArray("parent", "interaction_area")]
 script = ExtResource("3_tifd7")
@@ -124,21 +149,16 @@ interaction_area = NodePath("../MouseInteractionArea2D")
 grab_priority = 0
 metadata/_custom_type_script = "uid://21g4c8kgecht"
 
-[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area", "activatable") instance=ExtResource("4_tifd7")]
+[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_tifd7")]
 interaction_area = NodePath("../MouseInteractionArea2D")
+default_buttons_to_show = Array[int]([2])
 custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_yt8c2")])
-activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
-target = NodePath("../NumberMovement")
-trigger_signals = Array[String](["number_sent"])
+target = NodePath("..")
+trigger_signals = Array[String](["sent_number"])
 base_delay = 0.5
 auto = 0
-
-[node name="NumberMovement" type="Node" parent="." node_paths=PackedStringArray("root")]
-script = ExtResource("6_e3mdc")
-root = NodePath("..")
-metadata/_custom_type_script = "uid://cwhvnxwvdhkh5"
 
 [node name="Resettable" type="Node" parent="."]
 script = ExtResource("7_23n6n")
@@ -147,17 +167,9 @@ metadata/_custom_type_script = "uid://dmbgxyol7327d"
 [node name="Highlightable" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
 script = ExtResource("10_e3mdc")
 highlight_options = SubResource("Resource_q33kv")
-scale_target = NodePath("..")
+scale_target = NodePath("../Walls")
 outline_target = NodePath("../Walls")
 metadata/_custom_type_script = "uid://bfib056ywhjif"
-
-[node name="ConnectionArea" parent="." node_paths=PackedStringArray("activatable", "number_movement") instance=ExtResource("7_lkqc4")]
-activatable = NodePath("../Activatable")
-number_movement = NodePath("../NumberMovement")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ConnectionArea"]
-visible = false
-shape = SubResource("RectangleShape2D_l2343")
 
 [node name="ActivationConn" parent="." node_paths=PackedStringArray("activatable") instance=ExtResource("7_lkqc4")]
 collision_layer = 8
@@ -180,14 +192,16 @@ shape = SubResource("RectangleShape2D_l2343")
 [node name="GrabbingAreaDetector" parent="." instance=ExtResource("12_b588d")]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GrabbingAreaDetector"]
-shape = SubResource("RectangleShape2D_q33kv")
+shape = SubResource("RectangleShape2D_eu0yu")
 
+[connection signal="number_received" from="FrontNumberSlot/FrontNumberMovement" to="." method="store_number_in_side" flags=3 binds= [0]]
+[connection signal="requesting_copy" from="FrontNumberSlot/FrontNumberMovement" to="." method="request_copy" flags=3 binds= [0]]
+[connection signal="requesting_move" from="FrontNumberSlot/FrontNumberMovement" to="." method="request_movement" flags=3 binds= [0]]
+[connection signal="number_received" from="BackNumberSlot/BackNumberMovement" to="." method="store_number_in_side" flags=3 binds= [1]]
+[connection signal="requesting_copy" from="BackNumberSlot/BackNumberMovement" to="." method="request_copy" flags=3 binds= [1]]
+[connection signal="requesting_move" from="BackNumberSlot/BackNumberMovement" to="." method="request_movement" flags=3 binds= [1]]
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="clicked_item" from="ObjectPopupMenu" to="." method="_on_menu_clicked_item"]
-[connection signal="activated" from="Activatable" to="NumberMovement" method="request_send"]
-[connection signal="number_received" from="NumberMovement" to="." method="_on_number_movement_number_received"]
-[connection signal="requesting_copy" from="NumberMovement" to="." method="_on_number_movement_requesting_copy"]
-[connection signal="requesting_move" from="NumberMovement" to="." method="_on_number_movement_requesting_move"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
 [connection signal="number_released_over" from="GrabbingAreaDetector" to="." method="add_default_number" unbinds=1]
 [connection signal="number_removed" from="GrabbingAreaDetector" to="." method="remove_default_number" unbinds=1]
