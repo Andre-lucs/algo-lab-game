@@ -58,11 +58,8 @@ func move_number(number : Number):
 	var path_follow = PathFollow2D.new()
 	path_follow.loop = false
 	path.add_child(path_follow)
-	if number.is_inside_tree():
-		number.reparent(path_follow)
-	else:
-		path_follow.add_child(number)
-	number.position = Vector2.ZERO
+	number.move_to(Vector2.ZERO, path_follow)
+	# number.position = Vector2.ZERO
 	path_followers.append(path_follow)
 	start_moving.emit(number)
 	print("Moving number: ", number.value)
@@ -99,10 +96,14 @@ func _animate_moving_numbers(delta : float):
 func _on_reach_path_end(path_follow : PathFollow2D) -> bool:
 	if path_follow.get_child_count() == 0:
 		printerr("No child found in PathFollow2D")
+		path_followers.erase(path_follow)
+		path_follow.queue_free()
 		return false
 	var child = path_follow.get_children().front()
 	if child == null:
 		printerr("No child found in PathFollow2D")
+		path_followers.erase(path_follow)
+		path_follow.queue_free()
 		return false
 	var number = child as Number
 	var successfully_moved = destination_node.receive(number)
@@ -121,7 +122,7 @@ func _update_polygon():
 func activate():
 	if not destination_node:
 		return
-	origin_node.request_send(true if move_mode == Modes.COPY else false)
+	origin_node.request_send(self, true if move_mode == Modes.COPY else false)
 
 func delete() -> void:
 	_disconnect_origin_node()
@@ -157,8 +158,6 @@ func _connect_origin_node(connection: ConnectionArea) -> void:
 	if origin_node:
 			_disconnect_origin_node()
 	origin_node = connection.number_movement
-	if not origin_node.number_sent.is_connected(move_number):
-		origin_node.number_sent.connect(move_number)
 	_origin_parent = origin_node.root
 	if self not in origin_node.output_paths: origin_node.output_paths.append(self)
 

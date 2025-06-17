@@ -18,8 +18,23 @@ signal operator_activated(result: Number)
 @onready var result_movement : NumberMovement = %ResultMovement
 @onready var menu : ObjectPopupMenu = %ObjectPopupMenu
 
-var number_1 : Number
-var number_2 : Number
+var number_1 : Number:
+	set(value):
+		if value == null:
+			if number_1: number_1.queue_free()
+			number_1_conn.number_movement.input_locked = false
+		else:
+			number_1_conn.number_movement.input_locked = true
+		number_1 = value
+var number_2 : Number:
+	set(value):
+		if value == null:
+			if number_2: number_2.queue_free()
+			number_2_conn.number_movement.input_locked = false
+		else:
+			number_2_conn.number_movement.input_locked = true
+		number_2 = value
+var result_num : Number
 
 func _ready() -> void:
 	# If set trough inspector, set the operator type for the menu
@@ -29,14 +44,12 @@ func _ready() -> void:
 func _on_number_1_received(number: Number) -> void:
 	number_1 = number
 	# setting this will prevent the number from being overridden by the next number received
-	number_1_conn.number_movement.input_locked = true
 	_setup_number_position(number_1, number_1_conn)
 	if number_2:
 		ready_for_result.emit()
 
 func _on_number_2_received(number: Number) -> void:
 	number_2 = number
-	number_2_conn.number_movement.input_locked = false
 	_setup_number_position(number_2, number_2_conn)
 	if number_1:
 		ready_for_result.emit()
@@ -52,24 +65,6 @@ func _setup_number_position(number: Number, new_parent: Node2D) -> void:
 	tween.parallel().tween_property(number, "position", Vector2.ZERO, 0.2)
 	tween.parallel().tween_property(number, "rotation", 0, 0.2)
 	tween.play()
-
-func activate() -> void:
-	if number_1 == null or number_2 == null:
-		print("Numbers not set")
-		return
-	var result := _get_result_number()
-	if result == null:
-		print("Result is null")
-		return
-	result_movement.send(result)
-	operator_activated.emit(result)
-	number_1.queue_free()
-	number_2.queue_free()
-	number_1 = null
-	number_2 = null
-	#makes it able to receive new numbers
-	number_1_conn.number_movement.input_locked = false
-	number_2_conn.number_movement.input_locked = false
 
 func _get_result_number() -> Number:
 	if number_1 == null or number_2 == null:
@@ -89,6 +84,39 @@ func _get_result_number() -> Number:
 				print("Division by zero")
 				return null
 	return Number.get_number(result)
+
+func _make_operation() -> void:
+	if number_1 == null or number_2 == null:
+		print("Numbers not set")
+		return
+	var result := _get_result_number()
+	if result == null:
+		print("Result is null")
+		return
+	operator_activated.emit(result)
+	if result_num:
+		result_num.queue_free()
+	result_num = result
+	result_num.move_to(Vector2.ZERO, self)
+
+	number_1 = null
+	number_2 = null
+	
+# sends the result number to the result movement without specifying a requester
+func activate() -> void:
+	_make_operation()
+	if result_num == null:
+		return
+	result_movement.send(result_num)
+	result_num = null
+
+func send_result(send_requested_number:Callable) -> void:
+	_make_operation()
+	if result_num:
+		send_requested_number.call(result_num)
+		result_num = null
+	else:
+		print("No result number to send")
 
 func _set_operator_type(value: OperatorType) -> void:
 	operator_type = value

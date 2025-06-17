@@ -28,6 +28,7 @@ font_size = 48
 font_color = Color(0.901961, 0.901961, 0.941176, 1)
 
 [sub_resource type="Resource" id="Resource_7o0lp"]
+resource_local_to_scene = true
 script = ExtResource("6_4deob")
 frames = Array[Texture2D]([ExtResource("7_qp6pp"), ExtResource("8_uj48i"), ExtResource("9_8fhei"), ExtResource("10_e1413")])
 text = "Change Operation"
@@ -96,6 +97,7 @@ rotation_duration = 0.1
 target = NodePath("../..")
 trigger_signals = Array[String](["ready_for_result"])
 base_delay = 1.0
+auto = 0
 
 [node name="Number1Movement" type="Node" parent="Traits" node_paths=PackedStringArray("root")]
 script = ExtResource("6_1qald")
@@ -181,5 +183,6 @@ shape = SubResource("CapsuleShape2D_ehaq0")
 [connection signal="success_activated" from="Traits/Activation" to="Traits/Highlightable" method="play_outline_animation"]
 [connection signal="number_received" from="Traits/Number1Movement" to="." method="_on_number_1_received"]
 [connection signal="number_received" from="Traits/Number2Movement" to="." method="_on_number_2_received"]
-[connection signal="requesting_move" from="Traits/ResultMovement" to="." method="activate"]
+[connection signal="requesting_copy" from="Traits/ResultMovement" to="." method="send_result"]
+[connection signal="requesting_move" from="Traits/ResultMovement" to="." method="send_result"]
 [connection signal="reset_requested" from="Traits/Resettable" to="." method="_on_reset_requested"]

@@ -21,7 +21,8 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("4_fyc0m")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_3co3k"]
+[sub_resource type="Resource" id="Resource_fyc0m"]
+resource_local_to_scene = true
 script = ExtResource("3_q4hsm")
 frames = Array[Texture2D]([SubResource("AtlasTexture_pwl7b"), SubResource("AtlasTexture_kfeqr")])
 text = "Toggle MOVE mode"
@@ -53,7 +54,7 @@ shape = SubResource("ConvexPolygonShape2D_h4gtw")
 polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
 
 [node name="ObjectPopupMenu" parent="." index="3" node_paths=PackedStringArray("activatable")]
-custom_items = Array[ExtResource("3_q4hsm")]([SubResource("Resource_3co3k")])
+custom_items = Array[ExtResource("3_q4hsm")]([SubResource("Resource_fyc0m")])
 activatable = NodePath("../Activatable")
 
 [node name="Activatable" parent="." index="4" node_paths=PackedStringArray("target") instance=ExtResource("3_ak07b")]

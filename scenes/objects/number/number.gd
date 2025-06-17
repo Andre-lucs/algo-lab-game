@@ -39,7 +39,7 @@ func update_label():
 	queue_redraw()
 
 func move_to(new_position: Vector2, new_parent : Node2D = null, new_rotation: float = 0.0, duration := 0.2) -> void:
-	if new_parent != null:
+	if new_parent != null and new_parent != self.get_parent():
 		if is_inside_tree():
 			reparent(new_parent)
 		else:

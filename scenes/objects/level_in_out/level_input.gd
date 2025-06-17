@@ -19,16 +19,6 @@ var numbers_to_move: Array[float]
 func _ready() -> void:
 	reset()
 
-func move_number(copy := false) -> void:
-	if numbers_to_move.is_empty():
-		return
-	var number := Number.get_number(numbers_to_move.front()) if copy else Number.get_number(numbers_to_move.pop_front())
-	num_move.send(number)
-	_update_last_number_display()
-	number_listing.update_display()
-	if number and numbers_to_move.is_empty(): # when the last number is moved
-		empty.emit()
-
 func reset() -> void:
 	numbers_to_move = numbers.duplicate()
 	number_listing.numbers = numbers_to_move
@@ -43,3 +33,25 @@ func _update_last_number_display() -> void:
 		).set_ease(Tween.EASE_IN_OUT)
 	else:
 		next_number_display.text = ""
+
+func _get_number_to_move(remove_number := true) -> Number:
+	if numbers_to_move.is_empty():
+		return null
+	var number := Number.get_number(numbers_to_move.front())
+	if remove_number:
+		numbers_to_move.pop_front()
+		if numbers_to_move.is_empty():
+			empty.emit()
+	_update_last_number_display()
+	number_listing.update_display()
+	return number
+
+func _on_number_movement_requesting_move(send_requested_number:Callable) -> void:
+	var number := _get_number_to_move()
+	if number:
+		send_requested_number.call(number)
+
+func _on_number_movement_requesting_copy(send_requested_number:Callable) -> void:
+	var number := _get_number_to_move(false)
+	if number:
+		send_requested_number.call(number.duplicate())
