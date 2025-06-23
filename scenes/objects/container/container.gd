@@ -21,6 +21,7 @@ signal became_empty
 
 @onready var grab : Grabbable = $Grabbable
 @onready var menu : ObjectPopupMenu = $ObjectPopupMenu
+@onready var highlightable : Highlightable = $Highlightable
 
 var stored_numbers : Array[Number] = []
 var _needs_arrange : bool = false
@@ -32,6 +33,8 @@ static func get_instance() -> NumberContainer:
 func _ready():
 	if stored_numbers.is_empty() and !default_numbers.is_empty():
 		_store_default_numbers()
+	if highlightable:
+		became_empty.connect(highlightable.play_outline_animation)
 
 func _process(_delta: float) -> void:
 	if _needs_arrange:
