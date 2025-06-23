@@ -11,6 +11,7 @@ enum ConnectionSide {
 static var container_scene : PackedScene = preload("res://scenes/objects/container/container.tscn")
 
 signal sent_number(number: Number, side: ConnectionSide)
+signal became_empty
 
 @export var default_numbers: Array[float] = []
 @export var single_number_container: bool = false # If true, only one number can be stored
@@ -19,7 +20,6 @@ signal sent_number(number: Number, side: ConnectionSide)
 @onready var back_slot : NumberSlot = %BackNumberSlot
 
 @onready var grab : Grabbable = $Grabbable
-@onready var activatable : Activatable = $Activatable
 @onready var menu : ObjectPopupMenu = $ObjectPopupMenu
 
 var stored_numbers : Array[Number] = []
@@ -176,6 +176,8 @@ func request_movement(send_back_number: Callable, side : ConnectionSide) -> void
 	if stored_numbers.is_empty():
 		return
 	send_back_number.call(get_number_from_side(side, false))
+	if stored_numbers.is_empty():
+		became_empty.emit()
 
 func request_copy(send_back_number:Callable, side : ConnectionSide) -> void:
 	if stored_numbers.is_empty():

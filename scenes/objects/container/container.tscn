@@ -156,8 +156,7 @@ custom_items = Array[ExtResource("5_lkqc4")]([SubResource("Resource_yt8c2")])
 
 [node name="Activatable" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_0of0j")]
 target = NodePath("..")
-trigger_signals = Array[String](["sent_number"])
-base_delay = 0.5
+trigger_signals = Array[String](["became_empty"])
 auto = 0
 
 [node name="Resettable" type="Node" parent="."]
