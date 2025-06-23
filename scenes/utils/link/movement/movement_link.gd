@@ -13,8 +13,8 @@ const colors := {
 
 const SIZE_PER_NODE : float = 32.0 # Size of each node in the path
 
-@export var origin_node : NumberMovement
-@export var destination_node : NumberMovement
+var origin_node : NumberMovement
+var destination_node : NumberMovement
 @export var move_mode : Modes = Modes.MOVE :# Mode of the movement (MOVE or COPY)
 	set(value):
 		move_mode = value
