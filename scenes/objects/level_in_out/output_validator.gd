@@ -25,6 +25,9 @@ var state: State = State.WAITING_NUMBER:
 		sprite.frame = value
 		state = value
 
+func _ready():
+	received_wrong_number.connect(show_warning_message)
+
 func check_number(number:Number) -> void:
 	if next_number_index >= expected_numbers.size():
 		return
@@ -64,3 +67,7 @@ func _update_display() -> void:
 	number_listing.update_display()
 	number_display.scale = Vector2(0.2, 0.2)
 	number_display.create_tween().tween_property(number_display, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)
+
+func show_warning_message(number: float) -> void:
+	var warning_message = "Wrong number: " + str(number) + "\nExpected: " + str(expected_numbers[next_number_index])
+	Warning.popup(warning_message, global_position)

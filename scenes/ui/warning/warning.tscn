@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://hyd6px6t51h7"]
+
+[ext_resource type="Texture2D" uid="uid://b21rvmigoklwh" path="res://assets/UI/WarningIcon.png" id="1_dekpi"]
+[ext_resource type="Script" uid="uid://bhiedpetwvglc" path="res://scenes/ui/warning/warning.gd" id="1_oaymw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oaymw"]
+bg_color = Color(0.830335, 0.830335, 0.830335, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 15
+border_color = Color(0.8, 0.373333, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="FontVariation" id="FontVariation_dc00j"]
+variation_embolden = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_urqp1"]
+font = SubResource("FontVariation_dc00j")
+font_size = 24
+font_color = Color(0.8, 0, 0, 1)
+
+[node name="Warning" type="PanelContainer"]
+top_level = true
+z_index = 10
+offset_right = 500.0
+offset_bottom = 71.0
+pivot_offset = Vector2(250, 35.5)
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oaymw")
+script = ExtResource("1_oaymw")
+message = "Não pode fazer diasadsadadsadsd"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(46, 46)
+layout_mode = 2
+texture = ExtResource("1_dekpi")
+
+[node name="WarningMessageLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Não pode fazer diasadsadadsadsd"
+label_settings = SubResource("LabelSettings_urqp1")
