@@ -70,4 +70,4 @@ func _update_display() -> void:
 
 func show_warning_message(number: float) -> void:
 	var warning_message = "Wrong number: " + str(number) + "\nExpected: " + str(expected_numbers[next_number_index])
-	Warning.popup(warning_message, global_position)
+	Warning.popup(warning_message, global_position - Vector2(0, 100))

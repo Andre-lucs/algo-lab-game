@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=18 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="5_4dl3q"]
 [ext_resource type="PackedScene" uid="uid://fuef6ulivwf1" path="res://scenes/ui/level_info/level_info.tscn" id="5_ry6pb"]
 [ext_resource type="Texture2D" uid="uid://ckklouct3m8n6" path="res://assets/UI/MenuIcons/Reset.png" id="6_iiwgg"]
+[ext_resource type="Texture2D" uid="uid://6g0m3a8ey3wc" path="res://assets/UI/MenuIcons/Pause.png" id="8_03l87"]
 [ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/MenuIcons/PointyArrow.png" id="8_iiwgg"]
 [ext_resource type="Script" uid="uid://dnyxfss4y507g" path="res://scripts/controllable_camera_2d.gd" id="10_r6jsl"]
 
@@ -313,7 +314,12 @@ size_flags_vertical = 0
 tooltip_text = "Run Level"
 icon = ExtResource("5_4dl3q")
 
-[node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
+[node name="PauseButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
+visible = false
+layout_mode = 2
+icon = ExtResource("8_03l87")
+
+[node name="StopButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -379,6 +385,11 @@ libraries = {
 
 [connection signal="level_completed" from="." to="." method="_on_level_completed"]
 [connection signal="level_failed" from="." to="." method="_on_level_failed"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="start_execution"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/ResetButton" to="LevelExecutor" method="reset_level"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="resume_execution"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="hide"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="show"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/PauseButton" to="LevelExecutor" method="pause_execution"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/PauseButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="show"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/PauseButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="hide"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelExecutor" method="reset_execution"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
