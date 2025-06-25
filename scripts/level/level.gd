@@ -43,6 +43,9 @@ func _ready() -> void:
 	_default_objects = []
 	for node in get_children():
 		_default_objects.append(node)
+		if node.is_in_group("non_editable"):
+			node.set_process_input(false)  # Disable input processing for non-editable nodes
+			node.set_process_unhandled_input(false)  # Disable unhandled input processing for non-editable nodes
 
 func init_inputs() -> void:
 	for i in range(level_props.inputs.size()):
@@ -102,3 +105,27 @@ func _delete_objects() -> void:
 		if i in _default_objects:
 			continue
 		i.queue_free()
+
+# Pause the input handling for all 2d nodes except the camera and those in the "non_editable" group.
+func _pause_input_processing() -> void:
+	for node in get_children():
+		if node.is_in_group("non_editable"):
+			continue
+		if not node is Node2D:
+			continue
+		if node is Camera2D:
+			continue
+		node.set_process_input(false)  # Disable input processing
+		node.set_process_unhandled_input(false)  # Disable unhandled input processing
+
+
+func _resume_input_processing() -> void:
+	for node in get_children():
+		if node.is_in_group("non_editable"):
+			continue
+		if not node is Node2D:
+			continue
+		if node is Camera2D:
+			continue
+		node.set_process_input(true)  # Enable input processing
+		node.set_process_unhandled_input(true)  # Enable unhandled input processing

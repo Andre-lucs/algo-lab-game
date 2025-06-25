@@ -1,26 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdmog860fbcv8"]
+[gd_scene load_steps=11 format=3 uid="uid://cdmog860fbcv8"]
 
 [ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_w3iit"]
 [ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="2_0nor8"]
+[ext_resource type="Script" uid="uid://dlvvya7tvw7y1" path="res://scripts/resources/ObjectPopupMenuItem.gd" id="3_o7mkk"]
 [ext_resource type="PackedScene" uid="uid://durujj55wgqx3" path="res://scenes/utils/link/movement/movement_link.tscn" id="3_yxvtu"]
 [ext_resource type="PackedScene" uid="uid://k72qkss8srnd" path="res://scenes/objects/level_in_out/LevelInput.tscn" id="4_6a22w"]
+[ext_resource type="Texture2D" uid="uid://bhvwh5nvmrvif" path="res://assets/UI/MenuIcons/MenuButtons/SingleMultiButton.png" id="4_6e56v"]
 [ext_resource type="PackedScene" uid="uid://cvauq1jyuru82" path="res://scenes/objects/level_in_out/OutputValidator.tscn" id="5_absau"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt8c2"]
+atlas = ExtResource("4_6e56v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfx3i"]
+atlas = ExtResource("4_6e56v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_s4vxb"]
+resource_local_to_scene = true
+script = ExtResource("3_o7mkk")
+frames = Array[Texture2D]([SubResource("AtlasTexture_yt8c2"), SubResource("AtlasTexture_kfx3i")])
+text = "Toggle single number"
+initial_frame = 0
+metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
 [node name="NumberMovementExample" node_paths=PackedStringArray("level_input_nodes", "level_output_nodes") instance=ExtResource("1_w3iit")]
 level_input_nodes = [NodePath("LevelInput")]
 level_output_nodes = [NodePath("OutputValidator")]
 
-[node name="Container" parent="." index="5" instance=ExtResource("2_0nor8")]
+[node name="Container" parent="." index="5" groups=["non_editable"] instance=ExtResource("2_0nor8")]
 position = Vector2(352, 192)
 default_numbers = Array[float]([4.0])
 
-[node name="Container2" parent="." index="6" instance=ExtResource("2_0nor8")]
+[node name="ObjectPopupMenu" parent="Container" index="5"]
+custom_items = Array[ExtResource("3_o7mkk")]([SubResource("Resource_s4vxb")])
+
+[node name="Container2" parent="." index="6" groups=["non_editable"] instance=ExtResource("2_0nor8")]
 position = Vector2(672, 192)
 
-[node name="MovementLink" parent="." index="7" node_paths=PackedStringArray("origin_connection", "destination_connection") instance=ExtResource("3_yxvtu")]
+[node name="ObjectPopupMenu" parent="Container2" index="5"]
+custom_items = Array[ExtResource("3_o7mkk")]([SubResource("Resource_s4vxb")])
+
+[node name="MovementLink" parent="." index="7" node_paths=PackedStringArray("origin_connection", "destination_connection") groups=["non_editable"] instance=ExtResource("3_yxvtu")]
 position = Vector2(512, 192)
-origin_connection = NodePath("../Container/ConnectionArea")
-destination_connection = NodePath("../Container2/ConnectionArea")
+origin_connection = NodePath("../Container/BackNumberSlot/BackConnection")
+destination_connection = NodePath("../Container2/FrontNumberSlot/FrontConnection")
 
 [node name="LevelInput" parent="." index="8" instance=ExtResource("4_6a22w")]
 position = Vector2(128, 352)

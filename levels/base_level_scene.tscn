@@ -420,6 +420,8 @@ libraries = {
 
 [connection signal="level_completed" from="." to="." method="_on_level_completed"]
 [connection signal="level_failed" from="." to="." method="_on_level_failed"]
+[connection signal="execution_finished" from="LevelExecutor" to="." method="_resume_input_processing" unbinds=1]
+[connection signal="execution_started" from="LevelExecutor" to="." method="_pause_input_processing"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelExecutor" method="resume_execution"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="hide"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/RunButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="show"]
