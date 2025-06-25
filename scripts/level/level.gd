@@ -15,6 +15,8 @@ signal level_failed
 @export var level_output_nodes : Array[OutputValidator] = []
 var validators_finished : int = 0
 
+var _default_objects : Array[Node]
+
 func _ready() -> void:
 	if level_props == null:
 		print("LevelPropsResource is not set on level.")
@@ -37,6 +39,10 @@ func _ready() -> void:
 	init_inputs()
 	init_validators()
 	level_info.show_full_container()
+
+	_default_objects = []
+	for node in get_children():
+		_default_objects.append(node)
 
 func init_inputs() -> void:
 	for i in range(level_props.inputs.size()):
@@ -90,3 +96,9 @@ func _go_to_next_level() -> void:
 		get_tree().change_scene_to_file("res://scenes/ui/screens/start_menu.tscn")
 		return
 	LevelManager.load_level(level_props.next_level)
+
+func _delete_objects() -> void:
+	for i in get_children():
+		if i in _default_objects:
+			continue
+		i.queue_free()

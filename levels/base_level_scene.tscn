@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=20 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://6g0m3a8ey3wc" path="res://assets/UI/MenuIcons/Pause.png" id="8_03l87"]
 [ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/MenuIcons/PointyArrow.png" id="8_iiwgg"]
 [ext_resource type="Script" uid="uid://dnyxfss4y507g" path="res://scripts/controllable_camera_2d.gd" id="10_r6jsl"]
+[ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="11_8yjj6"]
+[ext_resource type="Texture2D" uid="uid://cq37x4o66574k" path="res://assets/UI/MenuIcons/DeleteAll.png" id="12_cex1g"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")
@@ -297,14 +299,9 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 10
-
 [node name="Top" type="HBoxContainer" parent="LevelUILayer/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
@@ -328,8 +325,44 @@ size_flags_vertical = 0
 tooltip_text = "Reset Execution"
 icon = ExtResource("6_iiwgg")
 
+[node name="Options" type="PanelContainer" parent="LevelUILayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"MinimalistPanelContainer"
+
+[node name="BoxContainer" type="BoxContainer" parent="LevelUILayer/MarginContainer/Options"]
+layout_mode = 2
+theme_override_constants/separation = 10
+vertical = true
+
+[node name="BackButton" type="Button" parent="LevelUILayer/MarginContainer/Options/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Voltar"
+icon = ExtResource("11_8yjj6")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="DeleteButton" type="Button" parent="LevelUILayer/MarginContainer/Options/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Apagar solução"
+icon = ExtResource("12_cex1g")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
 [node name="LevelInfo" parent="LevelUILayer/MarginContainer" instance=ExtResource("5_ry6pb")]
 unique_name_in_owner = true
+z_index = 2
 layout_mode = 2
 
 [node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
@@ -394,4 +427,7 @@ libraries = {
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/PauseButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="show"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/PauseButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="hide"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelExecutor" method="reset_execution"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="show"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="hide"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_delete_objects"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
