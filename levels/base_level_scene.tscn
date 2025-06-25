@@ -300,6 +300,8 @@ theme_override_constants/margin_bottom = 20
 [node name="Toolbox" parent="LevelUILayer/MarginContainer" instance=ExtResource("4_ujwm2")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
 
 [node name="Top" type="HBoxContainer" parent="LevelUILayer/MarginContainer"]
 layout_mode = 2

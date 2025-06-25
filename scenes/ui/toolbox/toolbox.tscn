@@ -36,6 +36,6 @@ icon = ExtResource("5_oaibn")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Items" type="VBoxContainer" parent="."]
+[node name="Items" type="BoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 5

@@ -2,7 +2,7 @@ class_name ObjectToolBox extends PanelContainer
 
 @export var preview_scene : PackedScene
 
-@onready var items_container : VBoxContainer = $Items
+@onready var items_container : BoxContainer = $Items
 @onready var base_button : Button = $BaseButton
 
 @export var items : Array[ToolBoxItem] = []:
