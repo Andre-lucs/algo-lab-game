@@ -95,10 +95,7 @@ func _on_level_completed() -> void:
 
 
 func _go_to_next_level() -> void:
-	if not level_props.next_level:
-		get_tree().change_scene_to_file("res://scenes/ui/screens/start_menu.tscn")
-		return
-	LevelManager.load_level(level_props.next_level)
+	LevelManager.load_next_level()
 
 func _delete_objects() -> void:
 	for i in get_children():
