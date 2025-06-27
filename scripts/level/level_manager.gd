@@ -9,7 +9,7 @@ func get_random_layout() -> PackedScene:
 	return layouts.pick_random()
 
 func load_test_level():
-	get_tree().change_scene_to_packed(test_level)
+	SceneManager.change_scene(test_level)
 	
 func load_level(level: LevelPropsResource):
 	if level == null:

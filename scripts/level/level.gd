@@ -129,3 +129,7 @@ func _resume_input_processing() -> void:
 			continue
 		node.set_process_input(true)  # Enable input processing
 		node.set_process_unhandled_input(true)  # Enable unhandled input processing
+
+
+func _on_back_button_pressed() -> void:
+	SceneManager.go_to_last_ui_scene()

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://0tm4uekukuo7"]
+
+[ext_resource type="Script" uid="uid://7h5n50045r8j" path="res://scenes/utils/transition/scene_transition.gd" id="1_bun8e"]
+
+[node name="SceneTransition" type="CanvasLayer"]
+layer = 10
+follow_viewport_enabled = true
+script = ExtResource("1_bun8e")
+rotation_degrees = 90.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_right = 1.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+color = Color(0, 0, 0, 1)
