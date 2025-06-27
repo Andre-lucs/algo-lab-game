@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci8l4lwwvvbjw"]
+
+[ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="1_bk1uf"]
+[ext_resource type="Script" uid="uid://djunwid6pp3p6" path="res://scenes/ui/screens/level_select_screen.gd" id="1_t4kiv"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_t4kiv"]
+size = Vector2(128, 64)
+
+[node name="LevelSelectScreen" type="CanvasLayer"]
+script = ExtResource("1_t4kiv")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="BackButton2" type="Button" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+icon = SubResource("PlaceholderTexture2D_t4kiv")
+
+[node name="LevelDisplaying" type="GridContainer" parent="Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 5
+
+[node name="ColorRect" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect3" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect4" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect5" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect6" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect7" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect8" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect9" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect10" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="ColorRect11" type="ColorRect" parent="Control/MarginContainer/LevelDisplaying"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+icon = SubResource("PlaceholderTexture2D_t4kiv")
+
+[node name="BackButton" type="TextureButton" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("1_bk1uf")
+stretch_mode = 0
+
+[connection signal="pressed" from="Control/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
