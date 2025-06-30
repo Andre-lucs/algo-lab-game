@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://ci8l4lwwvvbjw"]
+
+[ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="1_bk1uf"]
+[ext_resource type="Script" uid="uid://djunwid6pp3p6" path="res://scenes/ui/screens/level_select/level_select_screen.gd" id="1_t4kiv"]
+[ext_resource type="Texture2D" uid="uid://b4eapli5y2sk1" path="res://assets/UI/WideArrow.png" id="2_xkbp7"]
+[ext_resource type="PackedScene" uid="uid://bcfdy6sw6idli" path="res://scenes/ui/screens/level_select/level_select_button.tscn" id="3_y8clc"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_wl8md"]
+device = -1
+keycode = 4194319
+
+[sub_resource type="Shortcut" id="Shortcut_kwxgr"]
+events = [SubResource("InputEventKey_wl8md")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ibwpl"]
+device = -1
+keycode = 4194321
+
+[sub_resource type="Shortcut" id="Shortcut_20we6"]
+events = [SubResource("InputEventKey_ibwpl")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_y8clc"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_wl8md"]
+events = [SubResource("InputEventKey_y8clc")]
+
+[node name="LevelSelectScreen" type="CanvasLayer"]
+script = ExtResource("1_t4kiv")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="BackLevelsButton" type="TextureButton" parent="Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_kwxgr")
+texture_normal = ExtResource("2_xkbp7")
+flip_h = true
+
+[node name="NextLevelsButton" type="TextureButton" parent="Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 6
+shortcut = SubResource("Shortcut_20we6")
+texture_normal = ExtResource("2_xkbp7")
+
+[node name="LevelDisplaying" type="GridContainer" parent="Control/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 5
+
+[node name="BaseLevelSelectButton" parent="Control/MarginContainer" instance=ExtResource("3_y8clc")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BackButton" type="TextureButton" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+shortcut = SubResource("Shortcut_wl8md")
+texture_normal = ExtResource("1_bk1uf")
+stretch_mode = 0
+
+[connection signal="pressed" from="Control/MarginContainer/BackLevelsButton" to="." method="load_past_levels"]
+[connection signal="pressed" from="Control/MarginContainer/NextLevelsButton" to="." method="load_next_levels"]
+[connection signal="pressed" from="Control/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
