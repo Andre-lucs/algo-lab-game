@@ -1,5 +1,7 @@
 class_name OutputValidator extends Node2D
 
+static var scene : PackedScene = preload("res://scenes/objects/level_in_out/OutputValidator.tscn")
+
 enum State {
 	WRONG_NUMBER,
 	COMPLETED,

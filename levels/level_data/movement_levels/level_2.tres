@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://bmv6l53hfj42f"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://bmv6l53hfj42f"]
 
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_nbp2n"]
 [ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_jq2l1"]
-[ext_resource type="PackedScene" uid="uid://cb3am21qtapjp" path="res://levels/layouts/1-1.tscn" id="3_yl84j"]
-[ext_resource type="Resource" uid="uid://dri5jdx2psmae" path="res://levels/level_data/movement_levels/level_3.tres" id="4_8fa7c"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="5_tra0e"]
 
 [resource]
@@ -14,7 +12,5 @@ Os caminhos são automáticos por padrão, então todos os números serão envia
 Prepare sua estrutura para garantir que nenhum número se perca no caminho."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
-custom_layout = ExtResource("3_yl84j")
-next_level = ExtResource("4_8fa7c")
 available_objects = Array[ExtResource("1_nbp2n")]([ExtResource("2_jq2l1")])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

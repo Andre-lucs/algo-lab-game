@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://beses1ovxi7a8"]
+[gd_scene load_steps=13 format=3 uid="uid://beses1ovxi7a8"]
 
 [ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_gmgay"]
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_o6mel"]
@@ -8,7 +8,6 @@
 [ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="5_axl34"]
 [ext_resource type="PackedScene" uid="uid://cvauq1jyuru82" path="res://scenes/objects/level_in_out/OutputValidator.tscn" id="5_ur00s"]
 [ext_resource type="Resource" uid="uid://b1xaq6o4gy17y" path="res://scenes/ui/toolbox/item_resources/ActivatorLinkBuilder.tres" id="6_8hjdj"]
-[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="6_e7anx"]
 [ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="7_0vv12"]
 [ext_resource type="Resource" uid="uid://dqfohj8in8ax" path="res://scenes/ui/toolbox/item_resources/Operator.tres" id="8_o5yuq"]
 [ext_resource type="Resource" uid="uid://bgun6t66qh8oq" path="res://scenes/ui/toolbox/item_resources/Number.tres" id="9_paa45"]
@@ -35,10 +34,3 @@ position = Vector2(140, 318)
 
 [node name="OutputValidator" parent="." index="6" instance=ExtResource("5_ur00s")]
 position = Vector2(744, 320)
-
-[node name="Container2" parent="." index="8" instance=ExtResource("6_e7anx")]
-position = Vector2(184, 160)
-default_numbers = Array[float]([6.0, 7.0])
-
-[node name="Container3" parent="." index="9" instance=ExtResource("6_e7anx")]
-position = Vector2(624, 320)

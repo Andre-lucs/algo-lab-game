@@ -3,9 +3,7 @@ extends Node
 const LEVELS_ROOT := "res://levels/level_data"
 
 var test_level : PackedScene = preload("res://levels/test_level.tscn")
-
-var layouts := [
-]
+var base_level_scene : PackedScene = preload("uid://b8g8dmlr8xrvm")
 
 var current_level : LevelPropsResource = null
 
@@ -13,9 +11,6 @@ var levels : Dictionary[String, Array] = {}
 # Since the scope of the game isn't big we load all levels data at once.
 func _ready():
 	_load_levels_data()
-
-func get_random_layout() -> PackedScene:
-	return layouts.pick_random()
 
 func load_test_level():
 	SceneManager.change_scene(test_level)
@@ -25,15 +20,10 @@ func load_level(level: LevelPropsResource):
 		print("LevelPropsResource is not set.")
 		load_test_level()
 		return
-	var layout = level.custom_layout if level.custom_layout else get_random_layout()
-	if layout:
-		var layout_instance = layout.instantiate()
-		layout_instance.set("level_props", level)
-		SceneManager.change_scene_to_node(layout_instance)
-		current_level = level		
-	else:
-		print("No layout defined, using default layout.")
-		get_tree().change_scene_to_packed(test_level)
+	var level_instance = level.custom_layout.instantiate() if level.custom_layout else base_level_scene.instantiate()
+	level_instance.set("level_props", level)
+	SceneManager.change_scene_to_node(level_instance)
+	current_level = level		
 
 func load_next_level():
 	if not current_level:

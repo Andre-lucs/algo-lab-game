@@ -272,10 +272,10 @@ metadata/_custom_type_script = "uid://bw7puwhchjbxu"
 
 [node name="LevelLimits" type="ReferenceRect" parent="."]
 visible = false
-offset_left = -136.0
-offset_top = -76.0
-offset_right = 1325.0
-offset_bottom = 744.0
+offset_left = -66.0
+offset_top = -37.0
+offset_right = 1216.0
+offset_bottom = 684.0
 mouse_filter = 2
 border_width = 5.0
 
