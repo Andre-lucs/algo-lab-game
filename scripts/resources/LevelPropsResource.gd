@@ -9,5 +9,4 @@ class_name LevelPropsResource
 
 @export var custom_layout: PackedScene
 
-@export var next_level : LevelPropsResource
 @export var available_objects: Array[ToolBoxItem]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4ug13k78jvr"]
+[gd_scene load_steps=2 format=3 uid="uid://c4ug13k78jvr"]
 
 [ext_resource type="Script" uid="uid://bew01vwmd7mw8" path="res://scenes/ui/screens/start_menu.gd" id="1_irhji"]
-[ext_resource type="Resource" uid="uid://b4jgjwwfe56ep" path="res://levels/level_data/movement_levels/level_1.tres" id="2_863ha"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -11,7 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_irhji")
-initial_level = ExtResource("2_863ha")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

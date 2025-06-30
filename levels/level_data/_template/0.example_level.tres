@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://ch441kpq83v61"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_h7oht"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_43mpi"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_pwuef"]
+
+[resource]
+script = ExtResource("2_43mpi")
+level_name = "LEvel name"
+level_description = "description"
+inputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -6)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -6)])
+available_objects = Array[ExtResource("1_h7oht")]([ExtResource("2_pwuef")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
