@@ -18,6 +18,7 @@ signal level_failed
 var validators_finished : int = 0
 
 var _default_objects : Array[Node]
+var toolbox_hiden : bool = false
 
 #region LEVEL INITIALIZATION
 
@@ -159,7 +160,11 @@ func _pause_input_processing() -> void:
 			continue
 		node.set_process_input(false)  # Disable input processing
 		node.set_process_unhandled_input(false)  # Disable unhandled input processing
-
+	if toolbox_hiden:
+		return
+	toolbox.disable_input()
+	toolbox.slide_down(0.7)
+	toolbox_hiden = true
 
 func _resume_input_processing() -> void:
 	for node in get_children():
@@ -171,7 +176,11 @@ func _resume_input_processing() -> void:
 			continue
 		node.set_process_input(true)  # Enable input processing
 		node.set_process_unhandled_input(true)  # Enable unhandled input processing
-
+	if not toolbox_hiden:
+		return
+	toolbox.enable_input()
+	toolbox.slide_up(0.7)
+	toolbox_hiden = false
 
 func _on_back_button_pressed() -> void:
 	SceneManager.go_to_last_ui_scene()

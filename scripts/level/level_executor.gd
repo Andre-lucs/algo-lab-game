@@ -55,6 +55,7 @@ func reset_execution():
 	level.validators_finished = 0
 	
 	get_tree().call_group("resettable", "reset")  # Reseta todos os resettable
+	execution_finished.emit(false)  # Emite sinal de execução finalizada com falha
 
 func pause_execution() -> void:
 	if not execution_in_progress:

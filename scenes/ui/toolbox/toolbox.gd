@@ -37,3 +37,17 @@ func _update_items_ui():
 		button.show()
 		items_container.add_child(button)
 		button.pressed.connect(_on_button_pressed.bind(i))
+
+func slide_down(amount_by_height := 1.0):
+	create_tween().tween_property(self, "position:y", position.y + get_rect().size.y * amount_by_height, 0.2)
+func slide_up(amount_by_height := 1.0):
+	create_tween().tween_property(self, "position:y", position.y - get_rect().size.y * amount_by_height, 0.2)
+
+func disable_input():
+	for child in items_container.get_children():
+		if child is Button:
+			child.disabled = true
+func enable_input():
+	for child in items_container.get_children():
+		if child is Button:
+			child.disabled = false
