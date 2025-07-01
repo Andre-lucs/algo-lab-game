@@ -82,6 +82,8 @@ func _get_result_number() -> Number:
 				result = number_1.get_value() / number_2.get_value()
 			else:
 				print("Division by zero")
+				Warning.popup("Cannont divide by zero", global_position - Vector2(0, 100))
+				LevelManager.current_level_instance.fail_level()
 				return null
 	return Number.get_number(result)
 

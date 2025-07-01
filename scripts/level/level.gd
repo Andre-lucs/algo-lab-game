@@ -119,7 +119,7 @@ func on_number_received(number: int, correct: bool, finished: bool) -> void:
 		return  # Evita processamento se a execução já foi encerrada
 	
 	if not correct:
-		level_failed.emit()
+		fail_level()
 		return
 	
 	if finished:
@@ -128,6 +128,9 @@ func on_number_received(number: int, correct: bool, finished: bool) -> void:
 	
 	if validators_finished == level_props.outputs.size():
 		level_completed.emit()
+
+func fail_level() -> void:
+	level_failed.emit()
 
 func _on_level_failed() -> void:
 	print("Level failed!")

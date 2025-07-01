@@ -6,6 +6,7 @@ var test_level : PackedScene = preload("res://levels/test_level.tscn")
 var base_level_scene : PackedScene = preload("uid://b8g8dmlr8xrvm")
 
 var current_level : LevelPropsResource = null
+var current_level_instance : Level = null
 
 var levels : Dictionary[LevelSet, Array] = {}
 var level_sets : Array[LevelSet] = []
@@ -14,7 +15,11 @@ func _ready():
 	_load_levels_data()
 
 func load_test_level():
-	SceneManager.change_scene(test_level)
+	var test_level_instance := test_level.instantiate() as Level
+	SceneManager.change_scene_to_node(test_level_instance)
+	# Set the current level to null to indicate no specific level is loaded
+	current_level = test_level_instance.level_props
+	current_level_instance = test_level_instance
 	
 func load_level(level: LevelPropsResource):
 	if level == null:
@@ -24,7 +29,8 @@ func load_level(level: LevelPropsResource):
 	var level_instance = level.custom_layout.instantiate() if level.custom_layout else base_level_scene.instantiate()
 	level_instance.set("level_props", level)
 	SceneManager.change_scene_to_node(level_instance)
-	current_level = level		
+	current_level = level
+	current_level_instance = level_instance as Level
 
 func load_next_level():
 	if not current_level:
