@@ -138,6 +138,7 @@ func _on_level_completed() -> void:
 	print("Level completed!")
 	level_executor.finish_execution(true)
 	$AnimationPlayer.play("level_complete")
+	level_props.save_as_cleared()	# Save the level as completed
 
 
 func _go_to_next_level() -> void:
