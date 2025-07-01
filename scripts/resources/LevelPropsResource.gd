@@ -10,3 +10,9 @@ class_name LevelPropsResource
 @export var custom_layout: PackedScene
 
 @export var available_objects: Array[ToolBoxItem]
+
+func was_cleared() -> bool:
+	return LevelSaving.is_level_completed(self)
+
+func save_as_cleared() -> void:
+	LevelSaving.save_level_completion(self, true)

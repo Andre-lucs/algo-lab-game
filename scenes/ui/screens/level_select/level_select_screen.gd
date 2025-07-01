@@ -10,7 +10,7 @@ var current_directory_index: int = 0
 var worlds_containers: Array[CenterContainer] = []
 
 # Data references
-@onready var directories := LevelManager.get_directories()
+@onready var level_sets := LevelManager.get_level_sets()
 
 # Scene references
 # Using load instead of preload to avoid circular dependency
@@ -33,17 +33,21 @@ func _setup_initial_state() -> void:
 
 func _initialize_level_display() -> void:
 	"""Create and setup level containers for each directory."""
+
+	for container in worlds_containers:
+		container.queue_free()  # Clear any existing containers
+
 	level_displaying_container.hide()
 	
-	for directory in directories:
-		var world_container := _create_world_container(directory)
+	for level_set in level_sets:
+		var world_container := _create_world_container(level_set)
 		var center_container := _create_center_container(world_container)
 		add_child(center_container)
 		worlds_containers.append(center_container)
 
-func _create_world_container(directory: String) -> GridContainer:
+func _create_world_container(level_set : LevelSet) -> GridContainer:
 	"""Create a container with level buttons for the given directory."""
-	var levels := LevelManager.get_levels_from_directory(directory)
+	var levels := level_set.get_levels()
 	var world_container := level_displaying_container.duplicate()
 	world_container.show()
 	
@@ -94,7 +98,7 @@ func display_directory_by_index(index: int) -> void:
 
 func _is_valid_directory_index(index: int) -> bool:
 	"""Check if the directory index is valid."""
-	if index < 0 or index >= directories.size():
+	if index < 0 or index >= level_sets.size():
 		printerr("Invalid directory index: ", index)
 		return false
 	return true
@@ -133,7 +137,7 @@ func _animate_next_container_entrance(next_container: CenterContainer, direction
 
 func _update_navigation_visibility() -> void:
 	back_levels_button.visible = current_directory_index > 0
-	next_levels_button.visible = current_directory_index < directories.size() - 1
+	next_levels_button.visible = current_directory_index < level_sets.size() - 1
 
 func load_past_levels() -> void:
 	if current_directory_index > 0:
@@ -142,7 +146,7 @@ func load_past_levels() -> void:
 		printerr("No previous directory available.")
 
 func load_next_levels() -> void:
-	if current_directory_index < directories.size() - 1:
+	if current_directory_index < level_sets.size() - 1:
 		display_directory_by_index(current_directory_index + 1)
 	else:
 		printerr("No next directory available.")
