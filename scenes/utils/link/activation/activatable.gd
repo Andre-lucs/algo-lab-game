@@ -39,6 +39,7 @@ func _ready() -> void:
 
 func start_activation_if_auto() -> void:
 	activation_timer.one_shot = is_manual()
+	activation_timer.paused = is_paused
 	if auto == AutoState.OFF:
 		return
 	activate()
@@ -86,7 +87,7 @@ func _trigger_success_activation() -> void:
 
 func pause_activation() -> void:
 	paused_activation.emit()
-	activation_timer.stop()
+	activation_timer.paused = true
 	is_paused = true
 	print("Activation paused for: ", get_parent().name)
 
@@ -95,7 +96,7 @@ func resume_activation() -> void:
 		return
 	print("Resuming activation for: ", get_parent().name)
 	is_paused = false
-	_send_activation()
+	activation_timer.paused = false
 
 func _on_activation_timer_timeout() -> void:
 	_send_activation()
