@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcfdy6sw6idli"]
+[gd_scene load_steps=13 format=3 uid="uid://bcfdy6sw6idli"]
 
 [ext_resource type="FontFile" uid="uid://b155qgj2qm6sx" path="res://assets/UI/fonts/Doto/static/Doto-ExtraBold.ttf" id="1_6jesd"]
 [ext_resource type="Script" uid="uid://cvy84xnxlpxho" path="res://scenes/ui/screens/level_select/level_select_button.gd" id="2_0h2if"]
+[ext_resource type="Texture2D" uid="uid://mr57b05pfd65" path="res://assets/UI/BlinkPoint.png" id="3_vftyn"]
+[ext_resource type="Texture2D" uid="uid://fjd1bv6lin78" path="res://assets/UI/Checkmark.png" id="4_lovma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0h2if"]
 bg_color = Color(0.62, 0.62, 0.62, 0.466667)
@@ -19,6 +21,45 @@ anti_aliasing_size = 3.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_0h2if"]
 font_size = 32
+
+[sub_resource type="Animation" id="Animation_lovma"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelTitle:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelTitle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelTitle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vftyn"]
 resource_name = "show_title"
@@ -60,49 +101,48 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_lovma"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nw25h"]
+_data = {
+&"RESET": SubResource("Animation_lovma"),
+&"show_title": SubResource("Animation_vftyn")
+}
+
+[sub_resource type="Animation" id="Animation_nw25h"]
+resource_name = "blink_animation"
+length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RequiredIndicator:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="Animation" id="Animation_8lr1f"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelTitle:anchor_top")
+tracks/0/path = NodePath("RequiredIndicator:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelTitle:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LevelTitle:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nw25h"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k0sir"]
 _data = {
-&"RESET": SubResource("Animation_lovma"),
-&"show_title": SubResource("Animation_vftyn")
+&"RESET": SubResource("Animation_8lr1f"),
+&"blink_animation": SubResource("Animation_nw25h")
 }
 
 [node name="LevelSelectButton" type="Button"]
@@ -135,3 +175,35 @@ horizontal_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_nw25h")
 }
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k0sir")
+}
+
+[node name="RequiredIndicator" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("3_vftyn")
+
+[node name="ClearIndicator" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_lovma")

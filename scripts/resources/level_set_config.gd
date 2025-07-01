@@ -40,6 +40,8 @@ func can_access() -> bool:
 	Check if the level set can be accessed.
 	Checking on the save data if the required levels are cleared.
 	"""
+	if required_level_sets.is_empty():
+		return true  # No requirements, can access freely
 	for level_set in required_level_sets:
 		if not level_set.is_cleared():
 			return false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ci8l4lwwvvbjw"]
+[gd_scene load_steps=12 format=3 uid="uid://ci8l4lwwvvbjw"]
 
 [ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="1_bk1uf"]
 [ext_resource type="Script" uid="uid://djunwid6pp3p6" path="res://scenes/ui/screens/level_select/level_select_screen.gd" id="1_t4kiv"]
@@ -25,6 +25,11 @@ keycode = 4194305
 
 [sub_resource type="Shortcut" id="Shortcut_wl8md"]
 events = [SubResource("InputEventKey_y8clc")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mkbo6"]
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="LevelSelectScreen" type="CanvasLayer"]
 script = ExtResource("1_t4kiv")
@@ -91,6 +96,15 @@ size_flags_vertical = 0
 shortcut = SubResource("Shortcut_wl8md")
 texture_normal = ExtResource("1_bk1uf")
 stretch_mode = 0
+
+[node name="LevelSetTitle" type="Label" parent="Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Title"
+label_settings = SubResource("LabelSettings_mkbo6")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Control/MarginContainer/BackLevelsButton" to="." method="load_past_levels"]
 [connection signal="pressed" from="Control/MarginContainer/NextLevelsButton" to="." method="load_next_levels"]

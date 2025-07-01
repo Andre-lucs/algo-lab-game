@@ -10,7 +10,8 @@ var current_directory_index: int = 0
 var worlds_containers: Array[CenterContainer] = []
 
 # Data references
-@onready var level_sets := LevelManager.get_level_sets()
+@onready var level_sets : Array[LevelSet] = LevelManager.get_level_sets()
+@onready var available_level_sets : Array[LevelSet]
 
 # Scene references
 # Using load instead of preload to avoid circular dependency
@@ -23,23 +24,34 @@ var worlds_containers: Array[CenterContainer] = []
 
 func _ready() -> void:
 	_setup_initial_state()
-	_initialize_level_display()
-	_display_initial_directory()
+
+# Called when the node enters the scene tree
+func _enter_tree() -> void:
+	if not is_node_ready():
+		return
+	_setup_initial_state()
 
 #region INITIALIZATION METHODS
 
 func _setup_initial_state() -> void:
 	%BaseLevelSelectButton.hide()
+	_update_available_level_sets()
+	_initialize_level_display()
+	_display_current_directory()
+
+func _update_available_level_sets() -> void:
+	available_level_sets = level_sets.filter(func(lset: LevelSet): return lset.can_access())
 
 func _initialize_level_display() -> void:
 	"""Create and setup level containers for each directory."""
 
 	for container in worlds_containers:
 		container.queue_free()  # Clear any existing containers
+	worlds_containers = [] # Reset the containers array
 
 	level_displaying_container.hide()
 	
-	for level_set in level_sets:
+	for level_set in available_level_sets:
 		var world_container := _create_world_container(level_set)
 		var center_container := _create_center_container(world_container)
 		add_child(center_container)
@@ -52,17 +64,22 @@ func _create_world_container(level_set : LevelSet) -> GridContainer:
 	world_container.show()
 	
 	for i in levels.size():
-		var level_button := _create_level_button(levels[i], i + 1)
+		var level_button := _create_level_button(
+			levels[i], 
+			i + 1, 
+		 	levels[i] in level_set.required_levels)
 		world_container.add_child(level_button)
 	
 	return world_container
 
-func _create_level_button(level: LevelPropsResource, level_number: int) -> Control:
+func _create_level_button(level: LevelPropsResource, level_number: int, is_required := false) -> Control:
 	"""Create and configure a level selection button."""
 	var button := %BaseLevelSelectButton.duplicate()
 	button.show()
 	button.level_props = level
 	button.level_number = level_number
+	button.cleared = LevelSaving.is_level_completed(level)
+	button.required = is_required
 	button.pressed.connect(_open_level.bind(level))
 	return button
 
@@ -75,7 +92,7 @@ func _create_center_container(world_container: GridContainer) -> CenterContainer
 	center_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return center_container
 
-func _display_initial_directory() -> void:
+func _display_current_directory() -> void:
 	"""Display the first directory by default."""
 	# TODO: Store the last selected directory in a save file
 	display_directory_by_index(current_directory_index)
@@ -95,10 +112,11 @@ func display_directory_by_index(index: int) -> void:
 	_animate_directory_transition(index, next_container)
 	current_directory_index = index
 	_update_navigation_visibility()
+	%LevelSetTitle.text = available_level_sets[index].level_set_name
 
 func _is_valid_directory_index(index: int) -> bool:
 	"""Check if the directory index is valid."""
-	if index < 0 or index >= level_sets.size():
+	if index < 0 or index >= available_level_sets.size():
 		printerr("Invalid directory index: ", index)
 		return false
 	return true
@@ -137,7 +155,7 @@ func _animate_next_container_entrance(next_container: CenterContainer, direction
 
 func _update_navigation_visibility() -> void:
 	back_levels_button.visible = current_directory_index > 0
-	next_levels_button.visible = current_directory_index < level_sets.size() - 1
+	next_levels_button.visible = current_directory_index < available_level_sets.size() - 1
 
 func load_past_levels() -> void:
 	if current_directory_index > 0:
@@ -146,7 +164,7 @@ func load_past_levels() -> void:
 		printerr("No previous directory available.")
 
 func load_next_levels() -> void:
-	if current_directory_index < level_sets.size() - 1:
+	if current_directory_index < available_level_sets.size() - 1:
 		display_directory_by_index(current_directory_index + 1)
 	else:
 		printerr("No next directory available.")
