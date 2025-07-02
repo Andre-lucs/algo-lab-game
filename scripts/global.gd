@@ -3,6 +3,7 @@ class_name  Global
 const Colors = {
 	"white" : Color("ffffff"), # 0xffffff
 	"red": Color("e74d3c"), # 0xe74d3c
+	"yellow": Color("e0b01d"), # 0xe0b01d
 	"green": Color("2ecc71"), # 0x2ecc71
 	"light_blue": Color("00b3a1"), # 0x00b3a1
 	"dark_blue": Color("1e1e2e"), # 0x1e1e2e
