@@ -3,9 +3,10 @@ extends Node
 class_name Activatable
 
 enum AutoState {
-	OFF,
-	ONE_SHOT,
-	ON
+	OFF, # The object is manual, it will only activate when requested
+	ONE_SHOT, # The object is manual, but will activate once when the level starts
+	AUTO, # The object is automatic, it will activate when the level starts and keep being activated
+	AUTO_INACTIVE, # The object is automatic, but it will not activate until it is activated manually at least once
 }
 
 signal activated
@@ -17,7 +18,7 @@ signal paused_activation
 @export var target : Node
 @export var trigger_signals : Array[String]
 @export var base_delay : float = 0.2
-@export var auto : AutoState = AutoState.ON :
+@export var auto : AutoState = AutoState.AUTO :
 	set(value):
 		changed_auto_state.emit(value)
 		auto = value
@@ -40,7 +41,7 @@ func _ready() -> void:
 func start_activation_if_auto() -> void:
 	activation_timer.one_shot = is_manual()
 	activation_timer.paused = is_paused
-	if auto == AutoState.OFF:
+	if auto == AutoState.OFF or auto == AutoState.AUTO_INACTIVE:
 		return
 	activate()
 
@@ -71,7 +72,7 @@ func _send_activation() -> void:
 		return
 	activated.emit()
 	print("Activated: ", get_parent().name)
-	activation_queue -= 1 if auto != AutoState.ON else 0 
+	activation_queue -= 1 if is_manual() else 0 
 	# If there are more activations in the queue, start the timer again
 	if activation_queue == 0 or is_paused:
 		return
@@ -105,7 +106,7 @@ func get_trigger_signals() -> Array[String]:
 	return trigger_signals
 
 func is_manual() -> bool:
-	return auto != AutoState.ON
+	return not (auto in [AutoState.AUTO, AutoState.AUTO_INACTIVE])
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings : PackedStringArray = []

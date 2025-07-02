@@ -24,7 +24,7 @@ func _ready() -> void:
 func activate() -> void:
 	if destination:
 		# If is automatic, toggle pause/resume state
-		if destination.auto == Activatable.AutoState.ON:
+		if destination.auto == Activatable.AutoState.AUTO:
 			if destination.is_paused:
 				destination.resume_activation()
 			else:
