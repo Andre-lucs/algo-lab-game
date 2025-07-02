@@ -154,6 +154,7 @@ SimplePanel/styles/panel = SubResource("StyleBoxFlat_73e83")
 ToolboxButton/base_type = &"Button"
 ToolboxButton/styles/focus = SubResource("StyleBoxFlat_vp8tu")
 ToolboxButton/styles/normal = SubResource("StyleBoxFlat_a7t71")
+TooltipLabel/font_sizes/font_size = 24
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_25gst")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_25gst")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_xk7ex")

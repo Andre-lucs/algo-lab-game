@@ -1,6 +1,7 @@
 class_name DefaultMenuItem extends TextureButton
 
 @export var frames : Array[Texture2D] = []
+@export var tooltips : Array[String] = []
 @export var initial_frame : int = 0
 @export var auto_next_frame : bool = false
 
@@ -30,6 +31,10 @@ func set_frame(value : int) -> void:
 	if value < 0 or value >= frames.size():
 		return
 	current_frame = value
+	if tooltips.size() > value:
+		tooltip_text = tooltips[value]
+	else:
+		tooltip_text = ""
 	var frame_texture := frames[value]
 	texture_normal = frame_texture
 
