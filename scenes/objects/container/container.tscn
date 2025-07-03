@@ -186,7 +186,7 @@ script = ExtResource("11_tifd7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
 visible = false
-shape = SubResource("RectangleShape2D_l2343")
+shape = SubResource("RectangleShape2D_eu0yu")
 
 [node name="GrabbingAreaDetector" parent="." instance=ExtResource("12_b588d")]
 

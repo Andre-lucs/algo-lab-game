@@ -48,13 +48,6 @@ func _process(delta):
 		parent.global_position = mouse_position + offset
 	elif _waiting_for_grab:
 		_grab_timer += delta
-		if _grab_timer >= DELAY_SPEEDS[grab_speed]:
-			_waiting_for_grab = false
-			_grab_timer = 0.0
-			if validate_dragging():
-				begin_dragging()
-			else:
-				invalidate_grab()
 
 func _input(_event: InputEvent) -> void:
 	if not interaction_area:
@@ -64,10 +57,20 @@ func _input(_event: InputEvent) -> void:
 			if validate_dragging():
 				_waiting_for_grab = true
 				_grab_timer = 0.0
+				MouseLoadingIndicator.animate(DELAY_SPEEDS[grab_speed], 
+				func():
+					_waiting_for_grab = false
+					_grab_timer = 0.0
+					if validate_dragging():
+						begin_dragging()
+					else:
+						invalidate_grab()
+					)
 	
 	if Input.is_action_just_released("object_grab") :
 		_waiting_for_grab = false
 		_grab_timer = 0.0
+		MouseLoadingIndicator.kill()
 		if active:
 			_on_button_up()
 
@@ -86,7 +89,7 @@ func validate_dragging() -> bool:
 func _is_other_grab_active() -> bool:
 	var grabbables = get_tree().get_nodes_in_group("grabbable")
 	for grabbable in grabbables:
-		if grabbable is Grabbable and grabbable.is_being_dragged() and grabbable != self:
+		if grabbable is Grabbable and (grabbable.is_being_dragged() or grabbable._waiting_for_grab) and grabbable != self:
 			if grab_priority < grabbable.grab_priority:
 				return true
 	return false
@@ -122,6 +125,8 @@ func invalidate_grab():
 		return
 	parent.global_position = original_position
 	active = false
+	_waiting_for_grab = false
+	_grab_timer = 0.0
 
 func _on_leaving_grabbing_area_detector(area : Area2D):
 	if not area is GrabbingAreaDetector or not active:

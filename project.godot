@@ -21,6 +21,7 @@ LevelManager="*res://scripts/level/level_manager.gd"
 Highlight="*res://scenes/utils/highlight/Highlight.gd"
 Warning="*res://scenes/ui/warning/warning.tscn"
 SceneManager="*res://scenes/utils/transition/scene_manager.tscn"
+MouseLoadingIndicator="*res://scenes/ui/mouse_loading_indicator.tscn"
 
 [display]
 

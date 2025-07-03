@@ -20,7 +20,7 @@ func _draw() -> void:
 	draw_rect(label.get_rect().grow(1.2), Color.BLACK, false, 5)
 	if is_node_ready() : mouse_col_shape.shape.size = label.get_rect().grow(1.2).size
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	_handle_editing_input(event)
 
 func get_value() -> float:

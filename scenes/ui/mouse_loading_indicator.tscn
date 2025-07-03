@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5dvahboll7lb"]
+
+[sub_resource type="Shader" id="Shader_i27mt"]
+code = "shader_type canvas_item;
+
+
+uniform float width = 0.3;
+uniform float gradient_ease = 5.0;
+uniform float fill_ratio = 0.8;
+
+
+void fragment() {
+	float fill_angle = fill_ratio * 3.141592656 * 2.0;
+	vec2 uv = UV * 2.0 - 1.0;
+	if (atan(uv.x, uv.y) + 3.141592656 < fill_angle) {
+		float inner_width = 1.0 - width;
+		inner_width *= inner_width;
+		float d = uv.x * uv.x + uv.y * uv.y;
+		if (d >= inner_width && d <= 1.0) {
+			float w = abs((1.0 + inner_width) / 2.0 - d) / (1.0 - inner_width);
+			w = 1.0 - pow(w + 0.5, gradient_ease);
+			COLOR = vec4(vec3(1.0), min(1.0, w));
+		} else {
+			COLOR.a = 0.0;
+		}
+	} else {
+		COLOR.a = 0.0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bk26c"]
+shader = SubResource("Shader_i27mt")
+shader_parameter/width = 0.4
+shader_parameter/gradient_ease = 100.0
+shader_parameter/fill_ratio = 1.0
+
+[sub_resource type="GDScript" id="GDScript_i27mt"]
+script/source = "extends ColorRect
+
+var tween : Tween
+
+func _unhandled_input(event: InputEvent) -> void:
+	if tween and tween.is_running():
+		global_position = get_global_mouse_position() - size/2
+
+func animate(duration : float, on_complete : Callable):
+	if tween and tween.is_running():
+		tween.kill()
+	(material as ShaderMaterial).set_shader_parameter(\"fill_ratio\", 0.0)
+	tween = create_tween()
+	tween.tween_property(self, \"material:shader_parameter/fill_ratio\", 1.0, duration)
+	tween.tween_callback(on_complete)
+	tween.tween_callback(hide)
+	show()
+
+func kill():
+	if tween: tween.kill()
+	hide()
+"
+
+[node name="MouseLoadingIndicator" type="ColorRect"]
+visible = false
+z_index = 10
+material = SubResource("ShaderMaterial_bk26c")
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+script = SubResource("GDScript_i27mt")
