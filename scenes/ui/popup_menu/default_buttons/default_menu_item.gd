@@ -6,19 +6,19 @@ class_name DefaultMenuItem extends TextureButton
 @export var auto_next_frame : bool = false
 
 var current_frame := 0 
-var custom_callback : Callable:
-	set(value):
-		custom_callback = value
-		if pressed.is_connected(custom_callback): return
-		pressed.connect(custom_callback)
+var custom_callback : Callable
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(32, 32)
 	set_frame(initial_frame)
-	if !pressed.is_connected(custom_callback):
-		pressed.connect(custom_callback)
-	if auto_next_frame and !pressed.is_connected(next_frame):
-		pressed.connect(next_frame)
+	if !pressed.is_connected(_custom_callback_handler):
+		pressed.connect(_custom_callback_handler)
+
+func _custom_callback_handler() -> void:
+	if auto_next_frame:
+		next_frame()
+	if custom_callback:
+		custom_callback.call()
 
 func next_frame() -> void:
 	if frames.size() <= 1: return

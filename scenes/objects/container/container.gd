@@ -211,7 +211,7 @@ func _on_reset_requested() -> void:
 	_store_default_numbers()
 
 
-func _on_menu_clicked_item(_item:ObjectPopupMenuItem, idx:int) -> void:
+func _on_menu_clicked_item(_item:DefaultMenuItem, idx:int) -> void:
 	match idx:
 		0:
 			_toggle_single_number_container()

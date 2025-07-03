@@ -38,7 +38,7 @@ var result_num : Number
 
 func _ready() -> void:
 	# If set trough inspector, set the operator type for the menu
-	(menu.custom_items.front() as ObjectPopupMenuItem).set_frame(operator_type, menu.custom_items_box.get_child(0) as TextureButton)
+	(menu.custom_items.front() as ObjectPopupMenuItem).initial_frame = operator_type
 	_update_sign_label()
 
 func _on_number_1_received(number: Number) -> void:
@@ -138,7 +138,7 @@ func _update_sign_label() -> void:
 			sign_label.text = "/"
 
 
-func _on_object_popup_menu_clicked_item(item:ObjectPopupMenuItem, idx:int) -> void:
+func _on_object_popup_menu_clicked_item(item:DefaultMenuItem, idx:int) -> void:
 	match idx:
 		0:
 			operator_type = item.current_frame as OperatorType

@@ -44,7 +44,7 @@ var default_items : Array[DefaultMenuItem] = []
 var _rotated: bool = false
 
 signal clicked_delete
-signal clicked_item(item: ObjectPopupMenuItem, idx: int)
+signal clicked_item(item: DefaultMenuItem, idx: int)
 
 #region Initialization
 func _ready() -> void:
@@ -108,19 +108,8 @@ func update_menu_items() -> void:
 		custom_items_box.add_child(button)
 
 func _generate_button(item : ObjectPopupMenuItem, idx : int) -> TextureButton:
-	var button = TextureButton.new()
-	item.init_button(button)
-	
-	if item.custom_callback:
-		button.pressed.connect(item.custom_callback)
-	elif item in custom_items:
-		button.pressed.connect(_on_custom_button_pressed.bind(idx))
-	
-	button.name = str(custom_items.size())
-	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	button.size = BUTTON_SIZE
-	button.stretch_mode = TextureButton.STRETCH_SCALE
-	return button
+	item.custom_callback = _on_custom_button_pressed.bind(idx)
+	return item.getInstance()
 #endregion
 
 #region Popup Management
@@ -149,13 +138,10 @@ func _unhandled_input(_event: InputEvent) -> void:
 			show_popup()
 
 func _on_custom_button_pressed(idx : int) -> void:
-	var item := custom_items[idx]
-	var button := custom_items_box.get_child(idx) as TextureButton
-	item.next_frame(button)
+	var item := custom_items_box.get_child(idx) as DefaultMenuItem
 	clicked_item.emit(item, idx)
 
 func _pressed_auto(item : DefaultMenuItem) -> void:
-	item.next_frame()
 	if Activatable.AutoState.values().has(item.current_frame):
 		activatable.auto = item.current_frame as Activatable.AutoState
 func _pressed_delete():
