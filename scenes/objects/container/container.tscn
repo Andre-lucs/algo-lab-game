@@ -42,6 +42,7 @@ script = ExtResource("5_lkqc4")
 frames = Array[Texture2D]([SubResource("AtlasTexture_yt8c2"), SubResource("AtlasTexture_kfx3i")])
 text = "Toggle single number"
 initial_frame = 0
+type = 0
 metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 
 [sub_resource type="Resource" id="Resource_q33kv"]

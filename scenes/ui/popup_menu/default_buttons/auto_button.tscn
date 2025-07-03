@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b5f3vg23gv3kg"]
 
-[ext_resource type="Script" uid="uid://c4vibp1db5a1" path="res://scenes/ui/popup_menu/default_buttons/default_menu_item.gd" id="1_djcug"]
+[ext_resource type="Script" uid="uid://crhqxl680jocn" path="res://scenes/ui/popup_menu/default_buttons/submenu_item.gd" id="1_tixe2"]
 [ext_resource type="Texture2D" uid="uid://dyg0busic33e1" path="res://assets/UI/MenuIcons/MenuButtons/AutoButton.png" id="2_tixe2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wvhj6"]
@@ -21,7 +21,7 @@ region = Rect2(96, 0, 32, 32)
 
 [node name="AutoButton" type="TextureButton"]
 tooltip_text = "Auto"
-script = ExtResource("1_djcug")
+script = ExtResource("1_tixe2")
 frames = Array[Texture2D]([SubResource("AtlasTexture_wvhj6"), SubResource("AtlasTexture_4vbje"), SubResource("AtlasTexture_kb5yd"), SubResource("AtlasTexture_tixe2")])
 tooltips = Array[String](["Manual", "Uma vez", "Automatico", "Automatico (Inicia desligado)"])
 metadata/_custom_type_script = "uid://c4vibp1db5a1"
