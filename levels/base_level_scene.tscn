@@ -413,6 +413,12 @@ text = "Próximo nível"
 icon = ExtResource("8_iiwgg")
 icon_alignment = 2
 
+[node name="BackButton" type="Button" parent="LevelCompleteLayer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Ver níveis"
+icon = ExtResource("11_8yjj6")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_l63b4")
@@ -434,3 +440,4 @@ libraries = {
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_delete_objects"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
+[connection signal="pressed" from="LevelCompleteLayer/GridContainer/BackButton" to="." method="_on_back_button_pressed"]
