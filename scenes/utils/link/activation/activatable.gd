@@ -60,6 +60,11 @@ func instant_activation() -> void:
 	if is_paused:
 		print("Activation paused, ignoring instant activation for: ", get_parent().name)
 		return
+	# If timer is active (in cooldown), respect the cooldown by using activate()
+	if not activation_timer.is_stopped():
+		activate(1)
+		return
+	# Otherwise, activate immediately
 	activation_queue += 1
 	_send_activation()
 
