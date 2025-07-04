@@ -32,6 +32,7 @@ func _ready():
 
 func check_number(number:Number) -> void:
 	if next_number_index >= expected_numbers.size():
+		send_error(number.get_value())
 		return
 	var value := number.get_value()
 	var expected_value := expected_numbers[next_number_index] 
@@ -41,16 +42,28 @@ func check_number(number:Number) -> void:
 		var finished := next_number_index >= expected_numbers.size()
 		received_correct_number.emit(value, finished)
 		if finished:
-			state = State.COMPLETED
-			validation_complete.emit()
+			complete_validation()
 		else:
 			sprite.frame = State.COMPLETED
 			var tween = create_tween()
 			tween.tween_property(sprite, "frame", state, 0.2)
 	else:
-		received_wrong_number.emit(value)
-		state = State.WRONG_NUMBER
+		send_error(value)
+		
 	number.queue_free()
+
+func complete_validation() -> void:
+	if state == State.COMPLETED:
+		return
+	if next_number_index < expected_numbers.size():
+		send_error(expected_numbers[next_number_index])
+	else:
+		state = State.COMPLETED
+		validation_complete.emit()
+
+func send_error(number : float) -> void:
+	received_wrong_number.emit(number)
+	state = State.WRONG_NUMBER
 
 func reset() -> void:
 	next_number_index = 0
@@ -71,5 +84,11 @@ func _update_display() -> void:
 	number_display.create_tween().tween_property(number_display, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_IN_OUT)
 
 func show_warning_message(number: float) -> void:
-	var warning_message = "Wrong number: " + str(number) + "\nExpected: " + str(expected_numbers[next_number_index])
+
+	var warning_message : String
+	match state:
+		State.COMPLETED:
+			warning_message = "All numbers completed, but received: " + str(number)
+		_:
+			warning_message = "Wrong number: " + str(number) + "\nExpected: " + str(expected_numbers[next_number_index])
 	Warning.popup(warning_message, global_position - Vector2(0, 100))

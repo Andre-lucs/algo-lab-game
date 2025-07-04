@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvauq1jyuru82"]
+[gd_scene load_steps=16 format=3 uid="uid://cvauq1jyuru82"]
 
 [ext_resource type="Texture2D" uid="uid://dvrvvlrxraf8d" path="res://assets/Validator.png" id="1_0invr"]
 [ext_resource type="Script" uid="uid://b0eyo5ajw4v8f" path="res://scenes/objects/level_in_out/output_validator.gd" id="1_bf6jn"]
@@ -25,6 +25,13 @@ script = ExtResource("7_dm5f8")
 type = 0
 flow_in = true
 flow_out = false
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
+
+[sub_resource type="Resource" id="Resource_ufcds"]
+script = ExtResource("7_dm5f8")
+type = 1
+flow_in = false
+flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d48l0"]
@@ -85,6 +92,14 @@ shape = SubResource("CircleShape2D_dm5f8")
 [node name="Highlightable" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
 script = ExtResource("6_j7v7c")
 highlight_options = SubResource("Resource_d7fjr")
+scale_target = NodePath("../Sprite2D")
+outline_target = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
+[node name="Highlightable2" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("6_j7v7c")
+highlight_options = SubResource("Resource_ufcds")
+auto_play_scale_animation = false
 scale_target = NodePath("../Sprite2D")
 outline_target = NodePath("../Sprite2D")
 metadata/_custom_type_script = "uid://bfib056ywhjif"
