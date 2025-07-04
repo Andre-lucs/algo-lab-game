@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://k72qkss8srnd"]
+[gd_scene load_steps=16 format=3 uid="uid://k72qkss8srnd"]
 
 [ext_resource type="Texture2D" uid="uid://cwkxjv0vvkjmm" path="res://assets/LevelInput.png" id="1_hga22"]
 [ext_resource type="Script" uid="uid://bqjonw87xfvop" path="res://scenes/objects/level_in_out/level_input.gd" id="1_regqu"]
@@ -23,6 +23,13 @@ radius = 32.0
 [sub_resource type="Resource" id="Resource_1sse5"]
 script = ExtResource("7_auqp5")
 type = 0
+flow_in = false
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
+
+[sub_resource type="Resource" id="Resource_cn4sb"]
+script = ExtResource("7_auqp5")
+type = 1
 flow_in = false
 flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
@@ -75,6 +82,13 @@ shape = SubResource("CircleShape2D_auqp5")
 [node name="Highlightable" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
 script = ExtResource("6_mr1dq")
 highlight_options = SubResource("Resource_1sse5")
+scale_target = NodePath("../Sprite2D")
+outline_target = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
+[node name="Highlightable2" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("6_mr1dq")
+highlight_options = SubResource("Resource_cn4sb")
 scale_target = NodePath("../Sprite2D")
 outline_target = NodePath("../Sprite2D")
 metadata/_custom_type_script = "uid://bfib056ywhjif"

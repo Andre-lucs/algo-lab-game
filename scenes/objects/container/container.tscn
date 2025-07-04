@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=27 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
@@ -49,6 +49,13 @@ metadata/_custom_type_script = "uid://dlvvya7tvw7y1"
 script = ExtResource("11_b588d")
 type = 0
 flow_in = true
+flow_out = true
+metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
+
+[sub_resource type="Resource" id="Resource_kfx3i"]
+script = ExtResource("11_b588d")
+type = 1
+flow_in = false
 flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
 
@@ -171,6 +178,13 @@ scale_target = NodePath("../Walls")
 outline_target = NodePath("../Walls")
 metadata/_custom_type_script = "uid://bfib056ywhjif"
 
+[node name="Highlightable2" type="Node" parent="." node_paths=PackedStringArray("scale_target", "outline_target")]
+script = ExtResource("10_e3mdc")
+highlight_options = SubResource("Resource_kfx3i")
+scale_target = NodePath("../Walls")
+outline_target = NodePath("../Walls")
+metadata/_custom_type_script = "uid://bfib056ywhjif"
+
 [node name="ActivationConn" parent="." node_paths=PackedStringArray("activatable") instance=ExtResource("7_lkqc4")]
 collision_layer = 8
 sticks_to_center = false
@@ -202,6 +216,7 @@ shape = SubResource("RectangleShape2D_eu0yu")
 [connection signal="requesting_move" from="BackNumberSlot/BackNumberMovement" to="." method="request_movement" flags=3 binds= [1]]
 [connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="clicked_item" from="ObjectPopupMenu" to="." method="_on_menu_clicked_item"]
+[connection signal="success_activated" from="Activatable" to="Highlightable" method="play_outline_animation"]
 [connection signal="reset_requested" from="Resettable" to="." method="_on_reset_requested"]
 [connection signal="number_released_over" from="GrabbingAreaDetector" to="." method="add_default_number" unbinds=1]
 [connection signal="number_removed" from="GrabbingAreaDetector" to="." method="remove_default_number" unbinds=1]

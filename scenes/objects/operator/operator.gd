@@ -117,8 +117,12 @@ func send_result(send_requested_number:Callable) -> void:
 	if result_num:
 		send_requested_number.call(result_num)
 		result_num = null
-	else:
-		print("No result number to send")
+
+func send_result_copy(send_requested_number:Callable) -> void:
+	_make_operation()
+	if result_num:
+		var result_copy := result_num.duplicate()
+		send_requested_number.call(result_copy)
 
 func _set_operator_type(value: OperatorType) -> void:
 	operator_type = value
@@ -160,4 +164,7 @@ func _on_reset_requested() -> void:
 	number_2 = null
 	number_1_conn.number_movement.set_deferred("input_locked",false)
 	number_2_conn.number_movement.set_deferred("input_locked",false)
+	if result_num:
+		result_num.queue_free()
+		result_num = null
 	_update_sign_label()

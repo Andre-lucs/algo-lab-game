@@ -225,5 +225,5 @@ func _play_red_animation() -> void:
 	t.play()
 
 
-func _on_object_popup_menu_clicked_item(item:ObjectPopupMenuItem, idx:int) -> void:
+func _on_object_popup_menu_clicked_item(item:DefaultMenuItem, idx:int) -> void:
 	move_mode = item.current_frame as Modes
