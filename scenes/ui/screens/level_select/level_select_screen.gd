@@ -60,7 +60,7 @@ func _initialize_level_display() -> void:
 func _create_world_container(level_set : LevelSet) -> GridContainer:
 	"""Create a container with level buttons for the given directory."""
 	var levels := level_set.get_levels()
-	var world_container := level_displaying_container.duplicate()
+	var world_container := level_displaying_container.duplicate() as GridContainer
 	world_container.show()
 	
 	for i in levels.size():
@@ -70,6 +70,7 @@ func _create_world_container(level_set : LevelSet) -> GridContainer:
 		 	levels[i] in level_set.required_levels)
 		world_container.add_child(level_button)
 	
+	world_container.columns = min(3, levels.size())  # Set columns based on available levels
 	return world_container
 
 func _create_level_button(level: LevelPropsResource, level_number: int, is_required := false) -> Control:

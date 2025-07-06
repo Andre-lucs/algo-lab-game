@@ -26,7 +26,7 @@ outline_color = Color(0.101961, 0.101961, 0.101961, 1)
 size = Vector2(40, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yt8c2"]
-size = Vector2(26, 54)
+size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yt8c2"]
 atlas = ExtResource("6_0of0j")

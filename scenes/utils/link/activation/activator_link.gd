@@ -1,6 +1,8 @@
 extends Link
 class_name ActivatorLink
 
+const ACTIVATION_DELAY := .1
+
 @export var origin : Activatable
 @export var destination : Activatable
 
@@ -23,6 +25,7 @@ func _ready() -> void:
 
 func activate() -> void:
 	if destination:
+		await get_tree().create_timer(ACTIVATION_DELAY).timeout
 		# If is automatic, toggle pause/resume state
 		if destination.auto == Activatable.AutoState.AUTO:
 			if destination.is_paused:
