@@ -26,11 +26,13 @@ var state: State = State.WAITING_NUMBER:
 	set(value):
 		sprite.frame = value
 		state = value
+var _last_num : Number = null
 
 func _ready():
 	received_wrong_number.connect(show_warning_message)
 
 func check_number(number:Number) -> void:
+	_last_num = number
 	if next_number_index >= expected_numbers.size():
 		send_error(number.get_value())
 		return
@@ -70,6 +72,8 @@ func reset() -> void:
 	_update_display()
 	state = State.WAITING_NUMBER
 	number_listing.numbers = expected_numbers.slice(next_number_index)
+	if _last_num and _last_num.is_inside_tree():
+		_last_num.queue_free()
 
 func _update_display() -> void:
 	if next_number_index < expected_numbers.size():
