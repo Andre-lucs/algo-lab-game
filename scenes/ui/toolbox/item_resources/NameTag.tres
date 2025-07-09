@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ToolBoxItem" load_steps=5 format=3 uid="uid://bqs0ujbufuq3r"]
+
+[ext_resource type="Texture2D" uid="uid://b1xns6sodk2is" path="res://assets/NameTag.png" id="1_6a5vf"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_x4hcm"]
+[ext_resource type="Texture2D" uid="uid://cyw00ibs5twco" path="res://assets/NametagPreview.png" id="2_pncm5"]
+[ext_resource type="PackedScene" uid="uid://dmjnelyaocaag" path="res://scenes/objects/name_tag/name_tag.tscn" id="4_l2m2t"]
+
+[resource]
+script = ExtResource("1_x4hcm")
+item_name = "Etiqueta"
+icon = ExtResource("1_6a5vf")
+preview_image = ExtResource("2_pncm5")
+target_scene = ExtResource("4_l2m2t")
+custom_args = Dictionary[String, Variant]({})
+metadata/_custom_type_script = "uid://ct0y6m322lv47"
