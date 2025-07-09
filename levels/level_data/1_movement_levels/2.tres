@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://c7qvwcx1cbw1x"]
 
-[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_r4umw"]
-[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_d1gsx"]
-[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="5_4gbp8"]
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_tbc05"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_yf7y0"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_vicai"]
 
 [resource]
-script = ExtResource("5_4gbp8")
+script = ExtResource("3_vicai")
 level_name = "Múltiplas Entradas e Saídas"
 level_description = "Neste nível, os números vêm de lugares diferentes e devem ser entregues em saídas específicas. 
 Aprenda a organizar suas conexões para enviar cada número ao destino correto."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5), PackedInt32Array(3)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5), PackedInt32Array(3)])
-available_objects = Array[ExtResource("1_r4umw")]([ExtResource("2_d1gsx")])
+available_objects = Array[ExtResource("1_tbc05")]([ExtResource("2_yf7y0")])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

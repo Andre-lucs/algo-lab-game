@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://b5dxfvglv0o81"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_b3nwf"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_a2lww"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_drtex"]
+
+[resource]
+script = ExtResource("3_drtex")
+level_name = "Copiando"
+level_description = "Você pode utilizar o caminho para copiar um número em vez de mover ele.
+Clique com o botão direito sobre o TRANSPORTADOR para abrir um menu com customizações dele.
+No botão de baixo você pode alternar se o caminho vai mover ou copiar um número.
+Outros objetos também possuem um menu como este."
+inputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -4, 12), PackedInt32Array(-9)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -4, 12), PackedInt32Array(-9, -9, -9, -9)])
+available_objects = Array[ExtResource("1_b3nwf")]([ExtResource("2_a2lww")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

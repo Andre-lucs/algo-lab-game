@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=5 format=3 uid="uid://d333fk8yuqt4l"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_ch4l5"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_ocvas"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_ecrys"]
+[ext_resource type="Resource" uid="uid://doehu4k766ac0" path="res://scenes/ui/toolbox/item_resources/ContainerItem.tres" id="3_ocvas"]
+
+[resource]
+script = ExtResource("3_ecrys")
+level_name = "Atrasando"
+level_description = "Envie os números da segunda entrada, primeiro e depois mande os números da primeira entrada.
+
+Para isso você pode utilizar um container para atrasar o movimento dos numeros da primeira entrada."
+inputs = Array[PackedInt32Array]([PackedInt32Array(8, 2, -3), PackedInt32Array(3, 5)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, 5, 8, 2, -3)])
+available_objects = Array[ExtResource("1_ch4l5")]([ExtResource("2_ocvas"), ExtResource("3_ocvas")])
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

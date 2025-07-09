@@ -7,9 +7,9 @@
 
 [resource]
 script = ExtResource("6_ow5ua")
-level_name = "Direcionamento Inteligente"
+level_name = "Roteador"
 level_description = "Conheça o Roteador!  
-Ele permite enviar diferentes números para diferentes destinos com base em regras simples.  
+Ele envia números que ele recebe alternando para qual TRANSPORTADOR enviar.  
 Use essa nova ferramenta para separar os valores corretamente entre as saídas."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 6, 3, 2)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 3), PackedInt32Array(6, 2)])
