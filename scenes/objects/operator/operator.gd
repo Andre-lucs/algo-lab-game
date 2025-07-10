@@ -7,8 +7,7 @@ enum OperatorType{
 	DIVIDE
 }
 
-signal ready_for_result
-signal operator_activated(result: Number)
+signal result_is_ready
 
 @export var operator_type : OperatorType = OperatorType.ADD : set = _set_operator_type
 
@@ -43,16 +42,11 @@ func _ready() -> void:
 
 func _on_number_1_received(number: Number) -> void:
 	number_1 = number
-	# setting this will prevent the number from being overridden by the next number received
-	_setup_number_position(number_1, number_1_conn)
-	if number_2:
-		ready_for_result.emit()
+	_setup_number_position(number_1, %Num1Parent)
 
 func _on_number_2_received(number: Number) -> void:
 	number_2 = number
-	_setup_number_position(number_2, number_2_conn)
-	if number_1:
-		ready_for_result.emit()
+	_setup_number_position(number_2, %Num2Parent)
 
 func _setup_number_position(number: Number, new_parent: Node2D) -> void:
 	if number == null:
@@ -91,38 +85,33 @@ func _make_operation() -> void:
 	if number_1 == null or number_2 == null:
 		print("Numbers not set")
 		return
+	$AnimationPlayer.play("result_animation")
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.play("RESET")
+	
 	var result := _get_result_number()
 	if result == null:
 		print("Result is null")
 		return
-	operator_activated.emit(result)
 	if result_num:
 		result_num.queue_free()
 	result_num = result
 	result_num.move_to(Vector2.ZERO, self)
+	result_num.scale = Vector2.ZERO
+	await result_num.create_tween().tween_property(result_num, "scale", Vector2.ONE, 0.2).finished
 
 	number_1 = null
 	number_2 = null
+	result_is_ready.emit()
 	
-# sends the result number to the result movement without specifying a requester
 func activate() -> void:
 	_make_operation()
-	if result_num == null:
-		return
-	result_movement.send(result_num)
-	result_num = null
 
-func send_result(send_requested_number:Callable) -> void:
-	_make_operation()
+func send_result(send_requested_number:Callable, copy := false) -> void:
 	if result_num:
-		send_requested_number.call(result_num)
-		result_num = null
-
-func send_result_copy(send_requested_number:Callable) -> void:
-	_make_operation()
-	if result_num:
-		var result_copy := result_num.duplicate()
-		send_requested_number.call(result_copy)
+		var result_num_to_send := result_num if not copy else result_num.duplicate()
+		send_requested_number.call(result_num_to_send)
+		if not copy: result_num = null
 
 func _set_operator_type(value: OperatorType) -> void:
 	operator_type = value
