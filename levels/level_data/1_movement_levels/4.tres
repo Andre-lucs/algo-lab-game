@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=5 format=3 uid="uid://b1nkxycmcmpqk"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=7 format=3 uid="uid://b1nkxycmcmpqk"]
 
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_a5bbs"]
 [ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_15ajb"]
 [ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="3_nh80x"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="4_dsdx8"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="6_ow5ua"]
+
+[sub_resource type="Resource" id="Resource_yisa6"]
+script = ExtResource("4_dsdx8")
+items_preset = 1
+objects = Array[int]([0, 3])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
 
 [resource]
 script = ExtResource("6_ow5ua")
@@ -14,4 +21,5 @@ Use essa nova ferramenta para separar os valores corretamente entre as saídas."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 6, 3, 2)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 3), PackedInt32Array(6, 2)])
 available_objects = Array[ExtResource("1_a5bbs")]([ExtResource("2_15ajb"), ExtResource("3_nh80x")])
+objects_config = SubResource("Resource_yisa6")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

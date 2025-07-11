@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("2_vlg51")
 item_name = "Link"
+corresponding_help_tab = 0
 icon = ExtResource("1_ojxy3")
 target_scene = ExtResource("3_ngff6")
 custom_args = Dictionary[String, Variant]({})

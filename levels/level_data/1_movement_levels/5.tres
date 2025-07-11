@@ -1,18 +1,23 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://icy41x63w1e8"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://icy41x63w1e8"]
 
-[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_8xmgo"]
-[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_qll3s"]
-[ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="3_fmfty"]
-[ext_resource type="Resource" uid="uid://doehu4k766ac0" path="res://scenes/ui/toolbox/item_resources/ContainerItem.tres" id="4_uvlyo"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="5_4aloh"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="5_f74kq"]
+
+[sub_resource type="Resource" id="Resource_4pfll"]
+script = ExtResource("5_f74kq")
+items_preset = 1
+objects = Array[int]([0, 2, 3, 6])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
 
 [resource]
 script = ExtResource("5_4aloh")
 level_name = "Descarte Inteligente"
 level_description = "Nem todo número precisa chegar à saída.  
 Aprenda a filtrar o que importa usando o Roteador, e utilize um Container para guardar (ou descartar) o que não for necessário.
-Neste caso você precisa enviar um número e descartar o outro."
+Neste caso você precisa enviar um número e descartar o outro.
+
+Para organizar melhor suas suluções você pode usar uma ETIQUETA para escrever algo na sua solução."
 inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 3, 4, -6, 22)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(1, 3, 22)])
-available_objects = Array[ExtResource("1_8xmgo")]([ExtResource("2_qll3s"), ExtResource("3_fmfty"), ExtResource("4_uvlyo")])
+outputs = Array[PackedInt32Array]([PackedInt32Array(1, 3, -6)])
+objects_config = SubResource("Resource_4pfll")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=26 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
-[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_l63b4"]
 [ext_resource type="Script" uid="uid://bw7puwhchjbxu" path="res://scripts/level/level_executor.gd" id="4_3k21g"]
 [ext_resource type="PackedScene" uid="uid://ddvb4iup6m8ow" path="res://scenes/ui/toolbox/toolbox.tscn" id="4_ujwm2"]
 [ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="5_4dl3q"]
@@ -22,7 +21,6 @@ level_name = "Nivelzao"
 level_description = "mande o numero para o container de validação"
 inputs = Array[PackedInt32Array]([PackedInt32Array(6), PackedInt32Array(4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(4)])
-available_objects = Array[ExtResource("2_l63b4")]([])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 
 [sub_resource type="GDScript" id="GDScript_qcr1j"]
@@ -49,6 +47,21 @@ func _on_objects_description_close_requested() -> void:
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcr1j"]
 bg_color = Color(0.6, 0.6, 0.6, 0.156863)
 
+[sub_resource type="Animation" id="Animation_wp6ug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_qcr1j"]
 resource_name = "scale_animation"
 length = 0.3
@@ -63,21 +76,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-0.5, -2),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_wp6ug"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rosx2"]

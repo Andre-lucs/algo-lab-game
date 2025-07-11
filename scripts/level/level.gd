@@ -30,11 +30,11 @@ func _ready() -> void:
 		return
 
 	level_info.level_props = level_props
-	if level_props.available_objects:
-		print("setting custom avaliable objects to: ", level_props.available_objects)
-		toolbox.items = level_props.available_objects
+	if level_props.objects_config:
+		var objects :Array[ToolBoxItem] = level_props.objects_config.bake_objects()
+		toolbox.items = objects
 		var tabs_to_show: Array[ObjectsDescription.HelpTab] = []
-		for tab in level_props.available_objects:
+		for tab in objects:
 			tabs_to_show.append(tab.corresponding_help_tab)
 		%ObjectsDescription.tabs_to_show = tabs_to_show
 

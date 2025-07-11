@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://beses1ovxi7a8"]
+[gd_scene load_steps=16 format=3 uid="uid://beses1ovxi7a8"]
 
 [ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_gmgay"]
 [ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="2_o6mel"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_w7r7j"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="3_axl34"]
 [ext_resource type="PackedScene" uid="uid://k72qkss8srnd" path="res://scenes/objects/level_in_out/LevelInput.tscn" id="4_e7anx"]
 [ext_resource type="Resource" uid="uid://doehu4k766ac0" path="res://scenes/ui/toolbox/item_resources/ContainerItem.tres" id="4_paa45"]
 [ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="5_axl34"]
@@ -11,14 +12,21 @@
 [ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="7_0vv12"]
 [ext_resource type="Resource" uid="uid://dqfohj8in8ax" path="res://scenes/ui/toolbox/item_resources/Operator.tres" id="8_o5yuq"]
 [ext_resource type="Resource" uid="uid://bgun6t66qh8oq" path="res://scenes/ui/toolbox/item_resources/Number.tres" id="9_paa45"]
+[ext_resource type="Resource" uid="uid://bqs0ujbufuq3r" path="res://scenes/ui/toolbox/item_resources/NameTag.tres" id="10_paa45"]
+
+[sub_resource type="Resource" id="Resource_8hjdj"]
+script = ExtResource("3_axl34")
+items_preset = 0
+objects = Array[int]([])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
 
 [sub_resource type="Resource" id="Resource_e7anx"]
 script = ExtResource("2_w7r7j")
 level_name = "Test Level"
 level_description = "This is the test level"
-inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2, 4)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(3, 5)])
-available_objects = Array[ExtResource("2_o6mel")]([])
+inputs = Array[PackedInt32Array]([PackedInt32Array(1, 2)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, 3, 3, 3)])
+objects_config = SubResource("Resource_8hjdj")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
 
 [node name="TestLayout" node_paths=PackedStringArray("level_input_nodes", "level_output_nodes") instance=ExtResource("1_gmgay")]
@@ -26,8 +34,8 @@ level_props = SubResource("Resource_e7anx")
 level_input_nodes = [NodePath("LevelInput")]
 level_output_nodes = [NodePath("OutputValidator")]
 
-[node name="Toolbox" parent="LevelUILayer/MarginContainer" index="0"]
-items = Array[ExtResource("2_o6mel")]([ExtResource("4_paa45"), ExtResource("5_axl34"), ExtResource("6_8hjdj"), ExtResource("7_0vv12"), ExtResource("8_o5yuq"), ExtResource("9_paa45")])
+[node name="Toolbox" parent="LevelUILayer/MarginContainer" index="2"]
+items = Array[ExtResource("2_o6mel")]([ExtResource("4_paa45"), ExtResource("5_axl34"), ExtResource("6_8hjdj"), ExtResource("7_0vv12"), ExtResource("8_o5yuq"), ExtResource("9_paa45"), ExtResource("10_paa45")])
 
 [node name="LevelInput" parent="." index="5" instance=ExtResource("4_e7anx")]
 position = Vector2(140, 318)
