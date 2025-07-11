@@ -53,11 +53,3 @@ func play_backwards():
 
 func _on_transition_finished():
 	finished.emit()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action("ui_accept") and event.is_pressed():
-		play()
-		return
-	if event.is_action("ui_cancel") and event.is_pressed():
-		play_backwards()
-		return
