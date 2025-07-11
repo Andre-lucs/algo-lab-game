@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("2_htber")
 item_name = "Activator"
+corresponding_help_tab = 3
 icon = ExtResource("1_ukf5r")
 target_scene = ExtResource("3_5h66m")
 custom_args = Dictionary[String, Variant]({})

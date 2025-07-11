@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=27 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://dnyxfss4y507g" path="res://scripts/controllable_camera_2d.gd" id="10_r6jsl"]
 [ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="11_8yjj6"]
 [ext_resource type="Texture2D" uid="uid://cq37x4o66574k" path="res://assets/UI/MenuIcons/DeleteAll.png" id="12_cex1g"]
+[ext_resource type="Texture2D" uid="uid://o1d66xiybc1y" path="res://assets/UI/QuestionMarkButton.png" id="13_cex1g"]
+[ext_resource type="PackedScene" uid="uid://clbhd3a22r2e0" path="res://scenes/ui/objects_description/objects_description.tscn" id="14_qcr1j"]
 
 [sub_resource type="Resource" id="Resource_306te"]
 script = ExtResource("2_df6hm")
@@ -22,6 +24,67 @@ inputs = Array[PackedInt32Array]([PackedInt32Array(6), PackedInt32Array(4)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(4)])
 available_objects = Array[ExtResource("2_l63b4")]([])
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
+
+[sub_resource type="GDScript" id="GDScript_qcr1j"]
+script/source = "extends CanvasLayer
+
+func _ready() -> void:
+	$Panel.resized.connect(set_pivot_offset)
+	set_pivot_offset()
+
+func set_pivot_offset():
+	$Panel.pivot_offset = $Panel.size/2
+
+func _on_help_button_pressed() -> void:
+	show()
+	$Panel.grab_focus()
+	$AnimationPlayer.play(\"scale_animation\")
+
+func _on_objects_description_close_requested() -> void:
+	$AnimationPlayer.play_backwards(\"scale_animation\")
+	await $AnimationPlayer.animation_finished
+	hide()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcr1j"]
+bg_color = Color(0.6, 0.6, 0.6, 0.156863)
+
+[sub_resource type="Animation" id="Animation_qcr1j"]
+resource_name = "scale_animation"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-0.5, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wp6ug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rosx2"]
+_data = {
+&"RESET": SubResource("Animation_wp6ug"),
+&"scale_animation": SubResource("Animation_qcr1j")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_l63b4"]
 font_size = 64
@@ -311,11 +374,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 tooltip_text = "Run Level"
+focus_mode = 1
 icon = ExtResource("5_4dl3q")
 
 [node name="PauseButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
 visible = false
 layout_mode = 2
+focus_mode = 1
 icon = ExtResource("8_03l87")
 
 [node name="StopButton" type="Button" parent="LevelUILayer/MarginContainer/Top"]
@@ -323,6 +388,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 tooltip_text = "Reset Execution"
+focus_mode = 1
 icon = ExtResource("6_iiwgg")
 
 [node name="Options" type="PanelContainer" parent="LevelUILayer/MarginContainer"]
@@ -340,6 +406,7 @@ vertical = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 tooltip_text = "Voltar"
+focus_mode = 0
 icon = ExtResource("11_8yjj6")
 flat = true
 icon_alignment = 1
@@ -349,6 +416,7 @@ expand_icon = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 tooltip_text = "Apagar solução"
+focus_mode = 0
 icon = ExtResource("12_cex1g")
 flat = true
 icon_alignment = 1
@@ -364,6 +432,38 @@ size_flags_vertical = 10
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 2
+
+[node name="HelpButton" type="TextureButton" parent="LevelUILayer/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+texture_normal = ExtResource("13_cex1g")
+stretch_mode = 0
+
+[node name="HelpLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+script = SubResource("GDScript_qcr1j")
+
+[node name="Panel" type="Panel" parent="HelpLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qcr1j")
+
+[node name="ObjectsDescription" parent="HelpLayer/Panel" instance=ExtResource("14_qcr1j")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HelpLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_rosx2")
+}
+speed_scale = 2.0
 
 [node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -409,6 +509,7 @@ vertical_alignment = 1
 [node name="NextLevelButton" type="Button" parent="LevelCompleteLayer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 text = "Próximo nível"
 icon = ExtResource("8_iiwgg")
 icon_alignment = 2
@@ -416,6 +517,7 @@ icon_alignment = 2
 [node name="BackButton" type="Button" parent="LevelCompleteLayer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 text = "Ver níveis"
 icon = ExtResource("11_8yjj6")
 
@@ -439,5 +541,7 @@ libraries = {
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="hide"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_delete_objects"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/HelpButton" to="HelpLayer" method="_on_help_button_pressed"]
+[connection signal="close_requested" from="HelpLayer/Panel/ObjectsDescription" to="HelpLayer" method="_on_objects_description_close_requested"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/BackButton" to="." method="_on_back_button_pressed"]

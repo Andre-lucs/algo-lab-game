@@ -4,6 +4,8 @@ class_name Level
 signal level_completed
 signal level_failed
 
+const ObjectsDescription = preload("uid://dsighljguajpa")
+
 @export var GENERATED_NODES_SPACING := 200.0
 
 @onready var level_executor : LevelExecutor = $LevelExecutor
@@ -31,6 +33,10 @@ func _ready() -> void:
 	if level_props.available_objects:
 		print("setting custom avaliable objects to: ", level_props.available_objects)
 		toolbox.items = level_props.available_objects
+		var tabs_to_show: Array[ObjectsDescription.HelpTab] = []
+		for tab in level_props.available_objects:
+			tabs_to_show.append(tab.corresponding_help_tab)
+		%ObjectsDescription.tabs_to_show = tabs_to_show
 
 	init_camera()	
 	init_inputs()

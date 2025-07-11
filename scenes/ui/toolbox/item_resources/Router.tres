@@ -11,6 +11,7 @@ region = Rect2(0, 0, 64, 64)
 [resource]
 script = ExtResource("2_ogbmn")
 item_name = "Router"
+corresponding_help_tab = 2
 icon = SubResource("AtlasTexture_bv4ee")
 preview_image = SubResource("AtlasTexture_bv4ee")
 target_scene = ExtResource("3_4fw8i")

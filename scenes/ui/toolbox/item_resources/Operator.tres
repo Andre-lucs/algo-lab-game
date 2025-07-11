@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("2_0lxyi")
 item_name = "Math Operator"
+corresponding_help_tab = 4
 icon = ExtResource("1_fwi1r")
 preview_image = ExtResource("1_fwi1r")
 target_scene = ExtResource("3_aa72u")

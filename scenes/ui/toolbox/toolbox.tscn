@@ -29,6 +29,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Container"
+focus_mode = 0
 theme_type_variation = &"ToolboxButton"
 action_mode = 0
 keep_pressed_outside = true

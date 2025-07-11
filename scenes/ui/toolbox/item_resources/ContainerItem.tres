@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("2_636dn")
 item_name = "Container"
+corresponding_help_tab = 1
 icon = ExtResource("1_vl28h")
 preview_image = ExtResource("1_vl28h")
 target_scene = ExtResource("3_78sql")

@@ -1,6 +1,9 @@
 class_name ToolBoxItem extends Resource
 
+const ObjectsDescription = preload("uid://dsighljguajpa")
+
 @export var item_name : String
+@export var corresponding_help_tab : ObjectsDescription.HelpTab
 @export var icon : Texture2D
 @export var preview_image : Texture2D
 @export var target_scene : PackedScene
