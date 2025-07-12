@@ -1,6 +1,8 @@
 extends CanvasLayer
 
+signal started
 signal finished
+var playing : bool = false
 
 @export var transition_duration : float = 0.5
 @export var transition_color : Color = Color(0, 0, 0, 1)
@@ -16,10 +18,14 @@ var screen_size : Vector2 = DisplayServer.screen_get_size()
 
 func _ready() -> void:
 	hide()
+	started.connect(func(): playing = true)
 
 var tween : Tween = null
 func play() -> void:
 	if not is_inside_tree():
+		return
+	if playing:
+		await finished
 		return
 	color_rect.color = transition_color
 	color_rect.modulate.a = 1.0
@@ -33,9 +39,13 @@ func play() -> void:
 	tween.tween_property(color_rect, "scale", Vector2(larger_size*0.8, 100.0), transition_duration/2).set_ease(Tween.EaseType.EASE_IN_OUT)
 	tween.tween_property(color_rect, "scale", Vector2(larger_size, larger_size), transition_duration/2).set_ease(Tween.EaseType.EASE_IN_OUT)
 	tween.tween_callback(_on_transition_finished)
+	started.emit()
 
 func play_backwards():
 	if not is_inside_tree():
+		return
+	if playing:
+		await finished
 		return
 	color_rect.modulate = transition_color
 	color_rect.rotation_degrees = rotation_degrees
@@ -50,6 +60,8 @@ func play_backwards():
 	tween.parallel().tween_property(color_rect, "modulate:a", 0, transition_duration/2).set_ease(Tween.EaseType.EASE_IN_OUT)
 	tween.tween_callback(hide)
 	tween.tween_callback(_on_transition_finished)
+	started.emit()
 
 func _on_transition_finished():
+	playing = false
 	finished.emit()
