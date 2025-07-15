@@ -15,11 +15,6 @@ func _ready():
 	update_label()
 	mouse_col_shape.shape = RectangleShape2D.new()
 
-func _draw() -> void:
-	draw_rect(label.get_rect(), Color(1, 1, 1, 0.8))
-	draw_rect(label.get_rect().grow(1.2), Color.BLACK, false, 5)
-	if is_node_ready() : mouse_col_shape.shape.size = label.get_rect().grow(1.2).size
-
 func _input(event: InputEvent) -> void:
 	_handle_editing_input(event)
 

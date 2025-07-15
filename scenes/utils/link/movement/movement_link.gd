@@ -36,8 +36,10 @@ signal end_moving(number : Number)
 func _ready() -> void:
 		super()
 		_update_color()
+		if not origin_connection or not destination_connection:
+			delete()
+			return
 		if origin_connection.number_movement == null or destination_connection.number_movement == null:
-			printerr("Origin or destination_node is not linked to a NumberMovement.")
 			delete()
 			return
 

@@ -1,18 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://cebmicxn76gb0"]
+[gd_scene load_steps=8 format=3 uid="uid://cebmicxn76gb0"]
 
 [ext_resource type="Script" uid="uid://b3yiaijo7ic5q" path="res://scenes/objects/number/number.gd" id="1_olnlg"]
 [ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="2_txii2"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="3_75mtp"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75mtp"]
+bg_color = Color(0.76, 0.76, 0.76, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 2
+anti_aliasing = false
+
+[sub_resource type="FontVariation" id="FontVariation_75mtp"]
+variation_embolden = 0.6
+
 [sub_resource type="LabelSettings" id="LabelSettings_75mtp"]
 line_spacing = 0.0
-font_size = 24
+font = SubResource("FontVariation_75mtp")
+font_size = 32
 font_color = Color(0, 0, 0, 1)
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75mtp"]
-size = Vector2(28.4, 29.9)
 
 [node name="Number" type="Node2D"]
 z_index = 5
@@ -39,6 +55,7 @@ offset_right = 4.5
 offset_bottom = 9.16667
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_75mtp")
 text = "20"
 label_settings = SubResource("LabelSettings_75mtp")
 horizontal_alignment = 1
