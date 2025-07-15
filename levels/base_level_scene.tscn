@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b8g8dmlr8xrvm"]
+[gd_scene load_steps=25 format=3 uid="uid://b8g8dmlr8xrvm"]
 
 [ext_resource type="Script" uid="uid://i2jwag5xq5nn" path="res://scripts/level/level.gd" id="1_nns1f"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_df6hm"]
@@ -44,15 +44,12 @@ func _on_objects_description_close_requested() -> void:
 	hide()
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcr1j"]
-bg_color = Color(0.6, 0.6, 0.6, 0.156863)
-
 [sub_resource type="Animation" id="Animation_wp6ug"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:scale")
+tracks/0/path = NodePath("%ObjectsDescription:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,6 +58,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_qcr1j"]
 resource_name = "scale_animation"
@@ -68,14 +77,26 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:scale")
-tracks/0/interp = 2
+tracks/0/path = NodePath("%ObjectsDescription:scale")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(-0.5, -2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rosx2"]
@@ -445,17 +466,17 @@ unique_name_in_owner = true
 visible = false
 script = SubResource("GDScript_qcr1j")
 
-[node name="Panel" type="Panel" parent="HelpLayer"]
+[node name="Panel" type="ColorRect" parent="HelpLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qcr1j")
+color = Color(0.6, 0.6, 0.6, 0.156863)
 
-[node name="ObjectsDescription" parent="HelpLayer/Panel" instance=ExtResource("14_qcr1j")]
+[node name="ObjectsDescription" parent="HelpLayer" instance=ExtResource("14_qcr1j")]
 unique_name_in_owner = true
-layout_mode = 1
+pivot_offset = Vector2(640, 360)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HelpLayer"]
 libraries = {
@@ -540,6 +561,6 @@ libraries = {
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_delete_objects"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/HelpButton" to="HelpLayer" method="_on_help_button_pressed"]
-[connection signal="close_requested" from="HelpLayer/Panel/ObjectsDescription" to="HelpLayer" method="_on_objects_description_close_requested"]
+[connection signal="close_requested" from="HelpLayer/ObjectsDescription" to="HelpLayer" method="_on_objects_description_close_requested"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/BackButton" to="." method="_on_back_button_pressed"]

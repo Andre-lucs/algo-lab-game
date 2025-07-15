@@ -1,23 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcfdy6sw6idli"]
+[gd_scene load_steps=14 format=3 uid="uid://bcfdy6sw6idli"]
 
 [ext_resource type="FontFile" uid="uid://b155qgj2qm6sx" path="res://assets/UI/fonts/Doto/static/Doto-ExtraBold.ttf" id="1_6jesd"]
 [ext_resource type="Script" uid="uid://cvy84xnxlpxho" path="res://scenes/ui/screens/level_select/level_select_button.gd" id="2_0h2if"]
+[ext_resource type="Texture2D" uid="uid://bpyjpgw8mjcon" path="res://assets/UI/PixelButton.png" id="2_nw25h"]
 [ext_resource type="Texture2D" uid="uid://mr57b05pfd65" path="res://assets/UI/BlinkPoint.png" id="3_vftyn"]
 [ext_resource type="Texture2D" uid="uid://fjd1bv6lin78" path="res://assets/UI/Checkmark.png" id="4_lovma"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0h2if"]
-bg_color = Color(0.62, 0.62, 0.62, 0.466667)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-anti_aliasing_size = 3.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8lr1f"]
+texture = ExtResource("2_nw25h")
+texture_margin_left = 29.0
+texture_margin_top = 29.0
+texture_margin_right = 29.0
+texture_margin_bottom = 29.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_0h2if"]
 font_size = 32
@@ -146,13 +140,18 @@ _data = {
 }
 
 [node name="LevelSelectButton" type="Button"]
-custom_minimum_size = Vector2(128, 128)
-offset_right = 8.0
-offset_bottom = 8.0
+custom_minimum_size = Vector2(158, 158)
+offset_right = 158.0
+offset_bottom = 158.0
+mouse_default_cursor_shape = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("1_6jesd")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_0h2if")
+theme_override_styles/focus = SubResource("StyleBoxTexture_8lr1f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8lr1f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8lr1f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8lr1f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8lr1f")
 text = "1"
 script = ExtResource("2_0h2if")
 
@@ -183,27 +182,34 @@ libraries = {
 
 [node name="RequiredIndicator" type="TextureRect" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+offset_left = -64.0
+offset_bottom = 64.0
 grow_horizontal = 0
-pivot_offset = Vector2(20, 20)
+pivot_offset = Vector2(32, 32)
+size_flags_horizontal = 8
+size_flags_vertical = 0
 texture = ExtResource("3_vftyn")
 
-[node name="ClearIndicator" type="TextureRect" parent="."]
-unique_name_in_owner = true
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ClearIndicator" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 texture = ExtResource("4_lovma")

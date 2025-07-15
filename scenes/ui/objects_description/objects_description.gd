@@ -74,6 +74,7 @@ var _pending_tab_change: HelpTab = HelpTab.MovementLink
 var _has_pending_change: bool = false
 
 func _ready() -> void:
+	pivot_offset = size / 2 # Center the pivot for animations
 	_update_tab_bar()
 	
 	# Only show tabs that are in tabs_to_show
