@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://gbqkrubavp1f"]
+
+[ext_resource type="FontFile" uid="uid://dk1yfg1jr6cwk" path="res://assets/UI/fonts/Doto/static/Doto-Black.ttf" id="1_vojog"]
+[ext_resource type="Texture2D" uid="uid://b5kbxm34hglfg" path="res://assets/UI/SimpleButtonTexture.png" id="2_pj88m"]
+[ext_resource type="Texture2D" uid="uid://dbadms1sa0w6o" path="res://assets/UI/MenuIcons/Arrow.png" id="3_qsl7s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_av00g"]
+content_margin_top = 5.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_pj88m")
+texture_margin_left = 20.0
+texture_margin_top = 50.0
+texture_margin_right = 20.0
+expand_margin_left = 20.0
+expand_margin_top = 50.0
+expand_margin_right = 20.0
+expand_margin_bottom = 100.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vojog"]
+content_margin_top = 5.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_pj88m")
+texture_margin_left = 20.0
+texture_margin_top = 50.0
+texture_margin_right = 20.0
+expand_margin_left = 20.0
+expand_margin_top = 50.0
+expand_margin_right = 20.0
+expand_margin_bottom = 100.0
+
+[sub_resource type="GDScript" id="GDScript_vojog"]
+script/source = "extends Button
+
+signal custom_pressed
+
+var anim_tween : Tween
+@export var animation_duration : float = .1
+var original_position: Vector2
+var _mouse_over := false
+
+func _ready() -> void:
+	_set_og_pos.call_deferred()
+
+func _set_og_pos():
+	original_position = position
+
+func _on_focus_entered() -> void:
+	if _mouse_over: return
+	anim_active()
+
+func _on_focus_exited() -> void:
+	anim_de_active()
+
+func _on_mouse_entered() -> void:
+	_mouse_over = true
+	anim_active()
+
+func _on_mouse_exited() -> void:
+	_mouse_over = false
+	anim_de_active()
+
+func _on_pressed() -> void:
+	await anim_bounce()
+	custom_pressed.emit()
+
+func anim_active():
+	if anim_tween:
+		anim_tween.kill()
+	anim_tween = create_tween()
+	anim_tween.tween_property(self, \"position\", original_position - Vector2(0, 50), animation_duration)
+
+func anim_de_active():
+	if anim_tween:
+		anim_tween.kill()
+	anim_tween = create_tween()
+	anim_tween.tween_property(self, \"position\", original_position, animation_duration)
+
+func anim_bounce() -> Signal:
+	if anim_tween:
+		anim_tween.kill()
+	position = original_position -Vector2(0,50)
+	anim_tween = create_tween()
+	anim_tween.tween_property(self, \"position\", original_position, animation_duration/2)
+	anim_tween.tween_property(self, \"position\", original_position - Vector2(0, 50), animation_duration/2)
+	return anim_tween.finished
+"
+
+[node name="MenuButton" type="Button"]
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 200.0
+grow_vertical = 0
+theme_override_constants/outline_size = 28
+theme_override_fonts/font = ExtResource("1_vojog")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxTexture_av00g")
+theme_override_styles/hover = SubResource("StyleBoxTexture_av00g")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_av00g")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vojog")
+text = "Jogar"
+icon = ExtResource("3_qsl7s")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = SubResource("GDScript_vojog")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

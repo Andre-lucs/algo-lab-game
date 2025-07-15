@@ -1,0 +1,164 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4ug13k78jvr"]
+
+[ext_resource type="Script" uid="uid://bew01vwmd7mw8" path="res://scenes/ui/screens/start_menu/start_menu.gd" id="1_irhji"]
+[ext_resource type="PackedScene" uid="uid://gbqkrubavp1f" path="res://scenes/ui/screens/start_menu/menu_button.tscn" id="2_3xfv3"]
+[ext_resource type="Texture2D" uid="uid://cxsqgtpv7m3ow" path="res://assets/UI/MenuIcons/ExitIcon.png" id="3_xp0kv"]
+[ext_resource type="FontFile" uid="uid://cspii4bkhm51n" path="res://assets/UI/fonts/Doto/Doto-VariableFont_ROND,wght.ttf" id="4_3uptb"]
+[ext_resource type="PackedScene" uid="uid://cebmicxn76gb0" path="res://scenes/objects/number/number.tscn" id="5_2v3wm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2v3wm"]
+font = ExtResource("4_3uptb")
+font_size = 192
+
+[sub_resource type="Curve2D" id="Curve2D_3uptb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -68, 350, 0, 0, 0, 0, 1370, 350)
+}
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_2v3wm"]
+script/source = "extends Number
+
+func randomize_value():
+	set_value(randi_range(-150, 150))
+"
+
+[sub_resource type="Animation" id="Animation_2v3wm"]
+resource_name = "number_moving"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Number")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"randomize_value"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_otx74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wdwa4"]
+_data = {
+&"RESET": SubResource("Animation_otx74"),
+&"number_moving": SubResource("Animation_2v3wm")
+}
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_irhji")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21, 0.21, 0.21, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/h_separation = 60
+
+[node name="PlayButton" parent="MarginContainer/HFlowContainer" instance=ExtResource("2_3xfv3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TestButton" parent="MarginContainer/HFlowContainer" instance=ExtResource("2_3xfv3")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Teste"
+icon = null
+
+[node name="ExitButton" parent="MarginContainer/HFlowContainer" instance=ExtResource("2_3xfv3")]
+layout_mode = 2
+text = "Sair"
+icon = ExtResource("3_xp0kv")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 18.3333
+grow_horizontal = 0
+text = "AlgoLab"
+label_settings = SubResource("LabelSettings_2v3wm")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-68, 350, 1248, 350)
+default_color = Color(0, 0.701961, 0.631373, 1)
+
+[node name="Path2D" type="Path2D" parent="Line2D"]
+curve = SubResource("Curve2D_3uptb")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Line2D/Path2D"]
+position = Vector2(-68, 350)
+
+[node name="Number" parent="Line2D/Path2D/PathFollow2D" instance=ExtResource("5_2v3wm")]
+script = SubResource("GDScript_2v3wm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Line2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_wdwa4")
+}
+autoplay = "number_moving"
+
+[node name="Arrow" type="Polygon2D" parent="."]
+position = Vector2(1259, 350)
+color = Color(0, 0.701961, 0.631373, 1)
+polygon = PackedVector2Array(-16, -16, 8.00001, 4.04663e-08, -16, 16)
+
+[connection signal="custom_pressed" from="MarginContainer/HFlowContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="custom_pressed" from="MarginContainer/HFlowContainer/TestButton" to="." method="_on_play_test_pressed"]
+[connection signal="custom_pressed" from="MarginContainer/HFlowContainer/ExitButton" to="." method="_on_exit_button_pressed"]
