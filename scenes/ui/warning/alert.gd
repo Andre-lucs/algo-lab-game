@@ -26,6 +26,8 @@ func show_alert(title : String, content: String, target_canvas_layer : CanvasLay
 	# Hide the content label to give more space to the custom content
 	if hide_content_label:
 		%Content.hide()
+	else:
+		%Content.show()
 	
 	var alert_instance = $AlertPanel.duplicate()
 	target_canvas_layer.add_child(alert_instance)
