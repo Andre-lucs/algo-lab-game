@@ -13,15 +13,12 @@ texture_margin_top = 29.0
 texture_margin_right = 29.0
 texture_margin_bottom = 29.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_0h2if"]
-font_size = 32
-
 [sub_resource type="Animation" id="Animation_lovma"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelTitle:anchor_top")
+tracks/0/path = NodePath("LevelInfoPanel:anchor_top")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LevelTitle:visible")
+tracks/1/path = NodePath("LevelInfoPanel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LevelTitle:modulate")
+tracks/2/path = NodePath("LevelInfoPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -54,6 +51,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelInfoPanel:anchor_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_vftyn"]
 resource_name = "show_title"
@@ -61,38 +70,50 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelTitle:anchor_top")
+tracks/0/path = NodePath("LevelInfoPanel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -0.5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelTitle:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelInfoPanel:anchor_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.5]
+}
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LevelTitle:modulate")
+tracks/2/path = NodePath("LevelInfoPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.2018),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelInfoPanel:anchor_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.3]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nw25h"]
@@ -139,6 +160,9 @@ _data = {
 &"blink_animation": SubResource("Animation_nw25h")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_0h2if"]
+font_size = 32
+
 [node name="LevelSelectButton" type="Button"]
 custom_minimum_size = Vector2(158, 158)
 offset_right = 158.0
@@ -154,21 +178,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_8lr1f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8lr1f")
 text = "1"
 script = ExtResource("2_0h2if")
-
-[node name="LevelTitle" type="Label" parent="."]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 18.3333
-grow_horizontal = 2
-text = "Titulo"
-label_settings = SubResource("LabelSettings_0h2if")
-horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -213,3 +222,28 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture = ExtResource("4_lovma")
+
+[node name="LevelInfoPanel" type="PanelContainer" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_type_variation = &"BlueBorderPanelContainer"
+
+[node name="BoxContainer" type="BoxContainer" parent="LevelInfoPanel"]
+layout_mode = 2
+vertical = true
+
+[node name="LevelTitle" type="Label" parent="LevelInfoPanel/BoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Titulo"
+label_settings = SubResource("LabelSettings_0h2if")
+horizontal_alignment = 1
