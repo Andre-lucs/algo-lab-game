@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=7 format=3 uid="uid://cddh5tcncpmge"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_rqgjt"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_7krrd"]
+[ext_resource type="Resource" uid="uid://b1xaq6o4gy17y" path="res://scenes/ui/toolbox/item_resources/ActivatorLinkBuilder.tres" id="3_r2rfr"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="4_0dlrq"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="4_oy3c6"]
+
+[sub_resource type="Resource" id="Resource_vjej0"]
+script = ExtResource("4_0dlrq")
+items_preset = 2
+objects = Array[int]([0, 1, 2, 3, 6])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
+
+[resource]
+script = ExtResource("4_oy3c6")
+level_name = "Liga e desliga"
+level_description = "Envie o primeiro numero da entrada para a segunda saída e envie o restante para a primeira saída.
+
+Objetos que estão com o modo de ativação AUTOMÁTICO ao serem ativados pelo Ativador são desligados e ao serem ativados de novo voltam a ser ativados de forma automática.
+
+Tem duas opções de modo automático, o que inicia ligado e o que inicia desligado."
+inputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -4, 12)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(7, -4, 12), PackedInt32Array(2)])
+available_objects = Array[ExtResource("1_rqgjt")]([ExtResource("2_7krrd"), ExtResource("3_r2rfr")])
+objects_config = SubResource("Resource_vjej0")
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

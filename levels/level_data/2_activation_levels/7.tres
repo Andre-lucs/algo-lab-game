@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=9 format=3 uid="uid://ccvl8pag7sdqp"]
+
+[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_xba4d"]
+[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_vw3pv"]
+[ext_resource type="Resource" uid="uid://b1xaq6o4gy17y" path="res://scenes/ui/toolbox/item_resources/ActivatorLinkBuilder.tres" id="3_iye2o"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="4_ig6ot"]
+[ext_resource type="Resource" uid="uid://doehu4k766ac0" path="res://scenes/ui/toolbox/item_resources/ContainerItem.tres" id="4_iye2o"]
+[ext_resource type="Resource" uid="uid://6x4febetlbat" path="res://scenes/ui/toolbox/item_resources/Router.tres" id="5_ig6ot"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="6_ig6ot"]
+
+[sub_resource type="Resource" id="Resource_4n0xk"]
+script = ExtResource("6_ig6ot")
+items_preset = 2
+objects = Array[int]([0, 1, 2, 3, 6])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
+
+[resource]
+script = ExtResource("4_ig6ot")
+level_name = "Cópia Alternada"
+level_description = "Para cada dois números, envie dois do primeiro e apenas um do segundo número."
+inputs = Array[PackedInt32Array]([PackedInt32Array(2, 7, -4, 12)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(2, 2, 7, -4, -4, 12)])
+available_objects = Array[ExtResource("1_xba4d")]([ExtResource("2_vw3pv"), ExtResource("3_iye2o"), ExtResource("4_iye2o"), ExtResource("5_ig6ot")])
+objects_config = SubResource("Resource_4n0xk")
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

@@ -1,12 +1,17 @@
-[gd_resource type="Resource" script_class="LevelSet" load_steps=4 format=3 uid="uid://b42h0gswcr25b"]
+[gd_resource type="Resource" script_class="LevelSet" load_steps=9 format=3 uid="uid://b42h0gswcr25b"]
 
 [ext_resource type="Script" uid="uid://cfgu63am756p3" path="res://scripts/resources/level_set_config.gd" id="1_0vhci"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_7ats4"]
 [ext_resource type="Resource" uid="uid://bmv6l53hfj42f" path="res://levels/level_data/1_movement_levels/1.tres" id="3_7ats4"]
+[ext_resource type="Resource" uid="uid://c7qvwcx1cbw1x" path="res://levels/level_data/1_movement_levels/2.tres" id="4_tutom"]
+[ext_resource type="Resource" uid="uid://d333fk8yuqt4l" path="res://levels/level_data/1_movement_levels/3.tres" id="5_msuch"]
+[ext_resource type="Resource" uid="uid://b1nkxycmcmpqk" path="res://levels/level_data/1_movement_levels/4.tres" id="6_qcd1j"]
+[ext_resource type="Resource" uid="uid://icy41x63w1e8" path="res://levels/level_data/1_movement_levels/5.tres" id="7_rim7v"]
+[ext_resource type="Resource" uid="uid://b5dxfvglv0o81" path="res://levels/level_data/1_movement_levels/6.tres" id="8_fxb8s"]
 
 [resource]
 script = ExtResource("1_0vhci")
 level_set_name = "O fluxo"
-required_levels = Array[ExtResource("2_7ats4")]([ExtResource("3_7ats4")])
+required_levels = Array[ExtResource("2_7ats4")]([ExtResource("3_7ats4"), ExtResource("4_tutom"), ExtResource("5_msuch"), ExtResource("6_qcd1j"), ExtResource("7_rim7v"), ExtResource("8_fxb8s")])
 required_level_sets = Array[ExtResource("1_0vhci")]([])
 metadata/_custom_type_script = "uid://cfgu63am756p3"

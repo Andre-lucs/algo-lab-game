@@ -1,7 +1,5 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://bmv6l53hfj42f"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://bmv6l53hfj42f"]
 
-[ext_resource type="Script" uid="uid://ct0y6m322lv47" path="res://scripts/resources/ToolBoxItem.gd" id="1_c5mr2"]
-[ext_resource type="Resource" uid="uid://ryjjhxl48x3w" path="res://scenes/ui/toolbox/item_resources/MovementLinkBuilder.tres" id="2_ceoew"]
 [ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="3_ceoew"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_lh55p"]
 
@@ -22,6 +20,5 @@ Já as SAÍDAS esperam receber números de acordo com o que o nível irá pedir 
 Para esse primeiro desafio apenas clique no ícone do TRANSPORTADOR para criar um, após isso, clique quais objetos você quer conectar."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
-available_objects = Array[ExtResource("1_c5mr2")]([ExtResource("2_ceoew")])
 objects_config = SubResource("Resource_lh55p")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
