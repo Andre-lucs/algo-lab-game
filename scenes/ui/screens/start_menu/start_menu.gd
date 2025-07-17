@@ -17,3 +17,13 @@ func _on_play_test_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+func _input(event: InputEvent) -> void:
+	if not OS.has_feature("editor"): return
+
+	if Input.is_action_just_pressed("debug_complete_all"):
+		LevelSaving.complete_every_level()
+		return
+	if Input.is_action_just_pressed("debug_erase_level_save"):
+		LevelSaving.erase_save_data()
+		return
