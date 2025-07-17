@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5ujlh7vglk5r"]
+
+[ext_resource type="Script" uid="uid://dbwlfshdwueif" path="res://scenes/ui/warning/alert.gd" id="1_8i8ro"]
+[ext_resource type="Texture2D" uid="uid://dw6f3pqjy2wo3" path="res://assets/UI/CrossButton.png" id="1_gub16"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8i8ro"]
+bg_color = Color(0.329158, 0.329158, 0.329158, 0.4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8i8ro"]
+font_size = 48
+outline_size = 2
+outline_color = Color(1, 1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.647059)
+shadow_offset = Vector2(2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0kr3e"]
+font_size = 32
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.647059)
+shadow_offset = Vector2(2, 1)
+
+[node name="Alert" type="Node"]
+script = ExtResource("1_8i8ro")
+
+[node name="AlertPanel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8i8ro")
+
+[node name="MarginContainer" type="MarginContainer" parent="AlertPanel"]
+layout_mode = 2
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="PanelContainer" type="PanelContainer" parent="AlertPanel/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"RedPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AlertPanel/MarginContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="AlertPanel/MarginContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Titulo do alerta"
+label_settings = SubResource("LabelSettings_8i8ro")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="Label" parent="AlertPanel/MarginContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "asdasadasdsad
+sa
+dsadsadasdsad
+adasdadssda
+dasda"
+label_settings = SubResource("LabelSettings_0kr3e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CustomContentContainer" type="Control" parent="AlertPanel/MarginContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="CloseButton" type="TextureButton" parent="AlertPanel/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_gub16")
+stretch_mode = 0
+
+[connection signal="pressed" from="AlertPanel/MarginContainer/CloseButton" to="." method="close_alert"]
