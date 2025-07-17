@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://clbhd3a22r2e0"]
+[gd_scene load_steps=39 format=3 uid="uid://clbhd3a22r2e0"]
 
 [ext_resource type="Script" uid="uid://dsighljguajpa" path="res://scenes/ui/objects_description/objects_description.gd" id="1_xrqgo"]
 [ext_resource type="Texture2D" uid="uid://b4eapli5y2sk1" path="res://assets/UI/WideArrow.png" id="2_cal5n"]
@@ -10,11 +10,57 @@
 [ext_resource type="Texture2D" uid="uid://bjiby4kvy2kwu" path="res://assets/MathOperator.png" id="6_vheru"]
 [ext_resource type="Texture2D" uid="uid://cyib6llkdj3sc" path="res://assets/NumberPreview.png" id="7_f57hx"]
 [ext_resource type="Texture2D" uid="uid://b1xns6sodk2is" path="res://assets/NameTag.png" id="8_81brl"]
+[ext_resource type="Texture2D" uid="uid://bj8sxmlqp2d7m" path="res://assets/UI/MenuIcons/MenuButtons/MoveCopyButton.png" id="10_h1xsl"]
 [ext_resource type="Texture2D" uid="uid://dw6f3pqjy2wo3" path="res://assets/UI/CrossButton.png" id="11_qd8qs"]
+[ext_resource type="Texture2D" uid="uid://dyg0busic33e1" path="res://assets/UI/MenuIcons/MenuButtons/AutoButton.png" id="11_vheru"]
+[ext_resource type="Texture2D" uid="uid://bhvwh5nvmrvif" path="res://assets/UI/MenuIcons/MenuButtons/SingleMultiButton.png" id="11_vi6ne"]
+[ext_resource type="Texture2D" uid="uid://d3x5ev60k0grs" path="res://assets/UI/MenuIcons/MenuButtons/Plus.png" id="12_rqo7a"]
+[ext_resource type="Texture2D" uid="uid://ds1n8gywbc5e3" path="res://assets/UI/MenuIcons/MenuButtons/Minus.png" id="13_k5mmg"]
+[ext_resource type="Texture2D" uid="uid://dqgji8yxmdsvw" path="res://assets/UI/MenuIcons/MenuButtons/Multi.png" id="14_2wyef"]
+[ext_resource type="Texture2D" uid="uid://tdsqf6lebyt1" path="res://assets/UI/MenuIcons/MenuButtons/Divide.png" id="15_dapbs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v3633"]
 atlas = ExtResource("4_f6113")
 region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vi6ne"]
+font_size = 32
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vheru"]
+atlas = ExtResource("10_h1xsl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f57hx"]
+atlas = ExtResource("10_h1xsl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81brl"]
+atlas = ExtResource("11_vi6ne")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqo7a"]
+atlas = ExtResource("11_vi6ne")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5mmg"]
+atlas = ExtResource("4_f6113")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wyef"]
+atlas = ExtResource("11_vheru")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dapbs"]
+atlas = ExtResource("11_vheru")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rbr8"]
+atlas = ExtResource("11_vheru")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpr5j"]
+atlas = ExtResource("11_vheru")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="InputEventKey" id="InputEventKey_cal5n"]
 device = -1
@@ -81,6 +127,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(640, 360)
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 200
@@ -106,7 +153,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"BlueBorderPanelContainer"
 
-[node name="Con1" type="MarginContainer" parent="VBoxContainer/Panel"]
+[node name="MovementLinkDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -121,26 +168,101 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/Con1"]
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/MovementLinkDescription"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
 alignment = 1
 vertical = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Panel/Con1/BoxContainer"]
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+texture = ExtResource("2_qd8qs")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Panel/Con1/BoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="Title" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Lorem ipsumdmsodnsodnjdnosandoa asd sanodnsa odinsad osand osandoisan dosndo sain d"
-fit_content = true
+text = "Transportador"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
 
-[node name="Con2" type="MarginContainer" parent="VBoxContainer/Panel"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ação:"
+horizontal_alignment = 1
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Transporta números de um objeto á outro."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.905882, 0.301961, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gatilho:"
+horizontal_alignment = 1
+
+[node name="Trigger" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ao mover um número."
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Opções:"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_vheru")
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Mover o número."
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_f57hx")
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Cópiar o número."
+
+[node name="ContainerDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -156,27 +278,92 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/Con2"]
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/ContainerDescription"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
 alignment = 1
 vertical = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Panel/Con2/BoxContainer"]
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
-color = Color(1, 0, 0, 1)
+texture = ExtResource("3_h1xsl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Panel/Con2/BoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="Title" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Lorem ipsumdmsodnsodnjdnosandoa asd sanodnsa odinsad osand osandoisan dosndo sain d"
-fit_content = true
+text = "Contêiner"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
 
-[node name="Con3" type="MarginContainer" parent="VBoxContainer/Panel"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Description" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Descrição: Armazena Números pelos lados dele."
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.905882, 0.301961, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gatilho:"
+horizontal_alignment = 1
+
+[node name="Trigger" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ao ficar vazio."
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Opções:"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_81brl")
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Armazenar vários números."
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_rqo7a")
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/ContainerDescription/BoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Armazenar apenas um número."
+
+[node name="RouterDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -192,25 +379,420 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/Con3"]
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/RouterDescription"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
 alignment = 1
 vertical = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Panel/Con3/BoxContainer"]
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/RouterDescription/BoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
-color = Color(0.0999999, 0, 1, 1)
+texture = SubResource("AtlasTexture_k5mmg")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Panel/Con3/BoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="Title" type="Label" parent="VBoxContainer/Panel/RouterDescription/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Lorem ipsumdmsodnsodnjdnosandoa asd sanodnsa odinsad osand osandoisan dosndo sain d"
-fit_content = true
+text = "Roteador"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/RouterDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/RouterDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/RouterDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/RouterDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ação:"
+horizontal_alignment = 1
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/RouterDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Envia um número que estiver nele 
+para o próximo Transportador."
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/RouterDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.905882, 0.301961, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gatilho:"
+horizontal_alignment = 1
+
+[node name="Trigger" type="Label" parent="VBoxContainer/Panel/RouterDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ao mover um número."
+horizontal_alignment = 1
+
+[node name="ActivatorDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/ActivatorDescription"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+vertical = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_vi6ne")
+
+[node name="Title" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Ativador"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ação:"
+horizontal_alignment = 1
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ouve o gatilho de um objeto para ativar outro.
+Liga e desliga objetos automáticos."
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Modos de ativação e suas interações:"
+
+[node name="GridContainer3" type="GridContainer" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2wyef")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "Manual: Ativa apenas usando ATIVADOR."
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_dapbs")
+stretch_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "Uma vez: Ativa no início do nível e com o ATIVADOR."
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1rbr8")
+stretch_mode = 3
+
+[node name="Label4" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "Automático: Ativa o objeto automaticamente."
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qpr5j")
+stretch_mode = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "Automático (Desligado): Automático só que inicia desligado."
+
+[node name="OperatorDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/OperatorDescription"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+vertical = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_vheru")
+expand_mode = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Operador"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ação:"
+horizontal_alignment = 1
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Realiza uma operação matemática com os números inseridos."
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.905882, 0.301961, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gatilho:"
+horizontal_alignment = 1
+
+[node name="Trigger" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Ao ter o resultado pronto."
+horizontal_alignment = 1
+
+[node name="Container" type="VBoxContainer" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container"]
+layout_mode = 2
+text = "Operações:"
+
+[node name="GridContainer3" type="GridContainer" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+texture = ExtResource("12_rqo7a")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+text = "Soma"
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+texture = ExtResource("13_k5mmg")
+stretch_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+text = "Subtração"
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+texture = ExtResource("14_2wyef")
+stretch_mode = 3
+
+[node name="Label4" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+text = "Multiplicação"
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+texture = ExtResource("15_dapbs")
+stretch_mode = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/Container/GridContainer3"]
+layout_mode = 2
+text = "Divisão"
+
+[node name="NumberDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/NumberDescription"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+vertical = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/NumberDescription/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_f57hx")
+expand_mode = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/Panel/NumberDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Número"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/NumberDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/NumberDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/NumberDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Número editável. (Clique duplo)
+
+Pode ser colocado em Contêiners"
+
+[node name="NameTagDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/Panel/NameTagDescription"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+vertical = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Panel/NameTagDescription/BoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("8_81brl")
+expand_mode = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/Panel/NameTagDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Etiqueta"
+label_settings = SubResource("LabelSettings_vi6ne")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/NameTagDescription/BoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/NameTagDescription/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Action" type="Label" parent="VBoxContainer/Panel/NameTagDescription/BoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Pode ser usado para organizar as soluções.
+
+Texto editável. (Clique duplo)"
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel"]
 layout_mode = 1
@@ -252,10 +834,11 @@ theme_override_styles/tab_disabled = SubResource("StyleBoxTexture_h1xsl")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_75k1x")
 current_tab = 0
 tab_alignment = 1
-tab_count = 3
+tab_count = 4
 tab_0/icon = ExtResource("2_qd8qs")
 tab_1/icon = ExtResource("3_h1xsl")
 tab_2/icon = SubResource("AtlasTexture_v3633")
+tab_3/icon = ExtResource("5_vi6ne")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

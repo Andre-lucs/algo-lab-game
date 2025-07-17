@@ -48,6 +48,14 @@ signal close_requested
 					if objects_menu_nodes.has(tab_type):
 						current_tab = tab_type
 						break
+			for k in objects_menu_nodes:
+				var menu_node := objects_menu_nodes[k]
+				if k not in tabs_to_show:
+					menu_node.hide()
+				if k == current_tab:
+					menu_node.show()
+				else:
+					menu_node.hide()
 
 @export var tab_icons : Dictionary[HelpTab, Texture2D] = {
 	HelpTab.MovementLink: preload("res://assets/UI/MenuIcons/PointyArrow.png"),
@@ -62,9 +70,13 @@ signal close_requested
 @onready var tab_bar : TabBar = %TabBar
 
 @onready var objects_menu_nodes : Dictionary[HelpTab, Control] = {
-		HelpTab.MovementLink: %Con1,
-		HelpTab.Container: %Con2,
-		HelpTab.Router: %Con3,
+		HelpTab.MovementLink: %MovementLinkDescription,
+		HelpTab.Container: %ContainerDescription,
+		HelpTab.Router: %RouterDescription,
+		HelpTab.ActivatorLink: %ActivatorDescription,
+		HelpTab.Operator: %OperatorDescription,
+		HelpTab.Number: %NumberDescription,
+		HelpTab.NameTag: %NameTagDescription
 }
 
 # Animation state management
