@@ -10,5 +10,6 @@ item_name = "Link"
 corresponding_help_tab = 0
 icon = ExtResource("1_ojxy3")
 target_scene = ExtResource("3_ngff6")
+use_item_preview = false
 custom_args = Dictionary[String, Variant]({})
 metadata/_custom_type_script = "uid://ct0y6m322lv47"

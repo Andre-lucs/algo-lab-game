@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgr1ljtsuiux2" path="res://scenes/ui/toolbox/item_preview/item_preview.gd" id="1_px2sx"]
 
-[node name="ItemPreview" type="Control"]
+[node name="ItemPreview" type="Control" groups=["item_preview"]]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_px2sx")

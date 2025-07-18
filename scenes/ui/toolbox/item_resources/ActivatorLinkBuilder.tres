@@ -10,5 +10,6 @@ item_name = "Activator"
 corresponding_help_tab = 3
 icon = ExtResource("1_ukf5r")
 target_scene = ExtResource("3_5h66m")
+use_item_preview = false
 custom_args = Dictionary[String, Variant]({})
 metadata/_custom_type_script = "uid://ct0y6m322lv47"
