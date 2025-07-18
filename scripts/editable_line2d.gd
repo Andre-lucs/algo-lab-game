@@ -43,7 +43,6 @@ func _edit_on_click(event : InputEventMouseButton, global_position: Vector2, seg
 	if not _grabbable.filter_grabbing_by_priority():
 		# If this grabbable is not the highest priority, stop dragging
 		return
-	prints("Path: ", get_path(),"; EditableLine2D: _edit_on_click called with segment:", segment, "at position:", global_position)
 	# Find the closest point to the click
 	var min_dist := 16.0 # Adjust this threshold as needed
 	var closest_idx := -1
