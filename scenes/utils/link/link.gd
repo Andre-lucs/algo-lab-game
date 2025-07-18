@@ -14,8 +14,6 @@ signal updated_path
 signal start_connection_changed(origin_connection: ConnectionArea)
 signal end_connection_changed(destination_connection: ConnectionArea)
 
-# TODO: Make Path optional (ex: activation links don't need a path)
-
 func _ready() -> void:
 		super()
 		if origin_connection == null or destination_connection == null:

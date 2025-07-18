@@ -74,7 +74,11 @@ func _input(_event: InputEvent) -> void:
 		if active:
 			_on_button_up()
 
-func validate_dragging() -> bool:
+func validate_dragging(soft_checking := false) -> bool:
+	# For soft_checking we just check if there are no other grabbables being dragged
+	if soft_checking:
+		return _is_other_grab_active()
+	
 	if not parent:
 		return false
 	if not interaction_area:
@@ -102,15 +106,18 @@ func begin_dragging() -> void:
 	active = true
 	filter_grabbing_by_priority.call_deferred()
 
-func filter_grabbing_by_priority():
+## If the grabbable is not the highest priority, it will stop dragging
+## and return false, otherwise it will return true
+func filter_grabbing_by_priority() -> bool:
 	var grab_nodes = get_tree().get_nodes_in_group("grabbable").filter(func(g): return g.active)
 	if grab_nodes.is_empty():
-		return
+		return true
 	grab_nodes.sort_custom(func(g1, g2): return int(g2.grab_priority - g1.grab_priority))
 	if grab_nodes.front() != self:
 		# If this grabbable is not the highest priority, stop dragging
 		invalidate_grab()
-		return
+		return false
+	return true
 
 func _on_button_up() -> void:
 	active = false
@@ -123,7 +130,7 @@ func _on_button_up() -> void:
 func invalidate_grab():
 	if not is_being_dragged():
 		return
-	parent.global_position = original_position
+	if parent: parent.global_position = original_position
 	active = false
 	_waiting_for_grab = false
 	_grab_timer = 0.0

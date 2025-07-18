@@ -9,7 +9,7 @@
 
 [node name="Link" type="Line2D"]
 script = ExtResource("1_jyhi2")
-actions = Array[String](["object_menu"])
+actions = Array[String](["object_menu", "object_grab"])
 metadata/_custom_type_script = "uid://b8lmp88hsgq8t"
 
 [node name="Path2D" type="Path2D" parent="."]

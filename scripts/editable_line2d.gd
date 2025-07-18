@@ -11,17 +11,39 @@ signal edited_line(line :EditableLine2D, point_idx : int)
 
 @export var edit_on_action : String = "object_grab";
 
-var _dragging_point := -1
+var _dragging_point := -1:
+	set(value):
+		_dragging_point = value
+		if value == -1:
+			_grabbable.invalidate_grab()
+		
+var _grabbable : Grabbable = null
 
 func _ready() -> void:
 	if edit_on_action not in actions: actions.append(edit_on_action)
 	clicked.connect(_edit_on_click)
 	released.connect(_edit_on_release)
 
+	_grabbable = Grabbable.new()
+	_grabbable.grab_priority = Grabbable.GrabPriority.HIGH
+	_grabbable.grab_speed = Grabbable.GrabbingSpeed.FAST
+	add_child(_grabbable)
+
 func _edit_on_click(event : InputEventMouseButton, global_position: Vector2, segment: int, offset: float) -> void:
 	if enable_editing == false: return
 	if not Input.is_action_just_pressed(edit_on_action):
 		return
+	
+	if _grabbable.validate_dragging(true):
+		# If a grabbable is being dragged, we don't allow editing
+		return	
+	_grabbable.active = true
+
+	await get_tree().process_frame
+	if not _grabbable.filter_grabbing_by_priority():
+		# If this grabbable is not the highest priority, stop dragging
+		return
+	prints("Path: ", get_path(),"; EditableLine2D: _edit_on_click called with segment:", segment, "at position:", global_position)
 	# Find the closest point to the click
 	var min_dist := 16.0 # Adjust this threshold as needed
 	var closest_idx := -1
