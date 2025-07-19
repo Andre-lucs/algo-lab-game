@@ -5,6 +5,8 @@ const TRANSITION_DURATION: float = 0.5
 const EASING := Tween.EaseType.EASE_IN
 const TRANSITION := Tween.TransitionType.TRANS_SINE
 
+const button_scene : PackedScene = preload("uid://bcfdy6sw6idli")
+
 # State variables
 var current_directory_index: int = 0
 var worlds_containers: Array[CenterContainer] = []
@@ -34,7 +36,6 @@ func _enter_tree() -> void:
 #region INITIALIZATION METHODS
 
 func _setup_initial_state() -> void:
-	%BaseLevelSelectButton.hide()
 	_update_available_level_sets()
 	_initialize_level_display()
 	_display_current_directory()
@@ -64,23 +65,27 @@ func _create_world_container(level_set : LevelSet) -> GridContainer:
 	world_container.show()
 	
 	for i in levels.size():
+		var past_level_cleared := true if i == 0 else LevelSaving.is_level_completed(levels[i-1])
 		var level_button := _create_level_button(
 			levels[i], 
 			i + 1, 
-		 	levels[i] in level_set.required_levels)
+		 	levels[i] in level_set.required_levels,
+			not past_level_cleared
+			)
 		world_container.add_child(level_button)
 	
 	world_container.columns = min(3, levels.size())  # Set columns based on available levels
 	return world_container
 
-func _create_level_button(level: LevelPropsResource, level_number: int, is_required := false) -> Control:
+func _create_level_button(level: LevelPropsResource, level_number: int, is_required := false, locked := false) -> Control:
 	"""Create and configure a level selection button."""
-	var button := %BaseLevelSelectButton.duplicate()
+	var button := button_scene.instantiate()
 	button.show()
 	button.level_props = level
 	button.level_number = level_number
 	button.cleared = LevelSaving.is_level_completed(level)
 	button.required = is_required
+	button.locked = locked
 	button.pressed.connect(_open_level.bind(level))
 	return button
 

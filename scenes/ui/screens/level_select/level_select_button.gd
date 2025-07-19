@@ -39,9 +39,19 @@ extends Button
 		level_number = value
 		text = str(value)
 
+@export var locked : bool = false:
+	set(value):
+		locked = value
+		disabled = value
+		%LockedIndicator.visible = value
+
 var displaying_title = false
 
 func _input(event: InputEvent) -> void:
+	if locked:
+		if event is InputEventMouseButton and event.is_pressed() and is_hovered():
+			$AnimationPlayer.play("lock_shake")
+		return  # Ignore input if the button is locked
 	if event is InputEventMouseMotion and not displaying_title and (has_focus() or is_hovered()):
 		$AnimationPlayer.play("show_title")
 		displaying_title = true

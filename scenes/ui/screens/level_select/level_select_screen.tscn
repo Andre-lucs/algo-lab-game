@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://6k28vpovvr87" path="res://assets/UI/MenuIcons/BackArrow.png" id="1_bk1uf"]
 [ext_resource type="Script" uid="uid://djunwid6pp3p6" path="res://scenes/ui/screens/level_select/level_select_screen.gd" id="1_t4kiv"]
 [ext_resource type="Texture2D" uid="uid://b4eapli5y2sk1" path="res://assets/UI/WideArrow.png" id="2_xkbp7"]
-[ext_resource type="PackedScene" uid="uid://bcfdy6sw6idli" path="res://scenes/ui/screens/level_select/level_select_button.tscn" id="3_y8clc"]
 [ext_resource type="FontFile" uid="uid://dk1yfg1jr6cwk" path="res://assets/UI/fonts/Doto/static/Doto-Black.ttf" id="5_b1viw"]
 [ext_resource type="Texture2D" uid="uid://mr57b05pfd65" path="res://assets/UI/BlinkPoint.png" id="6_fmkw7"]
 [ext_resource type="Texture2D" uid="uid://fjd1bv6lin78" path="res://assets/UI/Checkmark.png" id="7_17sqh"]
+[ext_resource type="Texture2D" uid="uid://c7kvatxyoagk8" path="res://assets/UI/MenuIcons/Lock.png" id="8_17sqh"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_wl8md"]
 device = -1
@@ -84,13 +84,6 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 5
 
-[node name="BaseLevelSelectButton" parent="Control/MarginContainer" instance=ExtResource("3_y8clc")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
 [node name="BackButton" type="TextureButton" parent="Control/MarginContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -109,33 +102,42 @@ text = "Title"
 label_settings = SubResource("LabelSettings_mkbo6")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer"]
+[node name="IconsInfo" type="PanelContainer" parent="Control/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_type_variation = &"SimplePanel"
 
-[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer"]
+[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/IconsInfo"]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/PanelContainer/GridContainer"]
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/IconsInfo/GridContainer"]
 layout_mode = 2
 texture = ExtResource("6_fmkw7")
 
-[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/GridContainer"]
+[node name="Label" type="Label" parent="Control/MarginContainer/IconsInfo/GridContainer"]
 layout_mode = 2
 text = "Necessário"
 
-[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/PanelContainer/GridContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/IconsInfo/GridContainer"]
 layout_mode = 2
 texture = ExtResource("7_17sqh")
 
-[node name="Label2" type="Label" parent="Control/MarginContainer/PanelContainer/GridContainer"]
+[node name="Label2" type="Label" parent="Control/MarginContainer/IconsInfo/GridContainer"]
 layout_mode = 2
 text = "Completo"
+
+[node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/IconsInfo/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("8_17sqh")
+
+[node name="Label3" type="Label" parent="Control/MarginContainer/IconsInfo/GridContainer"]
+layout_mode = 2
+text = "Bloqueado"
 
 [connection signal="pressed" from="Control/MarginContainer/BackLevelsButton" to="." method="load_past_levels"]
 [connection signal="pressed" from="Control/MarginContainer/NextLevelsButton" to="." method="load_next_levels"]
