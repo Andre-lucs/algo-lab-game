@@ -87,6 +87,12 @@ func _create_level_button(level: LevelPropsResource, level_number: int, is_requi
 	button.required = is_required
 	button.locked = locked
 	button.pressed.connect(_open_level.bind(level))
+	if not locked:
+		var unlock_event_name := "level_" + level.resource_path + "_unlocked"
+		var played := EventTracking.get_event_count(unlock_event_name) > 0
+		if not played:
+			EventTracking.increment_event_count(unlock_event_name)
+			button.play_unlock_animation()
 	return button
 
 func _create_center_container(world_container: GridContainer) -> CenterContainer:

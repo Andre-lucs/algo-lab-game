@@ -50,7 +50,7 @@ var displaying_title = false
 func _input(event: InputEvent) -> void:
 	if locked:
 		if event is InputEventMouseButton and event.is_pressed() and is_hovered():
-			$AnimationPlayer.play("lock_shake")
+			$LockAnimations.play("lock_shake")
 		return  # Ignore input if the button is locked
 	if event is InputEventMouseMotion and not displaying_title and (has_focus() or is_hovered()):
 		$AnimationPlayer.play("show_title")
@@ -58,3 +58,8 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and displaying_title and not (has_focus() or is_hovered()):
 		$AnimationPlayer.play_backwards("show_title")
 		displaying_title = false
+
+func play_unlock_animation() -> void:
+	if not is_node_ready():
+		await ready
+	$LockAnimations.play("unlock")
