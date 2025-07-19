@@ -26,4 +26,5 @@ func _input(event: InputEvent) -> void:
 		return
 	if Input.is_action_just_pressed("debug_erase_level_save"):
 		LevelSaving.erase_save_data()
+		EventTracking.reset_event_tracking()
 		return
