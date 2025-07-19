@@ -25,7 +25,11 @@ func dequeue_number():
 	if path == null:
 		printerr("No path available to dequeue number.")
 		return
-	var number := number_queue.pop_front() as Number
+	var number : Number
+	if path.move_mode == MovementLink.Modes.COPY:
+		number = number_queue.front().duplicate() as Number
+	else:
+		number = number_queue.pop_front() as Number
 	path.move_number(number)
 	sent_number.emit(path, number)
 
