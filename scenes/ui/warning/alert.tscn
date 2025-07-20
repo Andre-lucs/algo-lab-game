@@ -89,4 +89,5 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("1_gub16")
 stretch_mode = 0
 
+[connection signal="closed_alert" from="." to="." method="_on_closed_alert"]
 [connection signal="pressed" from="AlertPanel/MarginContainer/CloseButton" to="." method="close_alert"]
