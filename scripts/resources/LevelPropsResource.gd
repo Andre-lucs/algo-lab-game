@@ -11,6 +11,8 @@ class_name LevelPropsResource
 
 @export var objects_config: ObjectListConfiguration
 
+@export var alert_on_start: AlertProps = null
+
 func was_cleared() -> bool:
 	return LevelSaving.is_level_completed(self)
 

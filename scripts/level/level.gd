@@ -50,6 +50,8 @@ func _ready() -> void:
 			node.set_process_input(false)  # Disable input processing for non-editable nodes
 			node.set_process_unhandled_input(false)  # Disable unhandled input processing for non-editable nodes
 
+	show_alerts.call_deferred()
+
 func init_camera() -> void:
 	# Set camera limits based on level limits
 	camera.limit_left = level_limits.position.x
@@ -85,6 +87,10 @@ func init_validators() -> void:
 		
 		o.received_wrong_number.connect(func(num) : on_number_received(num, false, false))
 		o.received_correct_number.connect(func(num, finished) : on_number_received(num, true, finished))
+
+func show_alerts() -> void:
+	if level_props.alert_on_start:
+		Alert.show_alert_from_props(level_props.alert_on_start, %AlertLayer)
 
 func _generate_missing_input_nodes() -> void:
 	var missing_count = level_props.inputs.size() - level_input_nodes.size()

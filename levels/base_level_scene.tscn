@@ -476,13 +476,15 @@ color = Color(0.6, 0.6, 0.6, 0.156863)
 
 [node name="ObjectsDescription" parent="HelpLayer" instance=ExtResource("14_qcr1j")]
 unique_name_in_owner = true
-pivot_offset = Vector2(640, 360)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HelpLayer"]
 libraries = {
 &"": SubResource("AnimationLibrary_rosx2")
 }
 speed_scale = 2.0
+
+[node name="AlertLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
 visible = false
