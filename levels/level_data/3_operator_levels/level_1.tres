@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://bdqikqt7tyc6k"]
+
+[ext_resource type="Script" uid="uid://diwsjck75ik3x" path="res://scripts/resources/AlertProps.gd" id="1_2yos3"]
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="2_ohyj8"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_tosvm"]
+
+[sub_resource type="Resource" id="Resource_4v7ai"]
+script = ExtResource("1_2yos3")
+title = "Guia"
+content = "Envie os números no lados do operador para fazer a soma."
+metadata/_custom_type_script = "uid://diwsjck75ik3x"
+
+[sub_resource type="Resource" id="Resource_4djk3"]
+script = ExtResource("2_ohyj8")
+items_preset = 3
+objects = Array[int]([0, 1, 2, 3, 4, 6])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
+
+[resource]
+script = ExtResource("3_tosvm")
+level_name = "Somando"
+level_description = "Hora de introduzir o Operador Matemático!  
+Combine dois números e envie o resultado.  
+Neste desafio, será necessário somar valores antes de entregá-los às saídas corretas.
+
+Obs: Você pode girar o operador para se ajustar ao fluxo da sua solução."
+inputs = Array[PackedInt32Array]([PackedInt32Array(1, 3), PackedInt32Array(2, 4)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, 7)])
+objects_config = SubResource("Resource_4djk3")
+alert_on_start = SubResource("Resource_4v7ai")
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://1cenwekpa0jo"]
+
+[ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="1_knbu2"]
+[ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_40l3i"]
+
+[sub_resource type="Resource" id="Resource_hd2y8"]
+script = ExtResource("1_knbu2")
+items_preset = 3
+objects = Array[int]([0, 1, 2, 3, 4, 6])
+metadata/_custom_type_script = "uid://bah5vq467mdaw"
+
+[resource]
+script = ExtResource("2_40l3i")
+level_name = "Ordem Importa?"
+level_description = "Com a soma não importa se a ordem dos números.
+Agora com subtração é outra história.
+(Troque a operação feita pelo operador para subtração no menu dele.)"
+inputs = Array[PackedInt32Array]([PackedInt32Array(6, 3, 2, 7)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(-3, 5)])
+objects_config = SubResource("Resource_hd2y8")
+metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
