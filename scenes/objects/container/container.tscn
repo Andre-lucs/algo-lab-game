@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://rdhtlst7byq6"]
+[gd_scene load_steps=26 format=3 uid="uid://rdhtlst7byq6"]
 
 [ext_resource type="Script" uid="uid://dptqnhuipvd2v" path="res://scenes/objects/container/container.gd" id="1_r3ic2"]
 [ext_resource type="Texture2D" uid="uid://0i3uv3n03swk" path="res://assets/container.png" id="2_23n6n"]
@@ -58,9 +58,6 @@ type = 1
 flow_in = false
 flow_out = true
 metadata/_custom_type_script = "uid://bm1he3x5w8vxv"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2343"]
-size = Vector2(14, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eu0yu"]
 size = Vector2(96, 64)
@@ -187,12 +184,11 @@ metadata/_custom_type_script = "uid://bfib056ywhjif"
 
 [node name="ActivationConn" parent="." node_paths=PackedStringArray("activatable") instance=ExtResource("7_lkqc4")]
 collision_layer = 8
-sticks_to_center = false
 activatable = NodePath("../Activatable")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ActivationConn"]
 visible = false
-shape = SubResource("RectangleShape2D_l2343")
+shape = SubResource("RectangleShape2D_eu0yu")
 
 [node name="MouseInteractionArea2D" type="Area2D" parent="."]
 collision_layer = 2147483648
