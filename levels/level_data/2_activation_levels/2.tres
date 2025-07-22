@@ -1,21 +1,24 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://cvxnjg33aady0"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://bypwh2lxdptw1"]
 
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="5_av6f7"]
 [ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="6_bobr0"]
 
-[sub_resource type="Resource" id="Resource_sgwsq"]
+[sub_resource type="Resource" id="Resource_du2jd"]
 script = ExtResource("6_bobr0")
-items_preset = 2
-objects = Array[int]([0, 1, 2, 3, 6])
+items_preset = 3
+objects = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bah5vq467mdaw"
 
 [resource]
 script = ExtResource("5_av6f7")
-level_name = "Cópia controlada"
-level_description = "Envie cada número duas vezes.
-Utilize ativação manual para ter mas controle de quantas cópias enviar.
-Caso não faça isso pode ser que não tenha o resultado esperado."
-inputs = Array[PackedInt32Array]([PackedInt32Array(-9, 0, 3, 6)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(-9, -9, 0, 0, 3, 3, 6, 6)])
-objects_config = SubResource("Resource_sgwsq")
+level_name = "Ativação manual"
+level_description = "Mande todos os números alternando.
+Primeiro mandando um número da segunda entrada.
+Depois um número da primeira entrada.
+
+O ATIVADOR demora um tempinho para ativar o objeto, garantindo que os objetos sejam ativados na ordem esperada.
+Entretanto, você também pode utilizar um ATIVADOR para isso."
+inputs = Array[PackedInt32Array]([PackedInt32Array(-9, 0, 3), PackedInt32Array(2, 7, -4)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(2, -9, 7, 0, -4, 3)])
+objects_config = SubResource("Resource_du2jd")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
