@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://bah5vq467mdaw"
 
 [resource]
 script = ExtResource("6_ow5ua")
-level_name = "Roteador"
+level_name = "Alternando"
 level_description = "Conheça o Roteador!  
 Ele envia números que ele recebe alternando para qual TRANSPORTADOR enviar.  
 Use essa nova ferramenta para separar os valores corretamente entre as saídas."

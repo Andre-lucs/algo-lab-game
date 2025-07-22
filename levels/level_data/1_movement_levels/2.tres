@@ -14,7 +14,7 @@ script = ExtResource("3_vicai")
 level_name = "Múltiplas Entradas e Saídas"
 level_description = "Neste nível, os números vêm de lugares diferentes e devem ser entregues em saídas específicas. 
 Aprenda a organizar suas conexões para enviar cada número ao destino correto."
-inputs = Array[PackedInt32Array]([PackedInt32Array(5), PackedInt32Array(3)])
-outputs = Array[PackedInt32Array]([PackedInt32Array(5), PackedInt32Array(3)])
+inputs = Array[PackedInt32Array]([PackedInt32Array(5, 8, -2), PackedInt32Array(3, -19, 22)])
+outputs = Array[PackedInt32Array]([PackedInt32Array(3, -19, 22), PackedInt32Array(5, 8, -2)])
 objects_config = SubResource("Resource_0uetf")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"

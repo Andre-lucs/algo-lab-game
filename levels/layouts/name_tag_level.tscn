@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmyrudx8drrgl"]
+
+[ext_resource type="PackedScene" uid="uid://b8g8dmlr8xrvm" path="res://levels/base_level_scene.tscn" id="1_4kt0n"]
+[ext_resource type="PackedScene" uid="uid://rdhtlst7byq6" path="res://scenes/objects/container/container.tscn" id="2_drxtt"]
+[ext_resource type="PackedScene" uid="uid://dmjnelyaocaag" path="res://scenes/objects/name_tag/name_tag.tscn" id="3_l73ti"]
+
+[node name="NameTagLevel" instance=ExtResource("1_4kt0n")]
+
+[node name="Container" parent="." index="8" instance=ExtResource("2_drxtt")]
+position = Vector2(576, 352)
+
+[node name="NameTag" parent="." index="9" instance=ExtResource("3_l73ti")]
+position = Vector2(576, 448)
+
+[node name="Label" parent="NameTag" index="1"]
+text = "nome"
+
+[editable path="NameTag"]

@@ -1,7 +1,21 @@
-[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=4 format=3 uid="uid://bmv6l53hfj42f"]
+[gd_resource type="Resource" script_class="LevelPropsResource" load_steps=6 format=3 uid="uid://bmv6l53hfj42f"]
 
+[ext_resource type="Script" uid="uid://diwsjck75ik3x" path="res://scripts/resources/AlertProps.gd" id="1_c5mr2"]
 [ext_resource type="Script" uid="uid://bah5vq467mdaw" path="res://scripts/resources/object_list_configuration.gd" id="3_ceoew"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="3_lh55p"]
+
+[sub_resource type="Resource" id="Resource_ceoew"]
+script = ExtResource("1_c5mr2")
+title = "O básico"
+content = "Bem vindo.
+Cada nível terá um texto na direita, Ele dirá o que deve ser feito no nível.
+
+Os objetos azuis são chamados de ENTRADAS.
+Elas dão os números necessários para o nível.
+
+Já os objetos amarelos são as SAÍDAS.
+Elas esperam receber números de acordo com o que o nível irá pedir."
+metadata/_custom_type_script = "uid://diwsjck75ik3x"
 
 [sub_resource type="Resource" id="Resource_lh55p"]
 script = ExtResource("3_ceoew")
@@ -12,13 +26,9 @@ metadata/_custom_type_script = "uid://bah5vq467mdaw"
 [resource]
 script = ExtResource("3_lh55p")
 level_name = "Movendo números"
-level_description = "Esses objetos azuis são chamados de ENTRADAS.
-Já esses amarelos são as SAÍDAS.
-As ENTRADAS dão os números necessários para o nível.
-Já as SAÍDAS esperam receber números de acordo com o que o nível irá pedir aqui.
-
-Para esse primeiro desafio apenas clique no ícone do TRANSPORTADOR para criar um, após isso, clique quais objetos você quer conectar."
+level_description = "Para esse primeiro desafio apenas clique no ícone do TRANSPORTADOR para criar um, após isso, clique nos objetos que você quer conectar."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 objects_config = SubResource("Resource_lh55p")
+alert_on_start = SubResource("Resource_ceoew")
 metadata/_custom_type_script = "uid://cmdxvgxihnq8g"
