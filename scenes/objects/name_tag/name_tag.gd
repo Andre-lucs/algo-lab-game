@@ -9,16 +9,21 @@ static var nametag_scene : PackedScene = preload("res://scenes/objects/name_tag/
 @onready var mouse_col_shape = $MouseInteractionArea2D/CollisionShape2D
 
 func _ready():
-	update_label()
 	mouse_col_shape.shape = RectangleShape2D.new()
+	# Initialize the label being empty
+	# If the initial text is not "asd" keep the current text
+	update_label("" if label.text == "asd" else label.text)
+	
 
 func _input(event: InputEvent) -> void:
 	_handle_editing_input(event)
 
 func update_label(new_text: String = "") -> void:
+	var changed_text = label.text != new_text
 	label.text = new_text
-	queue_redraw()
-	await label.resized
+	if changed_text:
+		queue_redraw()
+		await label.resized
 	(mouse_col_shape.shape as RectangleShape2D).size = label.size
 
 

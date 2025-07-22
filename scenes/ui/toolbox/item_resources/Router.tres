@@ -15,5 +15,6 @@ corresponding_help_tab = 2
 icon = SubResource("AtlasTexture_bv4ee")
 preview_image = SubResource("AtlasTexture_bv4ee")
 target_scene = ExtResource("3_4fw8i")
+use_item_preview = true
 custom_args = Dictionary[String, Variant]({})
 metadata/_custom_type_script = "uid://ct0y6m322lv47"

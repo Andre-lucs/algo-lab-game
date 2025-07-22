@@ -12,5 +12,6 @@ corresponding_help_tab = 6
 icon = ExtResource("1_6a5vf")
 preview_image = ExtResource("2_pncm5")
 target_scene = ExtResource("4_l2m2t")
+use_item_preview = true
 custom_args = Dictionary[String, Variant]({})
 metadata/_custom_type_script = "uid://ct0y6m322lv47"

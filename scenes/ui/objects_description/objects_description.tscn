@@ -834,11 +834,14 @@ theme_override_styles/tab_disabled = SubResource("StyleBoxTexture_h1xsl")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_75k1x")
 current_tab = 0
 tab_alignment = 1
-tab_count = 4
+tab_count = 7
 tab_0/icon = ExtResource("2_qd8qs")
 tab_1/icon = ExtResource("3_h1xsl")
 tab_2/icon = SubResource("AtlasTexture_v3633")
 tab_3/icon = ExtResource("5_vi6ne")
+tab_4/icon = ExtResource("6_vheru")
+tab_5/icon = ExtResource("7_f57hx")
+tab_6/icon = ExtResource("8_81brl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

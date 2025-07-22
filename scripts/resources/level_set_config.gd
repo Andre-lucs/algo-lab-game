@@ -19,6 +19,9 @@ func get_levels() -> Array[LevelPropsResource]:
 	for res_name in res_names:
 		
 		var res_path = get_dir_path().path_join(res_name)
+		# skip if the res_path is not a valid resource
+		if not ResourceLoader.exists(res_path):
+			continue
 		var res = load(res_path)
 		if res is LevelPropsResource:
 			lvl_res.append(res as LevelPropsResource)

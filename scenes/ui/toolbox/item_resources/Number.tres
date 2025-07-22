@@ -11,6 +11,7 @@ corresponding_help_tab = 5
 icon = ExtResource("1_lx42f")
 preview_image = ExtResource("1_lx42f")
 target_scene = ExtResource("2_lx42f")
+use_item_preview = true
 custom_args = Dictionary[String, Variant]({
 "editable": true,
 "value": 0.0
