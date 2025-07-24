@@ -2,4 +2,7 @@
 .godot/
 /android/
 
+# Build outputs
+builds/
+
 .vscode/
