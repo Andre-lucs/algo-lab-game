@@ -21,6 +21,7 @@ var worlds_containers: Array[CenterContainer] = []
 
 # UI references
 @onready var level_displaying_container: GridContainer = %LevelDisplaying
+@onready var level_sets_indicator: LevelSetsIndicator = %LevelSetsIndicator
 @onready var back_levels_button: Control = %BackLevelsButton
 @onready var next_levels_button: Control = %NextLevelsButton
 
@@ -42,6 +43,7 @@ func _setup_initial_state() -> void:
 
 func _update_available_level_sets() -> void:
 	available_level_sets = level_sets.filter(func(lset: LevelSet): return lset.can_access())
+	level_sets_indicator.level_sets = level_sets
 
 func _initialize_level_display() -> void:
 	"""Create and setup level containers for each directory."""
@@ -197,3 +199,10 @@ func _open_level(level: LevelPropsResource) -> void:
 
 func _on_back_button_pressed() -> void:
 	SceneManager.change_scene(start_screen)
+
+
+func _on_level_sets_indicator_selected_level_set(level_set:LevelSet) -> void:
+	if not level_set or not level_set in available_level_sets:
+		printerr("Selected level set is not valid or not in available level sets.")
+		return
+	display_directory_by_index(available_level_sets.find(level_set))

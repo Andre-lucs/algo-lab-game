@@ -49,3 +49,13 @@ func can_access() -> bool:
 		if not level_set.is_cleared():
 			return false
 	return true
+
+func cleared_all_levels() -> bool:
+	"""
+	Check if all levels in the set are cleared.
+	Not just the required ones, but all levels in the set.
+	"""
+	for level in get_levels():
+		if not LevelSaving.is_level_completed(level):
+			return false
+	return true

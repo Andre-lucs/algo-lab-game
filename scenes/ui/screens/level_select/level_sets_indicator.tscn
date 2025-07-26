@@ -1,0 +1,31 @@
+[gd_scene load_steps=11 format=3 uid="uid://byvixw2ede6n"]
+
+[ext_resource type="Script" uid="uid://6krg01kqe46k" path="res://scenes/ui/screens/level_select/level_sets_indicator.gd" id="1_0nitw"]
+[ext_resource type="Script" uid="uid://cfgu63am756p3" path="res://scripts/resources/level_set_config.gd" id="2_bf7a4"]
+[ext_resource type="Resource" uid="uid://b42h0gswcr25b" path="res://levels/level_data/1_movement_levels/config.tres" id="3_bd8jm"]
+[ext_resource type="Resource" uid="uid://c28lnubcnyuiv" path="res://levels/level_data/2_activation_levels/config.tres" id="4_aekn1"]
+[ext_resource type="Resource" uid="uid://buvsplgnvb6t7" path="res://levels/level_data/3_operator_levels/config.tres" id="5_a0y2e"]
+[ext_resource type="Texture2D" uid="uid://bjewnkj53o8lb" path="res://assets/UI/LevelSetIcons/Set1.png" id="6_8s02y"]
+[ext_resource type="Texture2D" uid="uid://ykgi14bommx7" path="res://assets/UI/LevelSetIcons/Set2.png" id="7_bd8jm"]
+[ext_resource type="Texture2D" uid="uid://c8ivply5cko4y" path="res://assets/UI/LevelSetIcons/Set3.png" id="8_aekn1"]
+[ext_resource type="Texture2D" uid="uid://c7kvatxyoagk8" path="res://assets/UI/MenuIcons/Lock.png" id="9_a0y2e"]
+[ext_resource type="Texture2D" uid="uid://fjd1bv6lin78" path="res://assets/UI/Checkmark.png" id="10_8s02y"]
+
+[node name="LevelSetsIndicator" type="HBoxContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
+alignment = 1
+script = ExtResource("1_0nitw")
+level_sets = Array[ExtResource("2_bf7a4")]([ExtResource("3_bd8jm"), ExtResource("4_aekn1"), ExtResource("5_a0y2e")])
+icons = Array[Texture2D]([ExtResource("6_8s02y"), ExtResource("7_bd8jm"), ExtResource("8_aekn1")])
+lock_icon = ExtResource("9_a0y2e")
+complete_icon = ExtResource("10_8s02y")
