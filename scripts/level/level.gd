@@ -52,6 +52,9 @@ func _ready() -> void:
 
 	show_alerts.call_deferred()
 
+func _input(event: InputEvent) -> void:
+	_debug_complete() # Debug function to complete the level when a specific input is pressed
+
 func init_camera() -> void:
 	# Set camera limits based on level limits
 	camera.limit_left = level_limits.position.x
@@ -200,3 +203,9 @@ func _resume_input_processing() -> void:
 
 func _on_back_button_pressed() -> void:
 	SceneManager.go_to_last_ui_scene()
+
+func _debug_complete() -> void:
+	if not OS.has_feature("editor"):
+		return  # Only allow debug completion in the editor
+	if Input.is_action_just_pressed("debug_complete_all"):
+		level_completed.emit()
