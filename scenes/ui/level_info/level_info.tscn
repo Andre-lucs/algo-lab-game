@@ -4,12 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://d0sff8kq6tlyq" path="res://assets/UI/MenuIcons/PointyArrow.png" id="2_ok1fk"]
 
 [node name="LevelInfo" type="HBoxContainer"]
-anchors_preset = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -227.0
-offset_bottom = 153.0
+anchor_bottom = 1.0
+offset_left = -190.0
 grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 10
 theme_override_constants/separation = -5
 alignment = 2
@@ -54,19 +55,11 @@ theme_override_constants/separation = 16
 
 [node name="Description" type="RichTextLabel" parent="InfoContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 16
 text = "Descrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
-o wqe de ve ser feitoDescrição do nivel
 o wqe de ve ser feitoDescrição do nivel
 o wqe de ve ser feitoDescrição do nivel
 o wqe de ve ser feitoDescrição do nivel
