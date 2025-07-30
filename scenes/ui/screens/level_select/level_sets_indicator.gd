@@ -13,7 +13,7 @@ var _complete_texture_rect : TextureRect
 
 var _layout_ready: bool = false
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	_init_texture_rects()
 	_setup_level_sets()
 
@@ -40,7 +40,7 @@ func _setup_level_sets() -> void:
 			button.icon = placeholder_icon
 
 		button.pressed.connect(func():
-			select_level_set(level_set)
+			select_level_set(level_set, i)
 		)
 
 		if level_set.cleared_all_levels():
@@ -50,9 +50,28 @@ func _setup_level_sets() -> void:
 		add_child(button)
 	_layout_ready = false
 
-func select_level_set(level_set: LevelSet) -> void:
-	current_level_set = level_set
+func select_level_set(level_set: LevelSet, idx: int = -1) -> void:
+	highlight_button(idx)
 	selected_level_set.emit(level_set)
+
+func highlight_button(idx: int) -> void:
+	const SCALE := Vector2(1.2, 1.2)
+	if idx < 0 or idx >= get_child_count():
+		return
+	var button := get_child(idx) as Button
+	if button:
+		button.pivot_offset = button.size / 2
+		if is_inside_tree(): 
+			button.grab_focus()
+		var tween := create_tween()
+		tween.tween_property(button, "scale", SCALE, 0.1)
+	var other_buttons := get_children().filter(func(child): return child is Button and child != button)
+	for other_button in other_buttons:
+		if other_button.scale == Vector2.ONE:
+			continue # Skip if already scaled
+		other_button.pivot_offset = other_button.size / 2
+		var other_tween := create_tween()
+		other_tween.tween_property(other_button, "scale", Vector2.ONE, 0.1)
 
 func _draw() -> void:
 	if not _layout_ready:

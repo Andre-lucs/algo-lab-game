@@ -108,8 +108,8 @@ func _create_center_container(world_container: GridContainer) -> CenterContainer
 
 func _display_current_directory() -> void:
 	"""Display the first directory by default."""
-	# TODO: Store the last selected directory in a save file
 	display_directory_by_index(current_directory_index)
+	level_sets_indicator.highlight_button(current_directory_index)
 
 #endregion
 
