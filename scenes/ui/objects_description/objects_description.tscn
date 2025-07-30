@@ -232,6 +232,20 @@ theme_override_font_sizes/font_size = 18
 text = "Ao mover um número."
 horizontal_alignment = 1
 
+[node name="Label3" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Editável:"
+horizontal_alignment = 1
+
+[node name="Trigger2" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Botão esquerdo: Cria e move pontos(incluindo extremidades)
+Botão esquerdo+direito: Apaga o ponto"
+
 [node name="Label" type="Label" parent="VBoxContainer/Panel/MovementLinkDescription/BoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
@@ -488,7 +502,6 @@ size_flags_horizontal = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 20
 
 [node name="GridContainer2" type="GridContainer" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -507,6 +520,20 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 18
 text = "Ouve o gatilho de um objeto para ativar outro.
 Liga e desliga objetos automáticos."
+
+[node name="Label3" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Editável:"
+horizontal_alignment = 1
+
+[node name="Trigger2" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Botão esquerdo: Cria e move pontos(incluindo extremidades)
+Botão esquerdo+direito: Apaga o ponto"
 
 [node name="Label" type="Label" parent="VBoxContainer/Panel/ActivatorDescription/BoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -632,6 +659,19 @@ theme_override_font_sizes/font_size = 18
 text = "Ao ter o resultado pronto."
 horizontal_alignment = 1
 
+[node name="Label3" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Opção:"
+horizontal_alignment = 1
+
+[node name="Action2" type="Label" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Pode girar para melhorar a organização."
+
 [node name="Container" type="VBoxContainer" parent="VBoxContainer/Panel/OperatorDescription/BoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -735,7 +775,7 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 18
 text = "Número editável. (Clique duplo)
 
-Pode ser colocado em Contêiners"
+Pode ser colocado e retirado de Contêiners"
 
 [node name="NameTagDescription" type="MarginContainer" parent="VBoxContainer/Panel"]
 unique_name_in_owner = true
