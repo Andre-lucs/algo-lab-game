@@ -3,7 +3,10 @@ class_name Number extends Node2D
 
 static var number_scene : PackedScene = preload("res://scenes/objects/number/number.tscn")
 
-@export var editable: bool = true
+@export var editable: bool = true:
+	set(value):
+		editable = value
+		$ObjectPopupMenu.interaction_area = $MouseInteractionArea2D if value else null
 @export var value: float = 0 : set = set_value
 
 @onready var label: Label = $Label
@@ -93,4 +96,8 @@ func _on_editing_prompt_text_submitted(new_text:String) -> void:
 func _on_editing_prompt_focus_exited() -> void:
 	editing_prompt.hide()
 
+func delete() :
+	if not editable:
+		return  # Se não for editável, não processa a exclusão
+	queue_free()  # Libera o nó
 #endregion

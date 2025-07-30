@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cebmicxn76gb0"]
+[gd_scene load_steps=9 format=3 uid="uid://cebmicxn76gb0"]
 
 [ext_resource type="Script" uid="uid://b3yiaijo7ic5q" path="res://scenes/objects/number/number.gd" id="1_olnlg"]
 [ext_resource type="Script" uid="uid://21g4c8kgecht" path="res://scenes/utils/grabbing/grabbable.gd" id="2_txii2"]
 [ext_resource type="Script" uid="uid://ck6y410gncrcr" path="res://scripts/mouse_interaction_area2d.gd" id="3_75mtp"]
+[ext_resource type="PackedScene" uid="uid://khx12i77qfms" path="res://scenes/ui/popup_menu/object_popup_menu.tscn" id="4_nwj3q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75mtp"]
 bg_color = Color(0.76, 0.76, 0.76, 1)
@@ -28,7 +29,7 @@ font_size = 32
 font_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_75mtp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwj3q"]
 
 [node name="Number" type="Node2D"]
 z_index = 5
@@ -42,6 +43,10 @@ interaction_area = NodePath("../MouseInteractionArea2D")
 grab_priority = 2
 grab_speed = 0
 metadata/_custom_type_script = "uid://21g4c8kgecht"
+
+[node name="ObjectPopupMenu" parent="." node_paths=PackedStringArray("interaction_area") instance=ExtResource("4_nwj3q")]
+interaction_area = NodePath("../MouseInteractionArea2D")
+default_buttons_to_show = Array[int]([2])
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -91,7 +96,8 @@ script = ExtResource("3_75mtp")
 metadata/_custom_type_script = "uid://ck6y410gncrcr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseInteractionArea2D"]
-shape = SubResource("RectangleShape2D_75mtp")
+shape = SubResource("RectangleShape2D_nwj3q")
 
+[connection signal="clicked_delete" from="ObjectPopupMenu" to="." method="delete"]
 [connection signal="focus_exited" from="EditingPrompt" to="." method="_on_editing_prompt_focus_exited"]
 [connection signal="text_submitted" from="EditingPrompt" to="." method="_on_editing_prompt_text_submitted"]
