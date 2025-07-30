@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="LevelSet" load_steps=9 format=3 uid="uid://c28lnubcnyuiv"]
+[gd_resource type="Resource" script_class="LevelSet" load_steps=8 format=3 uid="uid://c28lnubcnyuiv"]
 
 [ext_resource type="Script" uid="uid://cfgu63am756p3" path="res://scripts/resources/level_set_config.gd" id="1_e7uoj"]
 [ext_resource type="Script" uid="uid://cmdxvgxihnq8g" path="res://scripts/resources/LevelPropsResource.gd" id="2_5ky56"]
 [ext_resource type="Resource" uid="uid://b42h0gswcr25b" path="res://levels/level_data/1_movement_levels/config.tres" id="2_rx8ep"]
-[ext_resource type="Resource" uid="uid://bypwh2lxdptw1" path="res://levels/level_data/2_activation_levels/1.tres" id="3_l750n"]
-[ext_resource type="Resource" uid="uid://bypwh2lxdptw1" path="res://levels/level_data/2_activation_levels/2.tres" id="4_rx8ep"]
+[ext_resource type="Resource" uid="uid://bypwh2lxdptw1" path="res://levels/level_data/2_activation_levels/2.tres" id="3_l750n"]
 [ext_resource type="Resource" uid="uid://nv4ywi5a5mok" path="res://levels/level_data/2_activation_levels/3.tres" id="5_a6x5g"]
 [ext_resource type="Resource" uid="uid://cpuge300xhkno" path="res://levels/level_data/2_activation_levels/4.tres" id="6_2kprm"]
 [ext_resource type="Resource" uid="uid://bculpplkjfu45" path="res://levels/level_data/2_activation_levels/5.tres" id="7_xw5nv"]
@@ -12,6 +11,6 @@
 [resource]
 script = ExtResource("1_e7uoj")
 level_set_name = "Ativações"
-required_levels = Array[ExtResource("2_5ky56")]([ExtResource("4_rx8ep"), ExtResource("3_l750n"), ExtResource("5_a6x5g"), ExtResource("6_2kprm"), ExtResource("7_xw5nv")])
+required_levels = Array[ExtResource("2_5ky56")]([ExtResource("3_l750n"), ExtResource("3_l750n"), ExtResource("5_a6x5g"), ExtResource("6_2kprm"), ExtResource("7_xw5nv")])
 required_level_sets = Array[ExtResource("1_e7uoj")]([ExtResource("2_rx8ep")])
 metadata/_custom_type_script = "uid://cfgu63am756p3"

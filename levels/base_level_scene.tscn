@@ -353,18 +353,17 @@ script = ExtResource("4_3k21g")
 metadata/_custom_type_script = "uid://bw7puwhchjbxu"
 
 [node name="LevelLimits" type="ReferenceRect" parent="."]
-visible = false
-offset_left = -66.0
-offset_top = -37.0
-offset_right = 1216.0
-offset_bottom = 684.0
+offset_left = -160.0
+offset_top = -128.0
+offset_right = 1536.0
+offset_bottom = 864.0
 mouse_filter = 2
 border_width = 5.0
 
 [node name="ControllableCamera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 script = ExtResource("10_r6jsl")
-min_zoom = 1.0
+min_zoom = 0.8
 metadata/_custom_type_script = "uid://dnyxfss4y507g"
 
 [node name="LevelUILayer" type="CanvasLayer" parent="."]
