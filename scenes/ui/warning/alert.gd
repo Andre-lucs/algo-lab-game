@@ -22,7 +22,7 @@ func show_alert_from_props(alert_props: AlertProps, target_canvas_layer: Node = 
 	%Content.text = alert_props.content
 	if alert_props.custom_content:
 		for c in %CustomContentContainer.get_children():
-			c.queue_free()  # Clear previous custom content
+			c.free()
 		%CustomContentContainer.add_child(alert_props.custom_content)
 		alert_props.custom_content.show()
 		%CustomContentContainer.show()

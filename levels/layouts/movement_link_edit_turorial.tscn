@@ -25,7 +25,6 @@ position = Vector2(832, 416)
 position = Vector2(544, 224)
 origin_connection = NodePath("../LevelInput/ConnectionArea")
 destination_connection = NodePath("../OutputValidator/MovementConnectionArea")
-actions = Array[String](["object_menu", "object_grab"])
 
 [editable path="LevelInput"]
 [editable path="OutputValidator"]

@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://croqrg83t5eya"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://croqrg83t5eya"]
 
 [ext_resource type="Texture2D" uid="uid://c4s4c3xx5xysg" path="res://assets/UI/PanelRect_300.png" id="1_25gst"]
 [ext_resource type="Texture2D" uid="uid://dpkpaadmfjjyl" path="res://assets/UI/PanelRect2.png" id="2_a7t71"]
 [ext_resource type="Texture2D" uid="uid://bgoi0wslx2tx4" path="res://assets/UI/MinimalistPanel.png" id="2_vp8tu"]
+[ext_resource type="FontFile" uid="uid://dk1yfg1jr6cwk" path="res://assets/UI/fonts/Doto/static/Doto-Black.ttf" id="4_oiy4c"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7t71"]
 content_margin_left = 30.0
@@ -61,6 +62,13 @@ texture_margin_right = 19.0
 texture_margin_bottom = 19.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k6sdt"]
+texture = ExtResource("2_vp8tu")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73e83"]
 content_margin_top = 5.0
@@ -149,6 +157,10 @@ MinimalistPanelContainer/styles/panel = SubResource("StyleBoxTexture_oiy4c")
 Panel/styles/panel = SubResource("StyleBoxTexture_xk7ex")
 RedPanelContainer/base_type = &"PanelContainer"
 RedPanelContainer/styles/panel = SubResource("StyleBoxTexture_bk8va")
+SimpleButton/base_type = &"Button"
+SimpleButton/font_sizes/font_size = 24
+SimpleButton/fonts/font = ExtResource("4_oiy4c")
+SimpleButton/styles/normal = SubResource("StyleBoxTexture_k6sdt")
 SimplePanel/base_type = &"PanelContainer"
 SimplePanel/styles/panel = SubResource("StyleBoxFlat_73e83")
 ToolboxButton/base_type = &"Button"

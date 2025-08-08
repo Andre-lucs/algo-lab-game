@@ -162,11 +162,21 @@ func _on_level_completed() -> void:
 func _go_to_next_level() -> void:
 	LevelManager.load_next_level()
 
+func _prompt_delete_objects() -> void:
+	var alert_props = AlertProps.new()
+	alert_props.title = "Apagar objetos"
+	alert_props.content = "Você tem certeza que deseja apagar todos os objetos do nível?"
+	var button = %DeleteConfirmButton.duplicate()
+	button.visible = true
+	alert_props.custom_content = button
+	Alert.show_alert_from_props(alert_props, %AlertLayer)
+
 func _delete_objects() -> void:
 	for i in get_children():
 		if i in _default_objects:
 			continue
 		i.queue_free()
+	Alert.close_alert()
 
 # Pause the input handling for all 2d nodes except the camera and those in the "non_editable" group.
 func _pause_input_processing() -> void:

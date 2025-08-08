@@ -446,12 +446,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 
-[node name="LevelInfo" parent="LevelUILayer/MarginContainer" instance=ExtResource("5_ry6pb")]
-unique_name_in_owner = true
-z_index = 2
-layout_mode = 2
-size_flags_vertical = 0
-
 [node name="HelpButton" type="TextureButton" parent="LevelUILayer/MarginContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -460,6 +454,12 @@ size_flags_vertical = 8
 focus_mode = 0
 texture_normal = ExtResource("13_cex1g")
 stretch_mode = 0
+
+[node name="LevelInfo" parent="LevelUILayer/MarginContainer" instance=ExtResource("5_ry6pb")]
+unique_name_in_owner = true
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 0
 
 [node name="HelpLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -485,6 +485,24 @@ speed_scale = 2.0
 
 [node name="AlertLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+
+[node name="DeleteConfirmButton" type="Button" parent="AlertLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -13.5
+offset_right = 103.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 36
+text = "Sim, Apagar os objetos."
 
 [node name="LevelCompleteLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -561,8 +579,9 @@ libraries = {
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelUILayer/MarginContainer/Top/RunButton" method="show"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Top/StopButton" to="LevelUILayer/MarginContainer/Top/PauseButton" method="hide"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_delete_objects"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/Options/BoxContainer/DeleteButton" to="." method="_prompt_delete_objects"]
 [connection signal="pressed" from="LevelUILayer/MarginContainer/HelpButton" to="HelpLayer" method="_on_help_button_pressed"]
 [connection signal="close_requested" from="HelpLayer/ObjectsDescription" to="HelpLayer" method="_on_objects_description_close_requested"]
+[connection signal="pressed" from="AlertLayer/DeleteConfirmButton" to="." method="_delete_objects"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/NextLevelButton" to="." method="_go_to_next_level"]
 [connection signal="pressed" from="LevelCompleteLayer/GridContainer/BackButton" to="." method="_on_back_button_pressed"]
