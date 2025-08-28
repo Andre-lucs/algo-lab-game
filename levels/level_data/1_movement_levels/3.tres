@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_a2lww"]
 script = ExtResource("1_b3nwf")
 title = "Ajuda"
-content = "Caso tenha dúvidas ou queira ver como um objeto funciona, clique no botão de ajuda para aprender mais sobre os objetos."
+content = "Caso tenha dúvidas ou queira ver como um objeto funciona, clique no botão de ajuda [ ? ] para aprender mais sobre os objetos."
 metadata/_custom_type_script = "uid://diwsjck75ik3x"
 
 [sub_resource type="Resource" id="Resource_gc0o0"]

@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://bah5vq467mdaw"
 [resource]
 script = ExtResource("3_lh55p")
 level_name = "Movendo números"
-level_description = "Para esse primeiro desafio apenas clique no ícone do TRANSPORTADOR para criar um, após isso, clique nos objetos que você quer conectar."
+level_description = "Para esse primeiro desafio apenas selecione o TRANSPORTADOR na barra de objetos no fundo da tela para criar um, após isso, clique nos objetos que você quer conectar."
 inputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 outputs = Array[PackedInt32Array]([PackedInt32Array(5, 4, 2, 9)])
 objects_config = SubResource("Resource_lh55p")

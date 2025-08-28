@@ -9,7 +9,7 @@
 script = ExtResource("1_wluqm")
 title = "Editando"
 content = "Caso tenha feito uma conexão errada, você pode editar o Transportador com o botão esquerdo do mouse.
-Faça isso neste nível reconectando o Transportador para a Saída correta."
+Faça isso neste nível, clicando na ponta da seta para reconectar o Transportador para a Saída correta."
 metadata/_custom_type_script = "uid://diwsjck75ik3x"
 
 [sub_resource type="Resource" id="Resource_0uetf"]

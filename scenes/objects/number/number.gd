@@ -17,6 +17,12 @@ static var number_scene : PackedScene = preload("res://scenes/objects/number/num
 func _ready():
 	update_label()
 	mouse_col_shape.shape = RectangleShape2D.new()
+	play_scale_animation()
+
+func play_scale_animation():
+	var target_scale = scale
+	scale = Vector2.ZERO
+	create_tween().tween_property(self, "scale", target_scale, .2)
 
 func _input(event: InputEvent) -> void:
 	_handle_editing_input(event)
