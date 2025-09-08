@@ -41,6 +41,8 @@ func set_value(new_value: float):
 func update_label():
 	label.text = get_string()  # Atualiza a exibição do número
 	queue_redraw()
+	await label.resized
+	(mouse_col_shape.shape as RectangleShape2D).size = label.size
 
 func move_to(new_position: Vector2, new_parent : Node2D = null, new_rotation: float = 0.0, duration := 0.2) -> void:
 	if new_parent != null and new_parent != self.get_parent():

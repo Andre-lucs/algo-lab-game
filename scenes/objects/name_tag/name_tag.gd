@@ -61,3 +61,6 @@ func _on_editing_prompt_text_submitted(new_text:String) -> void:
 
 func _on_editing_prompt_focus_exited() -> void:
 	editing_prompt.hide()
+
+func delete() -> void:
+	queue_free()

@@ -78,7 +78,10 @@ func validate_dragging(soft_checking := false) -> bool:
 	# For soft_checking we just check if there are no other grabbables being dragged
 	if soft_checking:
 		return _is_other_grab_active()
-	
+	# Prevent dragging if a level is being executed
+	if LevelManager.current_level_instance and LevelManager.current_level_instance.level_executor.execution_in_progress:
+		return false
+
 	if not parent:
 		return false
 	if not interaction_area:

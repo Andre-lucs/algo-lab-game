@@ -176,6 +176,7 @@ func _delete_objects() -> void:
 		if i in _default_objects:
 			continue
 		i.queue_free()
+	level_executor.reset_execution()
 	Alert.close_alert()
 
 # Pause the input handling for all 2d nodes except the camera and those in the "non_editable" group.

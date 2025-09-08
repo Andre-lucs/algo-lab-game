@@ -116,6 +116,9 @@ func _generate_button(item : ObjectPopupMenuItem, idx : int) -> TextureButton:
 func show_popup() -> void:
 	if popup_panel.is_visible():
 		return
+	# Prevent showing the popup if a level is being executed
+	if LevelManager.current_level_instance and LevelManager.current_level_instance.level_executor.execution_in_progress:
+		return
 	var click_pos = get_viewport().get_mouse_position()
 	# moves the popup panel to above the mouse position
 	popup_panel.position = click_pos - (Vector2(popup_panel.size) / 2)

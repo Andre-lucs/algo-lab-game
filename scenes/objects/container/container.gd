@@ -196,7 +196,7 @@ func delete() -> void:
 ## Alterna entre armazenar apenas um número ou múltiplos.
 func _toggle_single_number_container():
 	single_number_container = !single_number_container
-	if single_number_container:
+	if single_number_container and not stored_numbers.is_empty():
 		var number := (stored_numbers.front() as Number).duplicate()
 		_clear_all_numbers()
 		store_number(number)
