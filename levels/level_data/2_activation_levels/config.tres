@@ -12,6 +12,6 @@
 [resource]
 script = ExtResource("1_e7uoj")
 level_set_name = "Ativações"
-required_levels = Array[ExtResource("2_5ky56")]([ExtResource("4_rx8ep"), ExtResource("3_l750n"), ExtResource("3_l750n"), ExtResource("5_a6x5g"), ExtResource("6_2kprm"), ExtResource("7_xw5nv")])
+required_levels = Array[ExtResource("2_5ky56")]([ExtResource("4_rx8ep"), ExtResource("3_l750n"), ExtResource("5_a6x5g"), ExtResource("6_2kprm"), ExtResource("7_xw5nv")])
 required_level_sets = Array[ExtResource("1_e7uoj")]([ExtResource("2_rx8ep")])
 metadata/_custom_type_script = "uid://cfgu63am756p3"
